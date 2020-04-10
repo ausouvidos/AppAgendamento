@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AusOuvidos", "Web\AusOuvidos.csproj", "{2044ABD9-2881-46A1-B12A-4FA1695F9AE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{C059619E-D359-4AEF-A302-6264CAF6B790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{429CF227-1F28-485A-B413-B39E4A844E95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{260680CF-237C-4F31-AB73-1CC95B20EA61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +25,18 @@ Global
 		{2044ABD9-2881-46A1-B12A-4FA1695F9AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2044ABD9-2881-46A1-B12A-4FA1695F9AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2044ABD9-2881-46A1-B12A-4FA1695F9AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C059619E-D359-4AEF-A302-6264CAF6B790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C059619E-D359-4AEF-A302-6264CAF6B790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C059619E-D359-4AEF-A302-6264CAF6B790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C059619E-D359-4AEF-A302-6264CAF6B790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{429CF227-1F28-485A-B413-B39E4A844E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{429CF227-1F28-485A-B413-B39E4A844E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{429CF227-1F28-485A-B413-B39E4A844E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{429CF227-1F28-485A-B413-B39E4A844E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260680CF-237C-4F31-AB73-1CC95B20EA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260680CF-237C-4F31-AB73-1CC95B20EA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260680CF-237C-4F31-AB73-1CC95B20EA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260680CF-237C-4F31-AB73-1CC95B20EA61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
