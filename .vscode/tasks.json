@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AusOuvidos.csproj",
+                "${workspaceFolder}/Web/AusOuvidos.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/AusOuvidos.csproj",
+                "${workspaceFolder}/Web/AusOuvidos.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,19 +32,9 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/AusOuvidos.csproj",
+                "${workspaceFolder}/Web/AusOuvidos.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/AusOuvidos.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
