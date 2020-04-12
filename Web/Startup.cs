@@ -1,4 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Data;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -12,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Identity;
 using VueCliMiddleware;
 
 namespace AusOuvidos
@@ -28,13 +34,14 @@ namespace AusOuvidos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(Services.Application).Assembly);
+
             services.Configure<CookiePolicyOptions>(options =>
             {
-
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
-
             });
+
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
                  .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
@@ -42,6 +49,20 @@ namespace AusOuvidos
             {
                 options.Authority = options.Authority + "/v2.0/";
                 options.TokenValidationParameters.ValidateIssuer = false;
+                options.Events.OnTokenValidated += async (ctx) =>
+                {
+                    var oid = ctx.Principal.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
+                    var name = ctx.Principal.FindFirstValue("name");
+                    var email = ctx.Principal.FindFirstValue("preferred_username");
+
+                    var mediator = ctx.HttpContext.RequestServices.GetRequiredService<IMediator>();
+                    await mediator.Send(new EnsureUserCommand
+                    {
+                        UserIdentityId = new Guid(oid),
+                        UserEmail = email,
+                        UserName = name
+                    });
+                };
             });
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
