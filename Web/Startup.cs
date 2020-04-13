@@ -1,5 +1,6 @@
 using System;
 using System.Security.Claims;
+using AspNetCoreRateLimit;
 using Data;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -32,9 +33,16 @@ namespace AusOuvidos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
-           {
+            {
                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AUS Ouvidos API", Version = "v1" });
-           });
+            });
+
+            services.AddOptions();
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
 
             services.AddMediatR(typeof(Services.Application).Assembly);
 
@@ -69,8 +77,6 @@ namespace AusOuvidos
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-
-
             services.AddControllersWithViews();
 
             // Add AddRazorPages if the app uses Razor Pages.
@@ -103,6 +109,8 @@ namespace AusOuvidos
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "AUS Ouvidos API");
             });
+
+            app.UseIpRateLimiting();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
