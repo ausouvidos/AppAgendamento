@@ -67,7 +67,7 @@ namespace AusOuvidos
                 };
             });
 
-            services.AddDbContext<AusOuvidosContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AusOuvidosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
 

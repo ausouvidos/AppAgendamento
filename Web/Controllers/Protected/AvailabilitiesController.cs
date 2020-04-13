@@ -30,5 +30,10 @@ namespace AusOuvidos.Controllers
         public async Task<IEnumerable<AvailabilityDates>> WeeklyAvailableSpots(DateTime date) =>
             await Mediator.Send(new GetWeeklyAvailabilitiesCommand { RefDate = date });
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<bool> ReserveSpot([FromBody]ReserveSpotCommand request) =>
+            await Mediator.Send(request);
+
     }
 }
