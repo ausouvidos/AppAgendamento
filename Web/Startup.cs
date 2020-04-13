@@ -1,22 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Data;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Services.Identity;
 using VueCliMiddleware;
 
@@ -34,6 +31,11 @@ namespace AusOuvidos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+           {
+               c.SwaggerDoc("v1", new OpenApiInfo { Title = "AUS Ouvidos API", Version = "v1" });
+           });
+
             services.AddMediatR(typeof(Services.Application).Assembly);
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -67,6 +69,8 @@ namespace AusOuvidos
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+
+
             services.AddControllersWithViews();
 
             // Add AddRazorPages if the app uses Razor Pages.
@@ -93,6 +97,12 @@ namespace AusOuvidos
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AUS Ouvidos API");
+            });
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
