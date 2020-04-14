@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Aus Ouvidos</h1>
+    <h1>Minha agenda</h1>
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class HelloWorld extends Vue {}
+export default class MinhaAgenda extends Vue {}
 </script>
