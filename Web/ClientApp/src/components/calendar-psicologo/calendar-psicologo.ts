@@ -29,19 +29,14 @@ export default class CalendarPsicologo extends Vue {
   private availabilityDate = moment().format('YYYY-MM-DD');
   private availabilityTimeStart = '';
   private availabilityTimeEnd = '';
-  private availableTimes = ['00:00', '01:00'];
+  private availableTimes = new Array(24).fill(0).map((item, i) => `${i > 9 ? i : '0' + i}:00`);
 
   private mounted() {
     this.fetchData();
   }
 
-  private handleDateClick(info: any) {
-    console.log(info);
-  }
-
   private async fetchData() {
     this.availabilities = await availabilityService.getMyAvailabilities();
-    console.log(this.availabilities);
   }
 
   private openAvailabilityModal() {
@@ -60,10 +55,14 @@ export default class CalendarPsicologo extends Vue {
         end: moment(`${this.availabilityDate}T${this.availabilityTimeEnd}`).toDate(),
       }];
       const response = await availabilityService.add(data);
-      console.log(response);
-      this.closeAvailabilityModal();
+      if (response) {
+        this.fetchData();
+        this.closeAvailabilityModal();
+      } else {
+        console.error('error');
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

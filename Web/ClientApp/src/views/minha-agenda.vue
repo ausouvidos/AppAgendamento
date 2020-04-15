@@ -48,7 +48,6 @@ export default class MinhaAgenda extends Vue {
       };
       const myMSALObj = new Msal.UserAgentApplication(msalConfig);
       const response = await myMSALObj.loginPopup({ scopes: ['openid'] });
-      console.log(response);
       this.isLoggedIn = true;
     } catch (error) {
       console.error(error);

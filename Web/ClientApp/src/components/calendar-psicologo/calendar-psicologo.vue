@@ -6,7 +6,6 @@
       defaultView="timeGridWeek"
       slotDuration="01:00"
       height="auto"
-      @dateClick="handleDateClick"
       :customButtons="customButtons"
       :allDaySlot="false"
       :slotLabelFormat="{
