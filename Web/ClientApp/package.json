@@ -13,6 +13,7 @@
     "@fullcalendar/timegrid": "^4.4.0",
     "@fullcalendar/vue": "^4.4.0",
     "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.11.0",
     "core-js": "^3.6.4",
     "moment": "^2.24.0",
     "register-service-worker": "^1.7.1",

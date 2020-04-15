@@ -2,17 +2,17 @@
   <div>
     <h1>Agendar consulta</h1>
     <p>Selecione um horário</p>
-    <calendar></calendar>
+    <calendar-paciente></calendar-paciente>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Calendar from '@/components/calendar/calendar.vue';
+import CalendarPaciente from '@/components/calendar-paciente/calendar-paciente.vue';
 
 @Component({
   components: {
-    Calendar,
+    CalendarPaciente,
   },
 })
 export default class AgendarConsulta extends Vue {}

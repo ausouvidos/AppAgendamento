@@ -7,6 +7,12 @@
       slotDuration="01:00"
       height="auto"
       :allDaySlot="false"
+      :slotLabelFormat="{
+        hour: 'numeric',
+        minute: '2-digit',
+        omitZeroMinute: false,
+        meridiem: 'short'
+      }"
       :header="{
         left: 'prev,next today',
         center: 'title',
@@ -35,4 +41,4 @@
 }
 </style>
 
-<script lang="ts" src="./calendar.ts"></script>
+<script lang="ts" src="./calendar-paciente.ts"></script>

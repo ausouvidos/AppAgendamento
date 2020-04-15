@@ -10,7 +10,7 @@ import AvailabilityDate from '@/models/availability-date.model';
     FullCalendar,
   },
 })
-export default class Calendar extends Vue {
+export default class CalendarPaciente extends Vue {
   private calendarPlugins = [timeGridPlugin];
   private calendarLocale = ptbrLocale;
   private availableSpots: AvailabilityDate[] = [];
