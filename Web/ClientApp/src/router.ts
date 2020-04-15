@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/home.vue';
+import Home from './views/Home.vue';
 import AgendarConsulta from './views/agendar-consulta.vue';
 import MinhaAgenda from './views/minha-agenda.vue';
 

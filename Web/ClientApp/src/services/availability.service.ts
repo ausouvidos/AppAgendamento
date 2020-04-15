@@ -16,7 +16,7 @@ class AvailabilityService {
     const url = '/api/Availabilities/MyAvailabilities';
     const response = await axios.get<Availability[]>(url, {
       headers: {
-        Authentication: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
+        Authorization: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
       },
     });
     return response.data;

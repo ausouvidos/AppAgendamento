@@ -1,11 +1,13 @@
 using System;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using AspNetCoreRateLimit;
 using Data;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +19,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Services.Identity;
 using VueCliMiddleware;
+using System.Linq;
+using Microsoft.IdentityModel.Logging;
 
 namespace AusOuvidos
 {
@@ -34,7 +38,7 @@ namespace AusOuvidos
         {
             services.AddSwaggerGen(c =>
             {
-               c.SwaggerDoc("v1", new OpenApiInfo { Title = "AUS Ouvidos API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AUS Ouvidos API", Version = "v1" });
             });
 
             services.AddOptions();
@@ -52,13 +56,20 @@ namespace AusOuvidos
                 options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
             });
 
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                 .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+            services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
+                .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
 
-            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
             {
-                options.Authority = options.Authority + "/v2.0/";
-                options.TokenValidationParameters.ValidateIssuer = false;
+                options.Authority += "/v2.0";
+                options.TokenValidationParameters.ValidIssuer = options.Authority;
+                options.TokenValidationParameters.ValidAudiences = new[]
+                {
+                    options.Audience,
+                    $"api://{options.Audience}"
+                };
+
+                options.Events = new JwtBearerEvents();
                 options.Events.OnTokenValidated += async (ctx) =>
                 {
                     var oid = ctx.Principal.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
