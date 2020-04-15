@@ -16,8 +16,11 @@ namespace AusOuvidos.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Add([FromBody]AddAvailabilitiesCommand request) =>
-            await Mediator.Send(request);
+        public async Task<bool> Add([FromBody]AddAvailabilitiesCommand request)
+        {
+            request.UserIdentityId = GetCurrentUserId();
+            return await Mediator.Send(request);
+        }
 
         [HttpGet]
 
