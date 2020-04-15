@@ -8,7 +8,11 @@ import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model'
 class AvailabilityService {
   public async add(data: AddAvailabilitiesRequest): Promise<boolean> {
     const url = '/api/Availabilities/Add';
-    const response = await axios.post(url, data);
+    const response = await axios.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
+      },
+    });
     return response.data;
   }
 
