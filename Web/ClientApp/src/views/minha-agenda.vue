@@ -39,7 +39,7 @@ export default class MinhaAgenda extends Vue {
         auth: {
           clientId: '4c6c3ac0-a8f7-42f9-8b8e-60b7d829b42d',
           authority: 'https://login.microsoftonline.com/5560e420-5f71-400c-8bbe-e52fae72eb6c',
-          redirectUri: 'http://localhost:5000/signin-oidc',
+          redirectUri: new URL(window.location.href).origin + '/signin-oidc',
         },
         cache: {
           cacheLocation: 'sessionStorage',
