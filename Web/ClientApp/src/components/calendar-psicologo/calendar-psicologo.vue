@@ -2,7 +2,7 @@
   <div>
     <full-calendar
       ref="fullCalendar"
-      class="custom-calendar"
+      class="calendar-custom"
       defaultView="timeGridWeek"
       slotDuration="01:00"
       height="auto"
@@ -23,7 +23,7 @@
       :plugins="calendarPlugins"
       :events="availabilities"></full-calendar>
 
-    <b-modal ref="my-modal">
+    <b-modal ref="availability-modal" ok-title="Adicionar" cancel-title="Cancelar" @ok="addAvailability">
       <template v-slot:modal-title>Adicionar horário</template>
       <div class="form-row align-items-end">
         <div class="form-group col-6">
@@ -42,29 +42,8 @@
           </select>
         </div>
       </div>
-      <template v-slot:modal-footer>
-        <button type="button" class="btn btn-secondary" @click="closeAvailabilityModal">Cancelar</button>
-        <button type="button" class="btn btn-primary" @click="addAvailability">Adicionar</button>
-      </template>
     </b-modal>
   </div>
 </template>
-
-<style lang="scss">
-.custom-calendar {
-  .fc-event {
-    font-weight: bold;
-    background-color: #007bff;
-    border-color: #007bff;
-    cursor: pointer;
-    color: #fff;
-
-    &:hover {
-      background-color: #0069d9;
-      color: #fff;
-    }
-  }
-}
-</style>
 
 <script lang="ts" src="./calendar-psicologo.ts"></script>
