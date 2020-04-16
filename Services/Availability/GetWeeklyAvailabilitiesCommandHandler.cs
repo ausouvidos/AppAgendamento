@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using MediatR;
@@ -15,7 +16,7 @@ namespace Services.Availability
         }
         protected override IEnumerable<Models.AvailabilityDates> Handle(GetWeeklyAvailabilitiesCommand request) =>
              _db.Availabilities
-             .Where(a => a.Start >= request.RefDate.FirstDayOfWeek() && a.End <= request.RefDate.LastDayOfWeek() && a.IsFree)
+             .Where(a => a.Start > DateTime.UtcNow && a.Start >= request.RefDate.FirstDayOfWeek() && a.End <= request.RefDate.LastDayOfWeek() && a.IsFree)
              .ToList()
              .Select(a => new Models.AvailabilityDates
              {
