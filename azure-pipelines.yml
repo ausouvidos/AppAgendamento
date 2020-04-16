@@ -32,3 +32,10 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+- task: CopyPublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'AusOuvidos'
+    Contents: $(build.artifactStagingDirectory)\WebApp.zip
+    ArtifactType: FilePath
