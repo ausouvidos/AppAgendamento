@@ -11,6 +11,16 @@ namespace Data
         public DbSet<Availability> Availabilities { get; set; }
         public AusOuvidosContext(DbContextOptions<AusOuvidosContext> options) : base(options)
         {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Availability>()
+                .Property(p => p.RowVersion)
+                .IsConcurrencyToken()
+                .ValueGeneratedOnAddOrUpdate();
         }
     }
 }

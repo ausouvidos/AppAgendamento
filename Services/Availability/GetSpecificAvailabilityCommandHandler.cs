@@ -16,7 +16,7 @@ namespace Services.Availability
         protected override Models.Availability Handle(GetSpecificAvailabilityCommand request) =>
              _db
                 .Availabilities
-                .Where(a => a.Start >= request.StartDate.FirstDayOfWeek() && a.End <= request.EndDate.LastDayOfWeek() && a.IsFree)
+                .Where(a => a.Start >= request.StartDate && a.End <= request.EndDate && a.IsFree)
                 .FirstOrDefault();
 
     }

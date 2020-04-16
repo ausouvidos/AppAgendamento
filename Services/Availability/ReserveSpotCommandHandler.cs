@@ -26,16 +26,20 @@ namespace Services.Availability
             var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
             if (availability != null)
             {
-                availability.CustomerEmail = request.Email;
-                availability.CustomerName = request.Name;
-                availability.IsFree = false;
+                try
+                {
+                    availability.CustomerEmail = request.Email;
+                    availability.CustomerName = request.Name;
+                    availability.IsFree = false;
 
-                _db.Availabilities.Update(availability);
-                await _db.SaveChangesAsync();
+                    _db.Availabilities.Update(availability);
+                    await _db.SaveChangesAsync();
 
-                scope.Complete();
+                    scope.Complete();
 
-                return true;
+                    return true;
+                }
+                catch { }
             }
 
             return false;

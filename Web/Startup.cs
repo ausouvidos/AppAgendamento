@@ -56,6 +56,8 @@ namespace AusOuvidos
 
             services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+            
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
             {
