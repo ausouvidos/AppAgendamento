@@ -1,7 +1,5 @@
 using System;
-using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AspNetCoreRateLimit;
 using Data;
 using MediatR;
@@ -19,8 +17,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Services.Identity;
 using VueCliMiddleware;
-using System.Linq;
-using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AusOuvidos
 {
@@ -88,7 +86,8 @@ namespace AusOuvidos
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
             // Add AddRazorPages if the app uses Razor Pages.
             services.AddRazorPages();
@@ -101,7 +100,7 @@ namespace AusOuvidos
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -114,6 +113,22 @@ namespace AusOuvidos
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
+
+            app.Use(next => context =>
+            {
+                string path = context.Request.Path.Value;
+
+                if (
+                    string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                {
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() { HttpOnly = false });
+                }
+
+                return next(context);
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
