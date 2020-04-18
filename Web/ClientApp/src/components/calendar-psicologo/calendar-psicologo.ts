@@ -7,6 +7,7 @@ import ptbrLocale from '@fullcalendar/core/locales/pt-br';
 import availabilityService from '@/services/availability.service';
 import Availability from '@/models/availability.model';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
+import AvailabilityEventUI from '@/models/availability-event-ui.model';
 
 Vue.use(ModalPlugin);
 
@@ -18,7 +19,7 @@ Vue.use(ModalPlugin);
 export default class CalendarPsicologo extends Vue {
   private calendarPlugins = [timeGridPlugin];
   private calendarLocale = ptbrLocale;
-  private availabilities: Availability[] = [];
+  private events: AvailabilityEventUI[] = [];
   private modalShow = false;
   private customButtons = {
     addEvent: {
@@ -37,7 +38,8 @@ export default class CalendarPsicologo extends Vue {
   }
 
   private async fetchData() {
-    this.availabilities = await availabilityService.getMyAvailabilities();
+    const availabilities = await availabilityService.getMyAvailabilities();
+    this.events = availabilities.map((item) => new AvailabilityEventUI(item));
   }
 
   private openAvailabilityModal() {

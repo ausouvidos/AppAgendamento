@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Agendar consulta</h1>
-    <p>Selecione um horário</p>
+    <h1>Sou paciente</h1>
+    <p>Selecione um horário para o agendamento da consulta.</p>
     <calendar-paciente></calendar-paciente>
   </div>
 </template>

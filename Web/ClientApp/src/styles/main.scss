@@ -1,29 +1,16 @@
+// config
+@import './variables';
+
+// vendor
 @import '~bootstrap/scss/bootstrap';
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
 
-.modal-backdrop {
-  opacity: 0.6;
-}
+// modules
+@import './modules/header';
+@import './modules/footer';
+@import './modules/calendar';
 
-.calendar-custom {
-  .fc-event {
-    font-weight: bold;
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-
-  &.calendar-custom-clickable .fc-event {
-    cursor: pointer;
-
-    &:hover {
-      background-color: #0069d9;
-    }
-  }
-}
+// general
+@import './general';

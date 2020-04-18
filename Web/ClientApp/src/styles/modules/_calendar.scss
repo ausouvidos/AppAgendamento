@@ -1,0 +1,25 @@
+.calendar-custom {
+  .fc-event {
+    font-weight: bold;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    
+    &:hover {
+      color: #fff;
+    }
+    
+    &.reserved {
+      background: #999;
+      border-color: #777;
+    }
+  }
+
+  &.calendar-custom-clickable .fc-event {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0069d9;
+    }
+  }
+}

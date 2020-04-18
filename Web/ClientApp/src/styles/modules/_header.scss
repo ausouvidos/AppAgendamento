@@ -1,0 +1,24 @@
+.header {
+  margin-bottom: 50px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background: $white;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-nav {
+    .btn {
+      min-width: 160px;
+      padding: 7px;
+
+      + .btn {
+        margin-left: 10px;
+      }
+    }
+  }
+}

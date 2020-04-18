@@ -21,7 +21,7 @@
       }"
       :locale="calendarLocale"
       :plugins="calendarPlugins"
-      :events="availabilities"></full-calendar>
+      :events="events"></full-calendar>
 
     <b-modal ref="availability-modal" ok-title="Adicionar" cancel-title="Cancelar" @ok="addAvailability">
       <template v-slot:modal-title>Adicionar horário</template>
