@@ -93,8 +93,9 @@ namespace AusOuvidos
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllersWithViews(options =>
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+            services.AddControllersWithViews();
+            // (options =>
+            //     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
             // Add AddRazorPages if the app uses Razor Pages.
             services.AddRazorPages();
