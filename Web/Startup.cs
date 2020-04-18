@@ -41,6 +41,11 @@ namespace AusOuvidos
 
             services.AddOptions();
             services.AddHttpContextAccessor();
+            services.AddHttpClient("ApiClient", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("APIUrl"));
+                c.DefaultRequestHeaders.TryAddWithoutValidation("Ocp-Apim-Subscription-Key", Configuration.GetValue<string>("APIKey"));
+            });
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
@@ -56,7 +61,7 @@ namespace AusOuvidos
 
             services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-            
+
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>

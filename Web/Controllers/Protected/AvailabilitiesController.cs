@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AusOuvidos.Controllers.Protected;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -9,7 +10,7 @@ using Services.Availability;
 namespace AusOuvidos.Controllers
 {
     [ApiController]
-    public class AvailabilitiesController : BaseController
+    public class AvailabilitiesController : BaseProtectedController
     {
         public AvailabilitiesController()
         {
