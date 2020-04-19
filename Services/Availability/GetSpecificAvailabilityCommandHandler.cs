@@ -2,6 +2,7 @@
 using System.Linq;
 using Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.Availability
 {
@@ -16,6 +17,7 @@ namespace Services.Availability
         protected override Models.Availability Handle(GetSpecificAvailabilityCommand request) =>
              _db
                 .Availabilities
+                .Include(a => a.User)
                 .Where(a => a.Start >= request.StartDate && a.End <= request.EndDate && a.IsFree)
                 .FirstOrDefault();
 

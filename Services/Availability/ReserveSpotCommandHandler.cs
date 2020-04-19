@@ -30,10 +30,13 @@ namespace Services.Availability
                 {
                     availability.CustomerEmail = request.Email;
                     availability.CustomerName = request.Name;
+                    availability.CustomerMobile = request.Mobile;
                     availability.IsFree = false;
 
                     _db.Availabilities.Update(availability);
                     await _db.SaveChangesAsync();
+
+                    await _mediator.Publish(new ReservedSpotNotification { Availability = availability });
 
                     scope.Complete();
 

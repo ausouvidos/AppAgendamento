@@ -9,6 +9,7 @@ namespace Services.Availability
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Mobile { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
     }

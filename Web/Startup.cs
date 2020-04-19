@@ -46,6 +46,12 @@ namespace AusOuvidos
                 c.BaseAddress = new Uri(Configuration.GetValue<string>("APIUrl"));
                 c.DefaultRequestHeaders.TryAddWithoutValidation("Ocp-Apim-Subscription-Key", Configuration.GetValue<string>("APIKey"));
             });
+
+            services.AddHttpClient("FlowClient", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("FlowUrl"));
+                c.DefaultRequestHeaders.TryAddWithoutValidation("Ocp-Apim-Subscription-Key", Configuration.GetValue<string>("APIKey"));
+            });
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
