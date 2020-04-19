@@ -4,10 +4,10 @@
       <div class="header-inner container-xl">
         <router-link class="logo" :to="{ name: 'home' }">
           <img
-            srcset="./assets/logo.png,
-                    ./assets/logo@2x.png 2x,
-                    ./assets/logo@3x.png 3x"
-            src="./assets/logo.png"
+            srcset="./assets/logo-aus-ouvidos.png,
+                    ./assets/logo-aus-ouvidos@2x.png 2x,
+                    ./assets/logo-aus-ouvidos@3x.png 3x"
+            src="./assets/logo-aus-ouvidos.png"
             alt="Projeto Aus Ouvidos">
         </router-link>
         <nav class="header-nav">
@@ -21,7 +21,16 @@
     </section>
     <footer class="footer">
       <div class="container-xl">
-        &copy; Copyright Aus Ouvidos, 2020. Todos os direitos reservados.
+        &copy; Copyright Aus Ouvidos, 2020. Todos os direitos reservados. | Realização
+        <a href="https://www.mtac.org.br/" target="_blank">
+          MTAC
+          <img
+            srcset="./assets/logo-mtac.png,
+                    ./assets/logo-mtac@2x.png 2x,
+                    ./assets/logo-mtac@3x.png 3x"
+            src="./assets/logo-mtac.png"
+            alt="MTAC">
+        </a>
       </div>
     </footer>
   </div>
