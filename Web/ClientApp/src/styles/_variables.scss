@@ -1,6 +1,22 @@
+// font
 $font-family-sans-serif: 'Open Sans', sans-serif;
 $font-size-base: 0.875rem;
+
+// colors
 $body-bg: #f4f4f4;
 $body-color: #333;
 $primary: #00a1af;
+
+// headings
 $headings-margin-bottom: $font-size-base;
+
+// buttons
+$input-btn-padding-y: .438rem;
+$input-btn-padding-x: 1.25rem;
+
+// modal
+$modal-inner-padding: 1.875rem;
+$modal-footer-margin-between: 0.625rem;
+$modal-header-padding-x: 1.875rem;
+$modal-md: 540px;
+$modal-content-border-width: 0;

@@ -23,7 +23,7 @@
       :plugins="calendarPlugins"
       :events="events"></full-calendar>
 
-    <b-modal ref="availability-modal" ok-title="Adicionar" cancel-title="Cancelar" @ok="addAvailability">
+    <b-modal ref="availability-modal" ok-title="Adicionar" cancel-title="Cancelar" cancel-variant="outline-primary" @ok="addAvailability">
       <template v-slot:modal-title>Adicionar horário</template>
       <div class="form-row align-items-end">
         <div class="form-group col-6">

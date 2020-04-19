@@ -23,9 +23,9 @@
       :plugins="calendarPlugins"
       :events="availableSpots"></full-calendar>
 
-    <b-modal ref="reservation-modal" ok-title="Agendar" cancel-title="Cancelar" @ok="reserveSpot">
-      <template v-slot:modal-title>Agendar consulta</template>
-      <p>{{ reservationStart | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservationEnd | date('H:mm') }}</p>
+    <b-modal ref="reservation-modal" ok-title="Agendar" cancel-title="Cancelar" cancel-variant="outline-primary" @ok="reserveSpot">
+      <template v-slot:modal-title>Agendar uma consulta</template>
+      <p class="font-weight-bold">{{ reservationStart | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservationEnd | date('H:mm') }}</p>
       <div class="form-group">
         <label for="reservation-name">Nome</label>
         <input type="text" class="form-control" id="reservation-name" v-model="reservationName">
