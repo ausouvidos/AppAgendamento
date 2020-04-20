@@ -17,6 +17,7 @@ namespace Services.Availability
         protected override IEnumerable<Models.AvailabilityDates> Handle(GetWeeklyAvailabilitiesCommand request) =>
              _db.Availabilities
              .Where(a => a.Start > DateTime.UtcNow && a.Start >= request.RefDate.FirstDayOfWeek() && a.End <= request.RefDate.LastDayOfWeek() && a.IsFree)
+             .OrderBy(a => a.Start)
              .ToList()
              .Select(a => new Models.AvailabilityDates
              {

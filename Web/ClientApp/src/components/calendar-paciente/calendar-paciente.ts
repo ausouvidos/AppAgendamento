@@ -1,72 +1,58 @@
 import { Component, Vue } from 'vue-property-decorator';
-import FullCalendar from '@fullcalendar/vue';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import ptbrLocale from '@fullcalendar/core/locales/pt-br';
 import availabilityService from '@/services/availability.service';
-import AvailabilityDate from '@/models/availability-date.model';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
+import SpotSchedule from '@/models/spot-schedule.model';
+import AvailabilityDate from '@/models/availability-date.model';
 
-@Component({
-  components: {
-    FullCalendar,
-  },
-})
+@Component
 export default class CalendarPaciente extends Vue {
-  private calendarPlugins = [timeGridPlugin];
-  private calendarLocale = ptbrLocale;
-  private availableSpots: AvailabilityDate[] = [];
-  private reservationName = '';
-  private reservationEmail = '';
-  private reservationStart = new Date();
-  private reservationEnd = new Date();
+  private schedule = new SpotSchedule();
+  private reservation = new ReserveSpotRequest();
   private isLoading = false;
+  private isScheduleLoading = false;
 
   private mounted() {
-    this.reservationName = sessionStorage.getItem('reservationName') || '';
-    this.reservationEmail = sessionStorage.getItem('reservationEmail') || '';
     this.fetchData();
   }
 
-  private async fetchData() {
-    this.availableSpots = await availabilityService.getWeeklyAvailableSpots();
+  private fetchData() {
+    this.schedule.load();
   }
 
-  private onEventClick(data: any) {
-    this.reservationStart = data.event.start;
-    this.reservationEnd = data.event.end;
-    (this.$refs['reservation-modal'] as any).show();
-  }
+  private async changeWeek(prevOrNext = 1) {
+    if (this.isScheduleLoading) {
+      return;
+    }
 
-  private showConfirmation() {
-    (this.$refs['confirmation-modal'] as any).show();
-  }
+    this.isScheduleLoading = true;
 
-  private closeModal() {
-    (this.$refs['reservation-modal'] as any).hide();
+    try {
+      if (prevOrNext >= 0) {
+        await this.schedule.nextWeek();
+      } else {
+        await this.schedule.previousWeek();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.isScheduleLoading = false;
+    }
   }
 
   private async reserveSpot(bvModalEvt: any) {
     bvModalEvt.preventDefault();
 
-    if (this.isLoading || !this.reservationName || !this.reservationEmail) {
+    if (this.isLoading || !this.reservation.isValid()) {
       return;
     }
 
     this.isLoading = true;
 
     try {
-      const data = new ReserveSpotRequest({
-        name: this.reservationName,
-        email: this.reservationEmail,
-        start: this.reservationStart,
-        end: this.reservationEnd,
-      });
-      const response = await availabilityService.reserveSpot(data);
+      const response = await availabilityService.reserveSpot(this.reservation);
       if (response) {
-        sessionStorage.setItem('reservationName', this.reservationName);
-        sessionStorage.setItem('reservationEmail', this.reservationEmail);
-        this.closeModal();
-        this.showConfirmation();
+        this.hideReservationModal();
+        this.showConfirmationModal();
         this.fetchData();
       } else {
         console.error('error');
@@ -76,5 +62,19 @@ export default class CalendarPaciente extends Vue {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  private showReservationModal(spot: AvailabilityDate) {
+    this.reservation.start = spot.start;
+    this.reservation.end = spot.end;
+    (this.$refs['reservation-modal'] as any).show();
+  }
+
+  private hideReservationModal() {
+    (this.$refs['reservation-modal'] as any).hide();
+  }
+
+  private showConfirmationModal() {
+    (this.$refs['confirmation-modal'] as any).show();
   }
 }

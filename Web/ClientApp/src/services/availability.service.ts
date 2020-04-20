@@ -35,6 +35,9 @@ class AvailabilityService {
   public async reserveSpot(data: ReserveSpotRequest): Promise<boolean> {
     const url = '/api/Availabilities/ReserveSpot';
     const response = await axios.post(url, data);
+    if (response.data) {
+      data.saveCache();
+    }
     return response.data;
   }
 }

@@ -1,0 +1,62 @@
+.scheduler {
+  padding-top: 20px;
+
+  .week-header {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+
+    .btn-week-nav {
+      padding: 0 10px 0 5px;
+      line-height: 1em;
+      font-size: 26px;
+      color: $primary;
+
+      &.btn-week-nav-next {
+        padding: 0 5px 0 10px;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+    }
+
+    .week-title {
+      margin: 0 0 6px;
+      font-size: 1em;
+      font-weight: bold;
+    }
+  }
+
+  .week-day {
+    margin-top: 40px;
+
+    .week-day-title {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 1em;
+      font-weight: bold;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
+
+    .btn {
+      margin-top: 20px;
+      border-width: 2px;
+      border-radius: 18px;
+
+      + .btn {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .scheduler-disclaimer {
+    padding: 40px 15px;
+  }
+}

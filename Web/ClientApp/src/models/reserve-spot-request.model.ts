@@ -1,13 +1,25 @@
 export default class ReserveSpotRequest {
   public name: string;
   public email: string;
-  public start: Date;
-  public end: Date;
+  public mobile: string;
+  public start?: Date;
+  public end?: Date;
 
-  constructor(obj: ReserveSpotRequest) {
-    this.name = obj.name;
-    this.email = obj.email;
-    this.start = obj.start;
-    this.end = obj.end;
+  constructor() {
+    this.name = sessionStorage.getItem('reservationName') || '';
+    this.email = sessionStorage.getItem('reservationEmail') || '';
+    this.mobile = sessionStorage.getItem('reservationMobile') || '';
+    this.start = new Date();
+    this.end = new Date();
+  }
+
+  public isValid(): boolean {
+    return !!(this.name && this.email && this.mobile && this.start && this.end);
+  }
+
+  public saveCache() {
+    sessionStorage.setItem('reservationName', this.name);
+    sessionStorage.setItem('reservationEmail', this.email);
+    sessionStorage.setItem('reservationMobile', this.mobile);
   }
 }
