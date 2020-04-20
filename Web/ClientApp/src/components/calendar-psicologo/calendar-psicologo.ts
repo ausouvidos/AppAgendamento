@@ -53,7 +53,7 @@ export default class CalendarPsicologo extends Vue {
   private async addAvailability(bvModalEvt: any) {
     bvModalEvt.preventDefault();
 
-    if (this.isLoading || !this.availabilityDate || !this.availabilityTimeStart || !this.availabilityTimeEnd) {
+    if (this.isLoading || !this.availabilityDate || !this.availabilityTimeStart) {
       return;
     }
 
@@ -63,7 +63,7 @@ export default class CalendarPsicologo extends Vue {
       const data = new AddAvailabilitiesRequest();
       data.dates = [{
         start: moment(`${this.availabilityDate}T${this.availabilityTimeStart}`).toDate(),
-        end: moment(`${this.availabilityDate}T${this.availabilityTimeEnd}`).toDate(),
+        end: moment(`${this.availabilityDate}T${this.availabilityTimeStart}`).add(1, 'hour').toDate(),
       }];
       const response = await availabilityService.add(data);
       if (response) {

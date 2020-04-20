@@ -32,6 +32,7 @@ namespace Services.Availability
                 Paciente = request.Availability.CustomerName,
                 Profissional = request.Availability.User.Email,
                 Agenda = request.Availability.Start,
+                AgendaTermino = request.Availability.End,
                 EmailPaciente = request.Availability.CustomerEmail,
                 CelularPaciente = request.Availability.CustomerMobile
             };
