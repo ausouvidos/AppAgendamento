@@ -33,7 +33,7 @@ namespace Services.Availability
                 Profissional = request.Availability.User.Email,
                 Agenda = request.Availability.Start,
                 EmailPaciente = request.Availability.CustomerEmail,
-                Celular = request.Availability.CustomerMobile
+                CelularPaciente = request.Availability.CustomerMobile
             };
             var json = JsonSerializer.Serialize(data);
             using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
