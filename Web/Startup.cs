@@ -119,6 +119,11 @@ namespace AusOuvidos
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AUS Ouvidos API");
+                });
             }
             else
             {
@@ -128,27 +133,6 @@ namespace AusOuvidos
                 app.UseHttpsRedirection();
             }
 
-            app.Use(next => context =>
-            {
-                string path = context.Request.Path.Value;
-
-                if (
-                    string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
-                {
-                    var tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                        new CookieOptions() { HttpOnly = false });
-                }
-
-                return next(context);
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AUS Ouvidos API");
-            });
 
             app.UseIpRateLimiting();
 
