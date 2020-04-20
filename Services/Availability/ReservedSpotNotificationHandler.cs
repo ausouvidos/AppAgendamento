@@ -31,7 +31,7 @@ namespace Services.Availability
                 key = "d6b561c23978453daaf088fad41b3d91",
                 Paciente = request.Availability.CustomerName,
                 Profissional = request.Availability.User.Email,
-                Agenda = request.Availability.Start,
+                AgendaInicio = request.Availability.Start,
                 AgendaTermino = request.Availability.End,
                 EmailPaciente = request.Availability.CustomerEmail,
                 CelularPaciente = request.Availability.CustomerMobile
