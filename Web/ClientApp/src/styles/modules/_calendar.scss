@@ -1,8 +1,8 @@
 .calendar-custom {
   .fc-event {
     font-weight: bold;
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: $primary;
+    border-color: $primary;
     color: #fff;
     
     &:hover {
@@ -10,8 +10,9 @@
     }
     
     &.reserved {
-      background: #999;
-      border-color: #777;
+      background: transparent;
+      border-color: $primary;
+      color: $primary;
     }
   }
 
@@ -21,5 +22,15 @@
     &:hover {
       background-color: #0069d9;
     }
+  }
+
+  .fc-button-primary {
+    @extend .btn;
+    @extend .btn-primary;
+  }
+
+  th.fc-today,
+  td.fc-today {
+    background: fade-out($primary, $amount: 0.9)
   }
 }
