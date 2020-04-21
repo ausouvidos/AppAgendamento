@@ -5,7 +5,6 @@ import FullCalendar from '@fullcalendar/vue';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import ptbrLocale from '@fullcalendar/core/locales/pt-br';
 import availabilityService from '@/services/availability.service';
-import Availability from '@/models/availability.model';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
 import AvailabilityEventUI from '@/models/availability-event-ui.model';
 

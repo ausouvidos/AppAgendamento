@@ -23,14 +23,22 @@
       :plugins="calendarPlugins"
       :events="events"></full-calendar>
 
-    <b-modal ref="availability-modal" ok-title="Adicionar" cancel-title="Cancelar" cancel-variant="outline-primary" @ok="addAvailability">
+    <b-modal
+      ref="availability-modal"
+      :modal-class="{'loading':isLoading}"
+      :no-close-on-esc="isLoading"
+      :no-close-on-backdrop="isLoading"
+      cancel-title="Cancelar"
+      cancel-variant="outline-primary"
+      ok-title="Adicionar"
+      @ok="addAvailability">
       <template v-slot:modal-title>Adicionar horário</template>
       <div class="form-row align-items-end">
         <div class="form-group col-9">
-          <input v-model="availabilityDate" type="date" class="form-control">
+          <input type="date" class="form-control" v-model="availabilityDate" :disabled="isLoading">
         </div>
         <div class="form-group col-3">
-          <select v-model="availabilityTimeStart" class="form-control">
+          <select class="form-control" v-model="availabilityTimeStart" :disabled="isLoading">
             <option value=""></option>
             <option v-for="(time, index) in availableTimes" :key="index">{{ time }}</option>
           </select>

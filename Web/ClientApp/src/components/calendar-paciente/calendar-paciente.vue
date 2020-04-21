@@ -36,24 +36,32 @@
       </div>
     </div>
 
-    <b-modal ref="reservation-modal" ok-title="Agendar" cancel-title="Cancelar" cancel-variant="outline-primary" @ok="reserveSpot">
+    <b-modal
+      ref="reservation-modal"
+      :modal-class="{'loading':isLoading}"
+      :no-close-on-esc="isLoading"
+      :no-close-on-backdrop="isLoading"
+      cancel-title="Cancelar"
+      cancel-variant="outline-primary"
+      ok-title="Agendar"
+      @ok="reserveSpot">
       <template v-slot:modal-title>Agendar uma consulta</template>
       <p class="font-weight-bold">{{ reservation.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservation.end | date('H:mm') }}</p>
       <div class="form-group">
         <label for="reservation-name">Nome</label>
-        <input type="text" class="form-control" id="reservation-name" v-model="reservation.name">
+        <input type="text" class="form-control" id="reservation-name" v-model="reservation.name" :disabled="isLoading">
       </div>
       <div class="form-group">
         <label for="reservation-email">Email</label>
-        <input type="email" class="form-control" id="reservation-email" v-model="reservation.email">
+        <input type="email" class="form-control" id="reservation-email" v-model="reservation.email" :disabled="isLoading">
       </div>
       <div class="form-group">
         <label for="reservation-mobile">Telefone</label>
-        <input type="tel" class="form-control" id="reservation-mobile" v-model="reservation.mobile">
+        <input type="tel" class="form-control" id="reservation-mobile" v-model="reservation.mobile" :disabled="isLoading">
       </div>
     </b-modal>
 
-    <b-modal ref="confirmation-modal" hide-footer modal-class="text-center">
+    <b-modal ref="confirmation-modal" hide-footer no-close-on-esc no-close-on-backdrop modal-class="text-center">
       <template v-slot:modal-title>Consulta agendada com sucesso</template>
       <p>Em breve você receberá um email com os próximos passos.</p>
       <h6 class="font-weight-bold mt-5">Data da consulta:</h6>
