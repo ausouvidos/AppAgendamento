@@ -9,14 +9,36 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 630px) {
+      flex-direction: column;
+    }
   }
 
   .header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @media (max-width: 630px) {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+    }
+
     .btn {
       min-width: 160px;
 
       + .btn {
         margin-left: 10px;
+
+        @media (max-width: 400px) {
+          margin-top: 10px;
+          margin-left: 0;
+        }
       }
     }
   }
