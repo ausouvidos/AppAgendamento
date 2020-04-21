@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Data;
 using MediatR;
+using Services.Utility;
 
 namespace Services.Availability
 {
@@ -23,7 +24,8 @@ namespace Services.Availability
 
         public async Task<bool> Handle(ReserveSpotCommand request, CancellationToken cancellationToken)
         {
-            if (!ReCaptchaPassed(request.RecaptchaResponse))
+            var passedRecaptcha = await _mediator.Send(new ValidateRecaptchaCommand { Response = request.RecaptchaResponse });
+            if (!passedRecaptcha)
             {
                 return false;
             }
@@ -54,25 +56,5 @@ namespace Services.Availability
 
             return false;
         }
-
-        private bool ReCaptchaPassed(string recaptchaResponse)
-        {
-            var secret = "6LcAFuwUAAAAAKdAZOSYXBC49SRB2ShLtq5kwr4E";
-            var httpClient = new HttpClient();
-            var res = httpClient.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secret}&response={recaptchaResponse}").Result;
-
-            if (res.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var json = res.Content.ReadAsStringAsync().Result;
-                var jsonData = JsonSerializer.Deserialize<RecaptchaAPIResponse>(json);
-                return jsonData.success;
-            }
-
-            return false;
-        }
-    }
-
-    public class RecaptchaAPIResponse {
-        public bool success { get; set; }
     }
 }
