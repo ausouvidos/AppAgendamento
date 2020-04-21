@@ -59,6 +59,8 @@
         <label for="reservation-mobile">Telefone</label>
         <input type="tel" class="form-control" id="reservation-mobile" v-model="reservation.mobile" :disabled="isLoading">
       </div>
+      <div id="recaptcha-container"></div>
+      <div v-if="hasFailed" class="text-danger mt-3">Ocorreu um erro ao agendar a consulta, por favor tente novamente.</div>
     </b-modal>
 
     <b-modal ref="confirmation-modal" hide-footer no-close-on-esc no-close-on-backdrop modal-class="text-center">

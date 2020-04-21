@@ -4,6 +4,7 @@ export default class ReserveSpotRequest {
   public mobile: string;
   public start?: Date;
   public end?: Date;
+  public recaptchaResponse?: string;
 
   constructor() {
     this.name = sessionStorage.getItem('reservationName') || '';
@@ -14,7 +15,7 @@ export default class ReserveSpotRequest {
   }
 
   public isValid(): boolean {
-    return !!(this.name && this.email && this.mobile && this.start && this.end);
+    return !!(this.name && this.email && this.mobile && this.start && this.end && this.recaptchaResponse);
   }
 
   public saveCache() {

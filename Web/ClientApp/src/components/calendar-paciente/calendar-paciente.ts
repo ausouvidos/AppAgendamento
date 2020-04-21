@@ -8,15 +8,34 @@ import AvailabilityDate from '@/models/availability-date.model';
 export default class CalendarPaciente extends Vue {
   private schedule = new SpotSchedule();
   private reservation = new ReserveSpotRequest();
+  private hasFailed = false;
   private isLoading = false;
   private isScheduleLoading = false;
+  private recaptchaKey = '6LcAFuwUAAAAAABdPF9EYwoy2d2AhRaFAynRckFx';
+  private recaptchaPromise!: Promise<any>;
 
   private mounted() {
     this.fetchData();
+    this.recaptchaPromise = this.loadRecaptcha();
   }
 
   private fetchData() {
     this.schedule.load();
+  }
+
+  private loadRecaptcha() {
+    return new Promise((resolve) => {
+      if (window.grecaptcha) {
+        resolve();
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+        script.onload = () => {
+          resolve();
+        };
+        document.head.appendChild(script);
+      }
+    });
   }
 
   private async changeWeek(prevOrNext = 1) {
@@ -55,19 +74,29 @@ export default class CalendarPaciente extends Vue {
         this.showConfirmationModal();
         this.fetchData();
       } else {
-        console.error('error');
+        this.hasFailed = true;
       }
     } catch (error) {
-      console.error(error);
+      this.hasFailed = true;
     } finally {
       this.isLoading = false;
     }
   }
 
   private showReservationModal(spot: AvailabilityDate) {
+    this.hasFailed = false;
     this.reservation.start = spot.start;
     this.reservation.end = spot.end;
+    this.reservation.recaptchaResponse = '';
     (this.$refs['reservation-modal'] as any).show();
+    this.recaptchaPromise.then(() => {
+      grecaptcha.render('recaptcha-container', {
+        sitekey : this.recaptchaKey,
+        callback : (recaptchaResponse: string) => {
+          this.reservation.recaptchaResponse = recaptchaResponse;
+        },
+      });
+    });
   }
 
   private hideReservationModal() {
