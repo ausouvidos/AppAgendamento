@@ -2,6 +2,7 @@
   <div>
     <div v-if="isLoggedIn === true">
       <h1>Minha agenda</h1>
+      <p>Adicione um horário em sua agenda para o atendimento.</p>
       <calendar-psicologo></calendar-psicologo>
     </div>
     <button v-if="isLoggedIn === false" class="btn btn-primary" @click="signIn">Login</button>

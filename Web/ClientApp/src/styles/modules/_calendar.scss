@@ -1,36 +1,51 @@
 .calendar-custom {
-  .fc-event {
-    font-weight: bold;
-    background-color: $primary;
-    border-color: $primary;
-    color: #fff;
-    
-    &:hover {
-      color: #fff;
-    }
-    
-    &.reserved {
-      background: transparent;
-      border-color: $primary;
-      color: $primary;
-    }
+  margin-top: 25px;
+
+  th {
+    font-weight: normal;
   }
 
-  &.calendar-custom-clickable .fc-event {
-    cursor: pointer;
+  td.fc-today {
+    background: #fdf2e7;
+  }
 
-    &:hover {
-      background-color: #0069d9;
-    }
+  .fc-view-container {
+    padding: 10px;
+    background: $white;
   }
 
   .fc-button-primary {
     @extend .btn;
     @extend .btn-primary;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
-  th.fc-today,
-  td.fc-today {
-    background: fade-out($primary, $amount: 0.9)
+  .fc-today-button {
+    @extend .btn;
+    @extend .btn-secondary;
+    color: $white;
+
+    &:disabled {
+      color: $white;
+      cursor: default;
+    }
+  }
+
+  .fc-event {
+    font-weight: bold;
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+    
+    &:hover {
+      color: $white;
+    }
+    
+    &.reserved {
+      background: $secondary;
+      border-color: $secondary;
+      color: $white;
+    }
   }
 }
