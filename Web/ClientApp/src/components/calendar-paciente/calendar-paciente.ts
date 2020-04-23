@@ -19,8 +19,10 @@ export default class CalendarPaciente extends Vue {
     this.recaptchaPromise = this.loadRecaptcha();
   }
 
-  private fetchData() {
-    this.schedule.load();
+  private async fetchData() {
+    this.isScheduleLoading = true;
+    await this.schedule.load();
+    this.isScheduleLoading = false;
   }
 
   private loadRecaptcha() {
