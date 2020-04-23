@@ -1,0 +1,56 @@
+.banner {
+  position: relative;
+  overflow: hidden;
+  height: 375px;
+  margin: -50px 0 50px;
+  background: $black;
+  text-align: center;
+
+  @media (max-width: 630px) {
+    height: 260px;
+  }
+
+  .banner-image {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-title {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    line-height: 1;
+    color: $white;
+
+    .line-1 {
+      font-weight: 400;
+      font-size: 50px;
+    }
+
+    .line-2 {
+      font-weight: 300;
+      font-size: 40px;
+    }
+
+    @media (max-width: 630px) {
+      .line-1 {
+        font-size: 40px;
+      }
+
+      .line-2 {
+        font-size: 30px;
+      }
+    }
+  }
+}
