@@ -46,7 +46,7 @@ import Banner from '@/components/banner/banner.vue';
 @Component({
   components: {
     Banner,
-  }
+  },
 })
 export default class App extends Vue {
   get isHome() {

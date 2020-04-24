@@ -49,15 +49,32 @@
       <p class="font-weight-bold">{{ reservation.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservation.end | date('H:mm') }}</p>
       <div class="form-group">
         <label for="reservation-name">Nome</label>
-        <input type="text" class="form-control" id="reservation-name" v-model="reservation.name" :disabled="isLoading">
+        <input
+          type="text"
+          class="form-control"
+          id="reservation-name"
+          v-model="reservation.name"
+          :disabled="isLoading">
       </div>
       <div class="form-group">
         <label for="reservation-email">Email</label>
-        <input type="email" class="form-control" id="reservation-email" v-model="reservation.email" :disabled="isLoading">
+        <input
+          type="email"
+          class="form-control"
+          id="reservation-email"
+          v-model="reservation.email"
+          :disabled="isLoading">
       </div>
       <div class="form-group">
         <label for="reservation-mobile">Telefone</label>
-        <input type="tel" class="form-control" id="reservation-mobile" v-model="reservation.mobile" :disabled="isLoading">
+        <the-mask
+          type="tel"
+          class="form-control"
+          id="reservation-mobile"
+          placeholder="(99) 99999-9999"
+          v-model="reservation.mobile"
+          :mask="['(##) ####-####', '(##) #####-####']"
+          :disabled="isLoading" />
       </div>
       <div id="recaptcha-container"></div>
       <div v-if="hasFailed" class="text-danger mt-3">Ocorreu um erro ao agendar a consulta, por favor tente novamente.</div>

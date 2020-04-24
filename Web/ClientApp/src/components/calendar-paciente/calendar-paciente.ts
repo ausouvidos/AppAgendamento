@@ -1,10 +1,15 @@
 import { Component, Vue } from 'vue-property-decorator';
+import { TheMask } from 'vue-the-mask';
 import availabilityService from '@/services/availability.service';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import SpotSchedule from '@/models/spot-schedule.model';
 import AvailabilityDate from '@/models/availability-date.model';
 
-@Component
+@Component({
+  components: {
+    TheMask,
+  },
+})
 export default class CalendarPaciente extends Vue {
   private schedule = new SpotSchedule();
   private reservation = new ReserveSpotRequest();
