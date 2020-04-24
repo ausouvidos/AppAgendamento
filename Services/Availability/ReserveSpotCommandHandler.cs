@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using Data;
@@ -32,26 +28,30 @@ namespace Services.Availability
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
-            var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
-            if (availability != null)
+            var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
+            if (canReserveSpot)
             {
-                try
+                var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
+                if (availability != null)
                 {
-                    availability.CustomerEmail = request.Email;
-                    availability.CustomerName = request.Name;
-                    availability.CustomerMobile = request.Mobile;
-                    availability.IsFree = false;
+                    try
+                    {
+                        availability.CustomerEmail = request.Email;
+                        availability.CustomerName = request.Name;
+                        availability.CustomerMobile = request.Mobile;
+                        availability.IsFree = false;
 
-                    _db.Availabilities.Update(availability);
-                    await _db.SaveChangesAsync();
+                        _db.Availabilities.Update(availability);
+                        await _db.SaveChangesAsync();
 
-                    await _mediator.Publish(new ReservedSpotNotification { Availability = availability });
+                        await _mediator.Publish(new ReservedSpotNotification { Availability = availability });
 
-                    scope.Complete();
+                        scope.Complete();
 
-                    return true;
+                        return true;
+                    }
+                    catch { }
                 }
-                catch { }
             }
 
             return false;

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
@@ -10,27 +11,38 @@ namespace Services.Availability
     public class AddAvailabilitiesCommandHandler : IRequestHandler<AddAvailabilitiesCommand, bool>
     {
         private readonly AusOuvidosContext _db;
+        private readonly IMediator _mediator;
 
-        public AddAvailabilitiesCommandHandler(AusOuvidosContext db)
+        public AddAvailabilitiesCommandHandler(AusOuvidosContext db, IMediator mediator)
         {
             this._db = db;
+            this._mediator = mediator;
         }
         public async Task<bool> Handle(AddAvailabilitiesCommand request, CancellationToken cancellationToken)
         {
-            var availabilities = request?.Dates?.Select(a =>
+            var items = new List<Models.Availability>();
+            foreach (var av in request?.Dates?.ToList())
             {
-                return new Models.Availability
+                if (await _mediator.Send(new CanAddAvailabilityCommand { UserIdentityId = request.UserIdentityId, Start = av.Start, End = av.End }))
                 {
-                    IsFree = true,
-                    Start = a.Start,
-                    End = a.End,
-                    UserId = request.UserIdentityId
-                };
-            }).ToArray();
+                    items.Add(new Models.Availability
+                    {
+                        IsFree = true,
+                        Start = av.Start,
+                        End = av.End,
+                        UserId = request.UserIdentityId
+                    });
+                }
+            }
 
-            await _db.Availabilities.AddRangeAsync(availabilities);
-            await _db.SaveChangesAsync();
-            return true;
+            if (items.Any())
+            {
+                await _db.Availabilities.AddRangeAsync(items);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }
