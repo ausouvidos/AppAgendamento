@@ -1,5 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { TheMask } from 'vue-the-mask';
+import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import '@/utils/vee-validate-config';
 import availabilityService from '@/services/availability.service';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import SpotSchedule from '@/models/spot-schedule.model';
@@ -8,6 +10,8 @@ import AvailabilityDate from '@/models/availability-date.model';
 @Component({
   components: {
     TheMask,
+    ValidationProvider,
+    ValidationObserver,
   },
 })
 export default class CalendarPaciente extends Vue {
@@ -65,10 +69,17 @@ export default class CalendarPaciente extends Vue {
     }
   }
 
-  private async reserveSpot(bvModalEvt: any) {
+  private handleOk(bvModalEvt: any) {
     bvModalEvt.preventDefault();
+    this.reserveSpot();
+  }
 
-    if (this.isLoading || !this.reservation.isValid()) {
+  private async reserveSpot(evt?: any) {
+    evt?.preventDefault();
+
+    const isValid = await (this.$refs.observer as InstanceType<typeof ValidationObserver>).validate();
+
+    if (this.isLoading || !isValid) {
       return;
     }
 
@@ -96,12 +107,19 @@ export default class CalendarPaciente extends Vue {
     this.reservation.end = spot.end;
     this.reservation.recaptchaResponse = '';
     (this.$refs['reservation-modal'] as any).show();
+    this.renderRecaptcha();
+  }
+
+  private renderRecaptcha() {
+    const callback = (recaptchaResponse?: string) => {
+      this.reservation.recaptchaResponse = recaptchaResponse || '';
+      (this.$refs.captchaInput as HTMLInputElement).dispatchEvent(new Event('change'));
+    };
     this.recaptchaPromise.then(() => {
       grecaptcha.render('recaptcha-container', {
-        sitekey : this.recaptchaKey,
-        callback : (recaptchaResponse: string) => {
-          this.reservation.recaptchaResponse = recaptchaResponse;
-        },
+        callback,
+        'expired-callback': callback,
+        'sitekey': this.recaptchaKey,
       });
     });
   }

@@ -14,10 +14,6 @@ export default class ReserveSpotRequest {
     this.end = new Date();
   }
 
-  public isValid(): boolean {
-    return !!(this.name && this.email && this.mobile && this.start && this.end && this.recaptchaResponse);
-  }
-
   public saveCache() {
     sessionStorage.setItem('reservationName', this.name);
     sessionStorage.setItem('reservationEmail', this.email);

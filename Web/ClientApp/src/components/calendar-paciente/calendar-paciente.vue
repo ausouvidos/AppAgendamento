@@ -44,40 +44,57 @@
       cancel-title="Cancelar"
       cancel-variant="outline-primary"
       ok-title="Agendar"
-      @ok="reserveSpot">
+      @ok="handleOk">
       <template v-slot:modal-title>Agendar uma consulta</template>
       <p class="font-weight-bold">{{ reservation.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservation.end | date('H:mm') }}</p>
-      <div class="form-group">
-        <label for="reservation-name">Nome</label>
-        <input
-          type="text"
-          class="form-control"
-          id="reservation-name"
-          v-model="reservation.name"
-          :disabled="isLoading">
-      </div>
-      <div class="form-group">
-        <label for="reservation-email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="reservation-email"
-          v-model="reservation.email"
-          :disabled="isLoading">
-      </div>
-      <div class="form-group">
-        <label for="reservation-mobile">Telefone</label>
-        <the-mask
-          type="tel"
-          class="form-control"
-          id="reservation-mobile"
-          placeholder="(99) 99999-9999"
-          v-model="reservation.mobile"
-          :mask="['(##) ####-####', '(##) #####-####']"
-          :disabled="isLoading" />
-      </div>
-      <div id="recaptcha-container"></div>
-      <div v-if="hasFailed" class="text-danger mt-3">Ocorreu um erro ao agendar a consulta, por favor tente novamente.</div>
+      <validation-observer ref="observer">
+        <form @submit="reserveSpot">
+          <div class="form-group">
+            <label for="reservation-name">Nome<small aria-hidden="true">*</small></label>
+            <validation-provider name="Nome" rules="required" v-slot="{ classes, errors }">
+              <input
+                type="text"
+                id="reservation-name"
+                v-model="reservation.name"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+          <div class="form-group">
+            <label for="reservation-email">Email<small aria-hidden="true">*</small></label>
+            <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
+              <input
+                type="email"
+                id="reservation-email"
+                v-model="reservation.email"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+          <div class="form-group">
+            <label for="reservation-mobile">Telefone<small aria-hidden="true">*</small></label>
+            <validation-provider name="Telefone" rules="required|phone" v-slot="{ classes, errors }">
+              <the-mask
+                type="tel"
+                id="reservation-mobile"
+                placeholder="(99) 99999-9999"
+                v-model="reservation.mobile"
+                :class="['form-control', classes]"
+                :mask="['(##) ####-####', '(##) #####-####']"
+                :disabled="isLoading" />
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+          <div id="recaptcha-container"></div>
+          <validation-provider rules="required" v-slot="{ errors }">
+            <input ref="captchaInput" type="hidden" v-model="reservation.recaptchaResponse">
+            <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
+          </validation-provider>
+          <div v-if="hasFailed" class="text-danger mt-3">Ocorreu um erro ao agendar a consulta, por favor tente novamente.</div>
+        </form>
+      </validation-observer>
     </b-modal>
 
     <b-modal ref="confirmation-modal" hide-footer no-close-on-esc no-close-on-backdrop modal-class="text-center">
