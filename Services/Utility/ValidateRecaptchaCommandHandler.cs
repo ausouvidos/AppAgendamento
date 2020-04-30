@@ -22,7 +22,7 @@ namespace Services.Utility
 
         public async Task<bool> Handle(ValidateRecaptchaCommand request, CancellationToken cancellationToken)
         {
-            var secret = "6LcAFuwUAAAAAKdAZOSYXBC49SRB2ShLtq5kwr4E";
+            var secret = "6Lc4mPAUAAAAAJti2xFrKsrGCG08aWM0wCdS3h5B";
             var httpClient = _clientFactory.CreateClient("RecaptchaClient");
             var res = await httpClient.GetAsync($"siteverify?secret={secret}&response={request.Response}");
 

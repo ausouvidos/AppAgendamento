@@ -20,7 +20,7 @@ export default class CalendarPaciente extends Vue {
   private hasFailed = false;
   private isLoading = false;
   private isScheduleLoading = false;
-  private recaptchaKey = '6LcAFuwUAAAAAABdPF9EYwoy2d2AhRaFAynRckFx';
+  private recaptchaKey = '6Lc4mPAUAAAAAMHl3isSP6rBQ6xzoDgxMpXvBiXS';
   private recaptchaPromise!: Promise<any>;
 
   private mounted() {
