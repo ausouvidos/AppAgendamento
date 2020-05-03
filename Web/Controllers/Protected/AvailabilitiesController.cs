@@ -17,7 +17,7 @@ namespace AusOuvidos.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Add([FromBody]AddAvailabilitiesCommand request)
+        public async Task<ApiResponse> Add([FromBody]AddAvailabilitiesCommand request)
         {
             request.UserIdentityId = GetCurrentUserId();
             return await Mediator.Send(request);
@@ -36,7 +36,7 @@ namespace AusOuvidos.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<bool> ReserveSpot([FromBody]ReserveSpotCommand request) =>
+        public async Task<ApiResponse> ReserveSpot([FromBody]ReserveSpotCommand request) =>
             await Mediator.Send(request);
 
     }

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using MediatR;
 using Models;
 
 namespace Services.Availability
 {
-    public class ReserveSpotCommand : IRequest<bool>
+    public class ReserveSpotCommand : IRequest<ApiResponse>
     {
         public string Name { get; set; }
         public string Email { get; set; }

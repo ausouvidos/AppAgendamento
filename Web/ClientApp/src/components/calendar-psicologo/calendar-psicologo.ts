@@ -20,6 +20,9 @@ export default class CalendarPsicologo extends Vue {
   private calendarLocale = ptbrLocale;
   private events: AvailabilityEventUI[] = [];
   private modalShow = false;
+  private hasFailed = false;
+  private errorMessage?: string = '';
+
   private customButtons = {
     addEvent: {
       text: 'Adicionar horário',
@@ -65,11 +68,13 @@ export default class CalendarPsicologo extends Vue {
         end: moment(`${this.availabilityDate}T${this.availabilityTimeStart}`).add(1, 'hour').toDate(),
       }];
       const response = await availabilityService.add(data);
-      if (response) {
+      this.hasFailed = !response.succeeded;
+      if (response.succeeded) {
         this.fetchData();
         this.closeModal();
       } else {
-        console.error('error');
+        this.errorMessage = response.message;
+        console.error('error', response.message);
       }
     } catch (error) {
       console.error(error);

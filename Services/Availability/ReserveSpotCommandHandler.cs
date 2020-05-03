@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Data;
 using MediatR;
+using Models;
 using Services.Utility;
 
 namespace Services.Availability
 {
-    public class ReserveSpotCommandHandler : IRequestHandler<ReserveSpotCommand, bool>
+    public class ReserveSpotCommandHandler : IRequestHandler<ReserveSpotCommand, ApiResponse>
     {
         private readonly AusOuvidosContext _db;
         private readonly IMediator _mediator;
@@ -18,12 +19,12 @@ namespace Services.Availability
             this._mediator = mediator;
         }
 
-        public async Task<bool> Handle(ReserveSpotCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(ReserveSpotCommand request, CancellationToken cancellationToken)
         {
             var passedRecaptcha = await _mediator.Send(new ValidateRecaptchaCommand { Response = request.RecaptchaResponse });
             if (!passedRecaptcha)
             {
-                return false;
+                return ApiResponse.Error("Captcha inválido");
             }
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
@@ -48,13 +49,21 @@ namespace Services.Availability
 
                         scope.Complete();
 
-                        return true;
+                        return ApiResponse.Success();
                     }
                     catch { }
                 }
+                else
+                {
+                    return ApiResponse.Error("O horário selecionado já foi reservado por outra pessoa. Por favor, escolha um novo horário.");
+                }
+            }
+            else
+            {
+                return ApiResponse.Error("Já existe uma reserva para esse usuário");
             }
 
-            return false;
+            return ApiResponse.Error("Um erro aconteceu ao fazer o agendamento. Por favor, tente novamente mais tarde");
         }
     }
 }

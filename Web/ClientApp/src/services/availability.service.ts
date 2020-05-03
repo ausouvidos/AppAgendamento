@@ -4,9 +4,10 @@ import Availability from '@/models/availability.model';
 import AvailabilityDate from '@/models/availability-date.model';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
+import ApiResponse from '@/models/api-response';
 
 class AvailabilityService {
-  public async add(data: AddAvailabilitiesRequest): Promise<boolean> {
+  public async add(data: AddAvailabilitiesRequest): Promise<ApiResponse> {
     const url = '/api/Availabilities/Add';
     const response = await axios.post(url, data, {
       headers: {
@@ -32,7 +33,7 @@ class AvailabilityService {
     return response.data.map((item) => new AvailabilityDate(item));
   }
 
-  public async reserveSpot(data: ReserveSpotRequest): Promise<boolean> {
+  public async reserveSpot(data: ReserveSpotRequest): Promise<ApiResponse> {
     const url = '/api/Availabilities/ReserveSpot';
     const response = await axios.post(url, data);
     if (response.data) {

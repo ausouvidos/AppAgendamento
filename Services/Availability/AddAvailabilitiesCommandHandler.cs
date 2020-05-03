@@ -4,11 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using MediatR;
+using Models;
 using Models.Identity;
 
 namespace Services.Availability
 {
-    public class AddAvailabilitiesCommandHandler : IRequestHandler<AddAvailabilitiesCommand, bool>
+    public class AddAvailabilitiesCommandHandler : IRequestHandler<AddAvailabilitiesCommand, ApiResponse>
     {
         private readonly AusOuvidosContext _db;
         private readonly IMediator _mediator;
@@ -18,7 +19,7 @@ namespace Services.Availability
             this._db = db;
             this._mediator = mediator;
         }
-        public async Task<bool> Handle(AddAvailabilitiesCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(AddAvailabilitiesCommand request, CancellationToken cancellationToken)
         {
             var items = new List<Models.Availability>();
             foreach (var av in request?.Dates?.ToList())
@@ -39,10 +40,10 @@ namespace Services.Availability
             {
                 await _db.Availabilities.AddRangeAsync(items);
                 await _db.SaveChangesAsync();
-                return true;
+                return ApiResponse.Success();
             }
 
-            return false;
+            return ApiResponse.Error("Já existe um registro para esse mesmo horário. Por favor, selecione outro e tente novamente.");
         }
     }
 }
