@@ -9,7 +9,7 @@ using Models;
 
 namespace Services.Team
 {
-    public class GetTeamCommandHandler : IRequestHandler<GetTeamCommand, IEnumerable<Profissional>>
+    public class GetTeamCommandHandler : IRequestHandler<GetTeamCommand, IEnumerable<Professional>>
     {
         private readonly AusOuvidosContext _db;
         private readonly IHttpClientFactory _clientFactory;
@@ -20,13 +20,13 @@ namespace Services.Team
             this._clientFactory = clientFactory;
         }
 
-        public async Task<IEnumerable<Profissional>> Handle(GetTeamCommand request, CancellationToken token)
+        public async Task<IEnumerable<Professional>> Handle(GetTeamCommand request, CancellationToken token)
         {
             var client = _clientFactory.CreateClient("ApiClient");
             var result = await client.GetAsync("profissionais");
             result.EnsureSuccessStatusCode();
             using var responseStream = await result.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<IEnumerable<Profissional>>(responseStream);
+            return await JsonSerializer.DeserializeAsync<IEnumerable<Professional>>(responseStream);
         }
     }
 }

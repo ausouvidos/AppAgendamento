@@ -15,7 +15,7 @@ namespace AusOuvidos.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<Profissional>> Members() =>
+        public async Task<IEnumerable<Professional>> Members() =>
             await Mediator.Send(new GetTeamCommand());
     }
 }

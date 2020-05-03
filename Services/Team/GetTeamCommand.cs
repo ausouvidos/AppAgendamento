@@ -5,7 +5,7 @@ using Models;
 
 namespace Services.Team
 {
-    public class GetTeamCommand : IRequest<IEnumerable<Profissional>>
+    public class GetTeamCommand : IRequest<IEnumerable<Professional>>
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Models
 {
-    public class Profissional
+    public class Professional
     {
         public int ID { get; set; }
         public string Nome { get; set; }
