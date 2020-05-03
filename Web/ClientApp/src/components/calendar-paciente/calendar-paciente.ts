@@ -87,7 +87,7 @@ export default class CalendarPaciente extends Vue {
 
     try {
       const response = await availabilityService.reserveSpot(this.reservation);
-      if (response) {
+      if (response.succeeded) {
         this.hideReservationModal();
         this.showConfirmationModal();
         this.fetchData();
