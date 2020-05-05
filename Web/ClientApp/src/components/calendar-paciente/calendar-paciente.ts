@@ -22,6 +22,7 @@ export default class CalendarPaciente extends Vue {
   private isScheduleLoading = false;
   private recaptchaKey = '6Lc4mPAUAAAAAMHl3isSP6rBQ6xzoDgxMpXvBiXS';
   private recaptchaPromise!: Promise<any>;
+  private errorMessage?: string = '';
 
   private mounted() {
     this.fetchData();
@@ -93,6 +94,7 @@ export default class CalendarPaciente extends Vue {
         this.fetchData();
       } else {
         this.hasFailed = true;
+        this.errorMessage = response.message;
       }
     } catch (error) {
       this.hasFailed = true;
@@ -103,6 +105,7 @@ export default class CalendarPaciente extends Vue {
 
   private showReservationModal(spot: AvailabilityDate) {
     this.hasFailed = false;
+    this.errorMessage = '';
     this.reservation.start = spot.start;
     this.reservation.end = spot.end;
     this.reservation.recaptchaResponse = '';

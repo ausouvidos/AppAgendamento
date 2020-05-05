@@ -49,7 +49,7 @@
             <option v-for="(time, index) in availableTimes" :key="index">{{ time }}</option>
           </select>
         </div> -->
-        <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
+        <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao adicionar o horário, por favor tente novamente.'}}</div>
       </div>
     </b-modal>
   </div>
