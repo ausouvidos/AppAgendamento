@@ -16,9 +16,10 @@
         </nav>
       </div>
     </header>
-    <banner v-show="isHome"></banner>
-    <section class="main-content container-xl">
-      <router-view />
+    <section class="main-content">
+      <keep-alive :max="5">
+        <router-view />
+      </keep-alive>
     </section>
     <footer class="footer">
       <div class="container-xl">
@@ -41,16 +42,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Banner from '@/components/banner/banner.vue';
 
-@Component({
-  components: {
-    Banner,
-  },
-})
-export default class App extends Vue {
-  get isHome() {
-    return this.$route.name === 'home';
-  }
-}
+@Component
+export default class App extends Vue {}
 </script>

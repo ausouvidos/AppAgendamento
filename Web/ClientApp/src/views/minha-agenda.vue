@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-xl">
     <div v-if="isLoggedIn === true">
       <h1>Minha agenda</h1>
       <p>Adicione um horário em sua agenda para o atendimento.</p>

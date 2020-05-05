@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Equipe</h1>
+    <h2 class="text-center font-weight-bold mb-5 mt-5">Equipe</h2>
     <div class="members-list">
       <div class="member-item" v-for="teamMember in teamMembers" :key="teamMember.id">
         <img class="member-photo" :src="teamMember.photoUrl" alt="">

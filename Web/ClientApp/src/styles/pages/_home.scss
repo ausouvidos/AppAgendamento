@@ -1,0 +1,74 @@
+.home-box-1 {
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 40px 0;
+  background: url('~@/assets/bg-world.png') 0 80px no-repeat;
+  background-size: 600px;
+
+  @media (max-width: 767px) {
+    padding-bottom: 0;
+  }
+
+  > .row {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+}
+
+.home-box-3 {
+  margin-bottom: 50px;
+  padding: 100px 0;
+  background: #486e8e url('~@/assets/bg-box.jpg') center 0 no-repeat;
+  text-align: center;
+  color: $white;
+
+  h1 {
+    color: #c9c9c9;
+
+    span {
+      text-transform: uppercase;
+      color: $white;
+    }
+  }
+}
+
+.home-box-3-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+    margin: 10px 15px;
+    padding: 10px 22px;
+    border: 1px solid $white;
+    border-radius: 4px;
+
+    @media (max-width: 760px) {
+      width: 290px;
+    }
+  
+    &:before {
+      margin-right: 10px;
+    }
+
+    &.item-temperature:before {
+      content: url('~@/assets/icon-temperature.png');
+    }
+    &.item-rope:before {
+      content: url('~@/assets/icon-rope.png');
+    }
+    &.item-lungs:before {
+      content: url('~@/assets/icon-lungs.png');
+    }
+  }
+}

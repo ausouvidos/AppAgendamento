@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-xl">
     <h1>Sou paciente</h1>
     <p>Selecione um horário para o agendamento da consulta.</p>
     <calendar-paciente></calendar-paciente>

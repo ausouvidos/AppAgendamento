@@ -1,26 +1,83 @@
 <template>
   <div>
-    <div class="text-big">
-      <p>De imediato, uma estranheza ou um ruído chega aos ouvidos de quem lê ou ouve. Sim: <strong>Aus Ouvidos</strong>! Uma ideia que emerge em um momento de desassossegos, atritos; em meio a tantas adversidades e particularidades cotidianas, em uma época que exige um estado de felicidade constante, tempo que se avalia por quantidade de curtidas ou visualizações dígito-virtuais. Nesse contexto, muitas vezes o escutar se reduz a breves mensagens de áudios; e a escrita, por sua vez, torna-se, cada vez mais abreviada. Quando, por consequência, as relações e os laços são enfraquecidos, as seguintes questões ecoam: de que forma a escuta se estabelece entre nós e quais os laços que são construídos a partir dela. <strong>Aus Ouvidos</strong> é uma proposta que busca refletir sobre estas questões.</p>
-      <p>A exigência de sucesso consome a todos e a cada um em momentos distintos; nosso laser e nossas relações parecem não mais nos pertencer. O abandono de si, diante de tal exigência, é acentuado, quase inevitável, pois parece não haver espaço e tempo para se escutar, escutar e escutar ao outro. A lei bruta de uma felicidade obrigatória, sensação com a qual apenas o sucesso combina, impera para a desconstrução de laços. Não podemos mostrar fragilidade.</p>
-      <p>A escuta passa pelo corpo de quem fala e de quem ouve e, assim, sentimentos brotam à flor da pele; sem ela, sentimentos e comportamentos de abandono, de isolamento e solidão convergem em patologias. Sintomas de depressão e o abandono de projetos de vida são mais e mais observados, bem como um aumento significativo no índice de suicídios. Escutar, tarefa complexa, desafiadora, inquieta e instigante, sem dúvida, seria um modo de prevenção.</p>
-      <p>A escuta acarreta, concomitantemente, uma fala que provoca e que convoca os corpos a se presentificarem, ainda que virtualmente. Escutar é oferecer um espaço para a fala se recriar, compor comunicar e expressar. É movimentar algo, buscar sintonia e sincronia que promovam laços e ecoem.</p>
-      <p><strong>Aus</strong> vem de auscultar, que, na medicina, é o ato de escutar os sons interiores do organismo; propiciador da percepção do funcionamento dos órgãos em sua condição de normalidade ou anomalia. Por meio da expressão: ‘sou todo ouvidos’, ‘ouvidos’ é como nos oferecemos em escuta ao outro, e  <strong>Aus Ouvidos</strong> é uma proposta de escuta que se dá no encontro com o que vem do outro por meio de sua  voz e  expressões que possam narrar angustias, alegrias, duvidas, histórias entre tantas outras possibilidades.</p>
-      <p><strong>Aus Ouvidos</strong> parte de uma equipe formada por profissionais que trabalham na construção de uma escuta qualificada para promover a constituição de vínculos fortalecimento de laços com o objetivo primordial de prevenção de suicídios e resgate de vidas. </p>
-      <p>Todo o trabalho é metodologicamente desenvolvido por meio de intervenções lúdicas, provocativas e reflexivas, servindo-se das artes cênicas, da palhaçaria e do samba no formato de rodas de conversa. <strong>Aus Ouvidos</strong> é uma iniciativa multidisciplinar que envolve e relaciona <strong>a psicóloga/psicanalista, o palhaço/artista, o educador/pedagogo e sambista</strong> com recursos da arte. Nele, ferramentas cênicas, como a palhaçaria e o samba, apresentam-se para a construção de diálogos e reflexões sobre temas diversos como forma de provocação a partir de uma leitura seguida de uma intervenção psicanalítica e artística tendo em vista envolvimentos pessoais com a escuta.</p>
+    <div class="banner banner-home">
+      <img class="banner-image" src="@/assets/banner-home.jpg" alt="">
+      <div class="banner-text">
+        <h1>Aus Ouvidos é uma proposta de escuta<br class="d-none d-lg-block"> que se coloca aqui ao seu lado.</h1>
+        <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de<br class="d-none d-lg-block"> manter-se em protegido e proteger aos que de você dependem.</p>
+      </div>
     </div>
-    <equipe />
+    <div class="container-xl text-big">
+      <div class="text-center">
+        <h1>COVID-19: Como a minha vida é impactada?</h1>
+        <p class="text-muted">Esta pandemia já é entendida como o maior problema sanitário de nossa época.</p>
+      </div>
+  
+      <div class="home-box-1">
+        <div class="row">
+          <div class="col-md-5 mb-5 mb-md-0 text-center">
+            <img class="img-fluid" src="@/assets/home-1.png" alt="">
+          </div>
+          <div class="col-md-7">
+            <h4>Como está a minha vida, a vida de quem amo e a vida de quem cuido?</h4>
+            <p>Quem sou eu hoje meio a uma rotina que desconheço e como consigo minimamente me manter organizado, com condições de me proteger dos riscos de me infectar e infectar outros. Essas são questões que causam angustias intensas nos profissionais que estão na linha de frente ao combate a COVID – 19.  Estamos aqui para oferecer uma escuta especializada.</p>
+            <p class="font-weight-bold">Estamos aqui para ouvir você.</p>
+            <router-link :to="{ name: 'agendar-consulta' }" class="btn btn-primary">Agende um horário</router-link>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row align-items-center home-box-2">
+        <div class="col-md-7 mt-5 mb-5">
+          <h1>Somos humanos, somos frágeis.</h1>
+          <p class="font-weight-bold">O que está acontecendo?</p>
+          <p>Nenhuma rotina de vida é mais a mesma, as rotinas de trabalho se tornam um desafio sem igual. Atenção e foco nos procedimentos causam ansiedade, stress e muitas vezes na sensação de impotência surge descontroles.</p>
+          <p>Somos humanos e não podemos esquecer disso, cada vida que se perde é uma sensação de dor que cada um apresenta de um modo.</p>
+          <p>Reconhecer a fragilidade é uma forma de enfrentamento. Estamos aqui para ouvir sobre suas angustias, falar é uma forma de reorganizar os pensamentos e reencontrar um ‘respiro’.</p>
+          <router-link :to="{ name: 'sobre' }" class="btn btn-outline-primary">Conheça a Aus Ouvidos</router-link>
+        </div>
+        <div class="col-md-5 d-md-block d-none">
+          <img class="img-fluid" src="@/assets/home-2.jpg" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="home-box-3 text-big">
+      <div class="container-xl">
+        <h1><span>Tra</span>balhamos com <span>ta</span>ntos sofri<span>mentos</span></h1>
+        <p>A emoção é uma condição humana, somos a soma do que sentimos. Alguns sintomas estão em nós nos lembrando disso:</p>
+        <ul class="home-box-3-list">
+          <li class="item-temperature">A temperatura aumenta</li>
+          <li class="item-rope">Surge um nó na garganta</li>
+          <li class="item-lungs">Dificuldade para respirar</li>
+        </ul>
+        <p>Estamos aqui para te ouvir. Falar sobre o que sente é uma forma de reorganização emocional.</p>
+      </div>
+    </div>
+
+    <div class="container-xl text-big">
+      <div class="row home-box-4">
+        <div class="col-md text-center">
+          <img class="img-fluid" src="@/assets/home-3.jpg" alt="">
+        </div>
+        <div class="col-md mt-4">
+          <h1>Falar sobre essa angústia</h1>
+          <p class="font-weight-bold">É uma forma de restaurar a vida em mim?</p>
+          <p>SIM! Porque quando você fala, você constrói uma possibilidade de se reorganizar emocionalmente. Recria suas potencialidades para prosseguir nas atividades. Retoma o foco para suportar a tensão e não dispersar e se perder nas inúmeras regras de proteção.</p>
+          <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de manter-se em protegido e proteger aos que de você dependem.</p>
+          <p>Aus Ouvidos é uma proposta de escuta que se coloca aqui ao seu lado.</p>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <router-link :to="{ name: 'sobre' }" class="btn btn-outline-primary">Conheça a Aus Ouvidos</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Equipe from '@/components/equipe/equipe.vue';
 
-@Component({
-  components: {
-    Equipe,
-  },
-})
+@Component
 export default class Home extends Vue {}
 </script>

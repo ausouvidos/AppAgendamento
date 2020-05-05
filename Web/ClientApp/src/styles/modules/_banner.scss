@@ -17,7 +17,7 @@
     height: 100%;
   }
 
-  .banner-title {
+  .banner-text {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -27,29 +27,58 @@
     right: 0;
     bottom: 0;
     left: 0;
-    margin: 0;
-    padding: 10px;
+    padding: 10px 30px;
     background: rgba(0, 0, 0, 0.3);
-    line-height: 1;
     color: $white;
 
-    .line-1 {
-      font-weight: 400;
-      font-size: 50px;
-    }
+  }
 
-    .line-2 {
+  h1 {
+    margin: 0;
+    line-height: 1;
+    font-weight: 400;
+    font-size: 50px;
+
+    span {
+      display: block;
       font-weight: 300;
       font-size: 40px;
     }
+  }
+
+  @media (max-width: 630px) {
+    h1 {
+      font-size: 40px;
+
+      span {
+        font-size: 30px;
+      }
+    }
+  }
+
+  &.banner-home {
+    height: 550px;
+
+    h1 {
+      margin-bottom: 20px;
+      line-height: 1.2;
+      font-size: 45px;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: 300;
+    }
 
     @media (max-width: 630px) {
-      .line-1 {
-        font-size: 40px;
+      height: 450px;
+
+      h1 {
+        font-size: 35px;
       }
 
-      .line-2 {
-        font-size: 30px;
+      p {
+        font-size: 18px;
       }
     }
   }
