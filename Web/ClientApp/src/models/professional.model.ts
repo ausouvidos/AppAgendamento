@@ -5,6 +5,8 @@ export default class Professional {
   public funcao?: string;
   public email?: string;
   public linkedIn?: string;
+  public idealizador?: boolean;
+  public registro?: string;
 
   public get nomeCompleto() {
     return `${this.nome} ${this.ultimoNome}`;
@@ -21,5 +23,7 @@ export default class Professional {
     this.funcao = obj?.funcao;
     this.email = obj?.email;
     this.linkedIn = obj?.linkedIn;
+    this.idealizador = obj?.idealizador;
+    this.registro = obj?.registro;
   }
 }

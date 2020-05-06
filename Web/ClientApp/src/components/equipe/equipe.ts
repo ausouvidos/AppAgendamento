@@ -5,12 +5,15 @@ import Professional from '@/models/professional.model';
 @Component
 export default class Equipe extends Vue {
   private teamMembers: Professional[] = [];
+  private idealizadores: Professional[] = [];
 
   private mounted() {
     this.fetchData();
   }
 
   private async fetchData() {
-    this.teamMembers = await teamService.getMembers();
+    const members = await teamService.getMembers();
+    this.teamMembers = members.filter((a) => !a.idealizador);
+    this.idealizadores = members.filter((a) => a.idealizador);
   }
 }

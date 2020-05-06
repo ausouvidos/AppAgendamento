@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
@@ -26,7 +27,7 @@ namespace Services.Team
             var result = await client.GetAsync("profissionais");
             result.EnsureSuccessStatusCode();
             using var responseStream = await result.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<IEnumerable<Professional>>(responseStream);
+            return (await JsonSerializer.DeserializeAsync<IEnumerable<Professional>>(responseStream))?.OrderBy(a => $"{a.Nome} {a.UltimoNome}");
         }
     }
 }

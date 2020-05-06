@@ -8,5 +8,7 @@
         public string Funcao { get; set; }
         public string Email { get; set; }
         public string LinkedIn { get; set; }
+        public bool? Idealizador { get; set; }
+        public string Registro { get; set; }
     }
 }
