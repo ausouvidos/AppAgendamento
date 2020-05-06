@@ -28,9 +28,11 @@
     bottom: 0;
     left: 0;
     padding: 10px 30px;
-    background: rgba(0, 0, 0, 0.3);
     color: $white;
-
+    
+    &.bg-alpha {
+      background: rgba(70, 66, 97, 0.6);
+    }
   }
 
   h1 {

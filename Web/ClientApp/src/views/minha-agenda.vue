@@ -1,11 +1,14 @@
 <template>
   <div class="container-xl">
+    <h1>Sou psicólogo</h1>
     <div v-if="isLoggedIn === true">
-      <h1>Minha agenda</h1>
       <p>Adicione um horário em sua agenda para o atendimento.</p>
       <calendar-psicologo></calendar-psicologo>
     </div>
-    <button v-if="isLoggedIn === false" class="btn btn-primary" @click="signIn">Login</button>
+    <div v-if="isLoggedIn === false">
+      <p>É necessário estar logado para acessar esta página.</p>
+      <button class="btn btn-primary" @click="signIn">Fazer login</button>
+    </div>
   </div>
 </template>
 

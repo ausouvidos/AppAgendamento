@@ -2,11 +2,10 @@
   <div>
     <div class="banner">
       <img class="banner-image" src="@/assets/banner-sobre.jpg" alt="">
-      <div class="banner-text">
-        <h1>Aus Ouvidos <span>Uma ousadia na escuta</span></h1>
-      </div>
+      <div class="banner-text bg-alpha"></div>
     </div>
     <div class="container-xl">
+      <h1>Conheça a Aus Ouvidos</h1>
       <div class="text-big">
         <p>De imediato, uma estranheza ou um ruído chega aos ouvidos de quem lê ou ouve. Sim: <strong>Aus Ouvidos</strong>! Uma ideia que emerge em um momento de desassossegos, atritos; em meio a tantas adversidades e particularidades cotidianas, em uma época que exige um estado de felicidade constante, tempo que se avalia por quantidade de curtidas ou visualizações dígito-virtuais. Nesse contexto, muitas vezes o escutar se reduz a breves mensagens de áudios; e a escrita, por sua vez, torna-se, cada vez mais abreviada. Quando, por consequência, as relações e os laços são enfraquecidos, as seguintes questões ecoam: de que forma a escuta se estabelece entre nós e quais os laços que são construídos a partir dela. <strong>Aus Ouvidos</strong> é uma proposta que busca refletir sobre estas questões.</p>
         <p>A exigência de sucesso consome a todos e a cada um em momentos distintos; nosso laser e nossas relações parecem não mais nos pertencer. O abandono de si, diante de tal exigência, é acentuado, quase inevitável, pois parece não haver espaço e tempo para se escutar, escutar e escutar ao outro. A lei bruta de uma felicidade obrigatória, sensação com a qual apenas o sucesso combina, impera para a desconstrução de laços. Não podemos mostrar fragilidade.</p>
@@ -16,8 +15,8 @@
         <p><strong>Aus Ouvidos</strong> parte de uma equipe formada por profissionais que trabalham na construção de uma escuta qualificada para promover a constituição de vínculos fortalecimento de laços com o objetivo primordial de prevenção de suicídios e resgate de vidas. </p>
         <p>Todo o trabalho é metodologicamente desenvolvido por meio de intervenções lúdicas, provocativas e reflexivas, servindo-se das artes cênicas, da palhaçaria e do samba no formato de rodas de conversa. <strong>Aus Ouvidos</strong> é uma iniciativa multidisciplinar que envolve e relaciona <strong>a psicóloga/psicanalista, o palhaço/artista, o educador/pedagogo e sambista</strong> com recursos da arte. Nele, ferramentas cênicas, como a palhaçaria e o samba, apresentam-se para a construção de diálogos e reflexões sobre temas diversos como forma de provocação a partir de uma leitura seguida de uma intervenção psicanalítica e artística tendo em vista envolvimentos pessoais com a escuta.</p>
       </div>
-      <equipe />
     </div>
+    <equipe />
   </div>
 </template>
 

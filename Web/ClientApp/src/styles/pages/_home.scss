@@ -1,17 +1,16 @@
+.home-page {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+  }
+}
+
 .home-box-1 {
-  margin-left: -15px;
-  margin-right: -15px;
   padding: 40px 0;
-  background: url('~@/assets/bg-world.png') 0 80px no-repeat;
+  background: url('~@/assets/bg-world.png') center 80px no-repeat;
   background-size: 600px;
 
   @media (max-width: 767px) {
     padding-bottom: 0;
-  }
-
-  > .row {
-    max-width: 750px;
-    margin: 0 auto;
   }
 }
 
