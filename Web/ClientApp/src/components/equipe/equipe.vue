@@ -7,6 +7,7 @@
           <img class="member-photo" :src="teamMember.photoUrl" alt="">
           <h2 class="member-name">{{ teamMember.nomeCompleto }}</h2>
           <p>{{ teamMember.funcao }}</p>
+          <p v-if="teamMember.registro">{{ teamMember.registro }}</p>
           <div class="member-social">
             <a v-if="teamMember.email" :href="`mailto:${teamMember.email}`" class="icon icon-mail">
               <svg aria-hidden="true" width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor">
@@ -28,6 +29,7 @@
           <img class="member-photo" :src="teamMember.photoUrl" alt="">
           <h2 class="member-name">{{ teamMember.nomeCompleto }}</h2>
           <p>{{ teamMember.funcao }}</p>
+          <p v-if="teamMember.registro">{{ teamMember.registro }}</p>
           <div class="member-social">
             <a v-if="teamMember.email" :href="`mailto:${teamMember.email}`" class="icon icon-mail">
               <svg aria-hidden="true" width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor">
