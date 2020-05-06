@@ -82,4 +82,8 @@ export default class CalendarPsicologo extends Vue {
       this.isLoading = false;
     }
   }
+
+  private async eventClick(arg: any) {
+    console.log(arg);
+  }
 }

@@ -21,7 +21,8 @@
       }"
       :locale="calendarLocale"
       :plugins="calendarPlugins"
-      :events="events"></full-calendar>
+      :events="events"
+      @eventClick="eventClick"></full-calendar>
 
     <b-modal
       ref="availability-modal"

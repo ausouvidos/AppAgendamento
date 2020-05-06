@@ -1,13 +1,10 @@
 import Availability from './availability.model';
 
-export default class AvailabilityEventUI {
-  public start: Date;
-  public end: Date;
+export default class AvailabilityEventUI extends Availability {
   public classNames: string;
 
   constructor(obj: Availability) {
-    this.start = obj.start;
-    this.end = obj.end;
+    super(obj);
     this.classNames = obj.isFree ? '' : 'reserved';
   }
 }

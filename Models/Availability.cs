@@ -15,6 +15,11 @@ namespace Models
         public string CustomerEmail { get; set; }
         public string CustomerMobile { get; set; }
 
+        public string Observations { get; set; }
+        public string Notes { get; set; }
+        public DateTime CompletedDate { get; set; }
+        public bool IsCompleted { get; set; }
+
         public byte[] RowVersion { get; set; }
     }
 }
