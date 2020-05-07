@@ -33,7 +33,7 @@ export default new Router({
     },
     {
       path: '*',
-      component: () => import('./views/not-found.vue')
+      component: () => import('./views/not-found.vue'),
     },
   ],
   scrollBehavior(to, from, savedPosition) {

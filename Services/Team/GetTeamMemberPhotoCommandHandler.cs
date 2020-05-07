@@ -27,7 +27,8 @@ namespace Services.Team
             var result = await client.GetAsync($"profissionais/{request.MemberId}/photo");
             result.EnsureSuccessStatusCode();
             var contents = await result.Content.ReadAsByteArrayAsync();
-            var filename = request.MemberId + Path.GetExtension(result.Content.Headers.ContentDisposition.FileName);
+            var extension = Path.GetExtension(result?.Content?.Headers?.ContentDisposition?.FileName) ?? ".jpg";
+            var filename = request.MemberId + extension;
 
             return new Image
             {
