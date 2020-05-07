@@ -15,5 +15,5 @@ import CalendarPaciente from '@/components/calendar-paciente/calendar-paciente.v
     CalendarPaciente,
   },
 })
-export default class AgendarConsulta extends Vue {}
+export default class SouPaciente extends Vue {}
 </script>

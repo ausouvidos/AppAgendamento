@@ -29,5 +29,5 @@ import Equipe from '@/components/equipe/equipe.vue';
     Equipe,
   },
 })
-export default class Sobre extends Vue {}
+export default class Conheca extends Vue {}
 </script>

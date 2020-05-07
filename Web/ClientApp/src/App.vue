@@ -11,8 +11,8 @@
             alt="Projeto Aus Ouvidos">
         </router-link>
         <nav class="header-nav">
-          <router-link :to="{ name: 'minha-agenda' }" class="btn btn-outline-primary">Sou psicólogo</router-link>
-          <router-link :to="{ name: 'agendar-consulta' }" class="btn btn-primary">Sou paciente</router-link>
+          <router-link :to="{ name: 'sou-psicologo' }" class="btn btn-outline-primary">Sou psicólogo</router-link>
+          <router-link :to="{ name: 'sou-paciente' }" class="btn btn-primary">Sou paciente</router-link>
         </nav>
       </div>
     </header>

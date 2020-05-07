@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import Sobre from './views/sobre.vue';
-import AgendarConsulta from './views/agendar-consulta.vue';
-import MinhaAgenda from './views/minha-agenda.vue';
+import Conheca from './views/conheca.vue';
+import SouPaciente from './views/sou-paciente.vue';
+import SouPsicologo from './views/sou-psicologo.vue';
 
 Vue.use(Router);
 
@@ -17,19 +17,23 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/sobre',
-      name: 'sobre',
-      component: Sobre,
+      path: '/conheca-a-aus-ouvidos',
+      name: 'conheca',
+      component: Conheca,
     },
     {
-      path: '/agendar-consulta',
-      name: 'agendar-consulta',
-      component: AgendarConsulta,
+      path: '/sou-paciente',
+      name: 'sou-paciente',
+      component: SouPaciente,
     },
     {
-      path: '/minha-agenda',
-      name: 'minha-agenda',
-      component: MinhaAgenda,
+      path: '/sou-psicologo',
+      name: 'sou-psicologo',
+      component: SouPsicologo,
+    },
+    {
+      path: '*',
+      component: () => import('./views/not-found.vue')
     },
   ],
   scrollBehavior(to, from, savedPosition) {

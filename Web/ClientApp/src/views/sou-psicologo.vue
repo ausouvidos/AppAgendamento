@@ -21,7 +21,7 @@ import CalendarPsicologo from '@/components/calendar-psicologo/calendar-psicolog
     CalendarPsicologo,
   },
 })
-export default class MinhaAgenda extends Vue {
+export default class SouPsicologo extends Vue {
   private isLoggedIn: boolean | null = null;
 
   private mounted() {
