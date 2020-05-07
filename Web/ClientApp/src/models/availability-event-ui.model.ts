@@ -1,10 +1,18 @@
 import Availability from './availability.model';
 
 export default class AvailabilityEventUI extends Availability {
-  public classNames: string;
+  public classNames: string[];
 
   constructor(obj: Availability) {
     super(obj);
-    this.classNames = obj.isFree ? '' : 'reserved';
+
+    this.classNames = [];
+
+    if (!obj.isFree) {
+      this.classNames.push('reserved');
+    }
+    if (obj.isCompleted) {
+      this.classNames.push('completed');
+    }
   }
 }

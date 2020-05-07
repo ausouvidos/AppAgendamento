@@ -1,11 +1,12 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { ModalPlugin } from 'bootstrap-vue';
+import { ModalPlugin, BvModalEvent } from 'bootstrap-vue';
 import moment from 'moment';
 import FullCalendar from '@fullcalendar/vue';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import ptbrLocale from '@fullcalendar/core/locales/pt-br';
 import availabilityService from '@/services/availability.service';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
+import CompleteAvailabilityRequest from '@/models/complete-availability-request.model';
 import AvailabilityEventUI from '@/models/availability-event-ui.model';
 
 Vue.use(ModalPlugin);
@@ -19,14 +20,20 @@ export default class CalendarPsicologo extends Vue {
   private calendarPlugins = [timeGridPlugin];
   private calendarLocale = ptbrLocale;
   private events: AvailabilityEventUI[] = [];
+  private selectedEvent: AvailabilityEventUI | null = null;
   private modalShow = false;
   private hasFailed = false;
   private errorMessage?: string = '';
+  private modalKeys = {
+    addAvailability: 'availability-modal',
+    futureEvent: 'future-event-modal',
+    pastEvent: 'past-event-modal',
+  };
 
   private customButtons = {
     addEvent: {
       text: 'Adicionar horário',
-      click: () => this.openAvailabilityModal(),
+      click: () => this.showModal(this.modalKeys.addAvailability),
     },
   };
   private availabilityDate = moment().format('YYYY-MM-DD');
@@ -44,15 +51,21 @@ export default class CalendarPsicologo extends Vue {
     this.events = availabilities.map((item) => new AvailabilityEventUI(item));
   }
 
-  private openAvailabilityModal() {
-    (this.$refs['availability-modal'] as any).show();
+  private resetErrorMessage() {
+    this.hasFailed = false;
+    this.errorMessage = '';
   }
 
-  private closeModal() {
-    (this.$refs['availability-modal'] as any).hide();
+  private showModal(key: string) {
+    this.resetErrorMessage();
+    (this.$refs[key] as any).show();
   }
 
-  private async addAvailability(bvModalEvt: any) {
+  private hideModal(key: string) {
+    (this.$refs[key] as any).hide();
+  }
+
+  private async addAvailability(bvModalEvt: BvModalEvent) {
     bvModalEvt.preventDefault();
 
     if (this.isLoading || !this.availabilityDate || !this.availabilityTimeStart) {
@@ -68,22 +81,79 @@ export default class CalendarPsicologo extends Vue {
         end: moment(`${this.availabilityDate}T${this.availabilityTimeStart}`).add(1, 'hour').toDate(),
       }];
       const response = await availabilityService.add(data);
-      this.hasFailed = !response.succeeded;
       if (response.succeeded) {
         this.fetchData();
-        this.closeModal();
+        this.hideModal(this.modalKeys.addAvailability);
       } else {
+        this.hasFailed = true;
         this.errorMessage = response.message;
-        console.error('error', response.message);
       }
     } catch (error) {
-      console.error(error);
+      this.hasFailed = true;
     } finally {
       this.isLoading = false;
     }
   }
 
-  private async eventClick(arg: any) {
-    console.log(arg);
+  private async eventClick({ event }: any) {
+    this.selectedEvent = this.events.find((e) => e.id === parseInt(event.id, 10)) || null;
+    if (this.selectedEvent) {
+      this.showModal(this.selectedEvent.isFree ? this.modalKeys.futureEvent : this.modalKeys.pastEvent);
+    }
+  }
+
+  private async removeAvailability(bvModalEvt: BvModalEvent) {
+    bvModalEvt.preventDefault();
+
+    if (this.isLoading || !this.selectedEvent || !confirm('Tem certeza que deseja remover este horáro?')) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    try {
+      const response = await availabilityService.remove(this.selectedEvent.id);
+      if (response.succeeded) {
+        this.fetchData();
+        this.hideModal(this.modalKeys.futureEvent);
+      } else {
+        this.hasFailed = true;
+        this.errorMessage = response.message;
+      }
+    } catch (error) {
+      this.hasFailed = true;
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private async completeAvailability(bvModalEvt: BvModalEvent) {
+    bvModalEvt.preventDefault();
+
+    if (this.isLoading || !this.selectedEvent) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    try {
+      const data = new CompleteAvailabilityRequest({
+        id: this.selectedEvent.id,
+        notas: this.selectedEvent.notes,
+        observacoes: this.selectedEvent.observations,
+      });
+      const response = await availabilityService.complete(data);
+      if (response.succeeded) {
+        this.fetchData();
+        this.hideModal(this.modalKeys.pastEvent);
+      } else {
+        this.hasFailed = true;
+        this.errorMessage = response.message;
+      }
+    } catch (error) {
+      this.hasFailed = true;
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

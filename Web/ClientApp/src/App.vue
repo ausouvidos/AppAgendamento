@@ -17,9 +17,7 @@
       </div>
     </header>
     <section class="main-content">
-      <keep-alive :max="5">
-        <router-view />
-      </keep-alive>
+      <router-view />
     </section>
     <footer class="footer">
       <div class="container-xl">

@@ -33,19 +33,40 @@
   }
 
   .fc-event {
-    font-weight: bold;
-    background-color: $primary;
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+    padding-right: 4px;
     border-color: $primary;
+    background-color: $primary;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    font-weight: bold;
     color: $white;
-    
+
     &:hover {
       color: $white;
+      background-color: darken($primary, 8%);
     }
     
     &.reserved {
       background: $secondary;
       border-color: $secondary;
       color: $white;
+
+      &:hover {
+        background-color: darken($secondary, 8%);
+      }
+    }
+    
+    &.completed {
+      &:after {
+        content: '\2713';
+        margin-left: auto;
+        margin-right: 2px;
+        font-size: 15px;
+        color: $white;
+      }
     }
   }
 }

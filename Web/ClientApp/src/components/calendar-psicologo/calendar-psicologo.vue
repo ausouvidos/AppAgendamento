@@ -53,6 +53,52 @@
         <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao adicionar o horário, por favor tente novamente.'}}</div>
       </div>
     </b-modal>
+
+    <b-modal
+      ref="future-event-modal"
+      :modal-class="{'loading':isLoading}"
+      :no-close-on-esc="isLoading"
+      :no-close-on-backdrop="isLoading"
+      cancel-title="Fechar"
+      cancel-variant="outline-primary"
+      ok-title="Remover horário"
+      ok-variant="danger"
+      @ok="removeAvailability">
+      <template v-slot:modal-title>Horário disponível</template>
+      <div v-if="selectedEvent">
+        <p class="font-weight-bold">{{ selectedEvent.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ selectedEvent.end | date('H:mm') }}</p>
+        <p>Este horário está disponível para agendamento.</p>
+        <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao remover o horário, por favor tente novamente.'}}</div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      ref="past-event-modal"
+      :modal-class="{'loading':isLoading}"
+      :no-close-on-esc="isLoading"
+      :no-close-on-backdrop="isLoading"
+      cancel-title="Fechar"
+      cancel-variant="outline-primary"
+      ok-title="Salvar"
+      @ok="completeAvailability">
+      <template v-slot:modal-title>Detalhes da consulta</template>
+      <div v-if="selectedEvent">
+        <p class="font-weight-bold">{{ selectedEvent.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ selectedEvent.end | date('H:mm') }}</p>
+        <p>
+          Paciente:<br>
+          {{ selectedEvent.customerName }} | {{ selectedEvent.customerEmail }}
+        </p>
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea class="form-control" cols="50" rows="5" v-model="selectedEvent.observations"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Notas</label>
+          <textarea class="form-control" cols="50" rows="5" v-model="selectedEvent.notes"></textarea>
+        </div>
+        <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao salvar os detalhes da consulta, por favor tente novamente.'}}</div>
+      </div>
+    </b-modal>
   </div>
 </template>
 

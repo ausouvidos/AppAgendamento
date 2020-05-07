@@ -4,26 +4,31 @@ import Availability from '@/models/availability.model';
 import AvailabilityDate from '@/models/availability-date.model';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
+import CompleteAvailabilityRequest from '@/models/complete-availability-request.model';
 import ApiResponse from '@/models/api-response';
 
 class AvailabilityService {
   public async add(data: AddAvailabilitiesRequest): Promise<ApiResponse> {
     const url = '/api/Availabilities/Add';
-    const response = await axios.post(url, data, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
-      },
-    });
+    const response = await axios.post(url, data, this.getAuthOptions());
+    return response.data;
+  }
+
+  public async complete(data: CompleteAvailabilityRequest): Promise<ApiResponse> {
+    const url = '/api/Availabilities/Complete';
+    const response = await axios.put(url, data, this.getAuthOptions());
+    return response.data;
+  }
+
+  public async remove(id: number): Promise<ApiResponse> {
+    const url = `/api/Availabilities/Remove/${id}`;
+    const response = await axios.delete(url, this.getAuthOptions());
     return response.data;
   }
 
   public async getMyAvailabilities(): Promise<Availability[]> {
     const url = '/api/Availabilities/MyAvailabilities';
-    const response = await axios.get<Availability[]>(url, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
-      },
-    });
+    const response = await axios.get<Availability[]>(url, this.getAuthOptions());
     return response.data.map((item) => new Availability(item));
   }
 
@@ -40,6 +45,14 @@ class AvailabilityService {
       data.saveCache();
     }
     return response.data;
+  }
+
+  private getAuthOptions() {
+    return {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('msal.idtoken')}`,
+      },
+    };
   }
 }
 
