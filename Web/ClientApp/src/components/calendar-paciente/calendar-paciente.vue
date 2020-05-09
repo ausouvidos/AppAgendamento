@@ -87,6 +87,18 @@
               <span class="invalid-feedback">{{ errors[0] }}</span>
             </validation-provider>
           </div>
+          <div class="form-group">
+            <label for="reservation-voucher">Voucher<small aria-hidden="true">*</small></label>
+            <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
+              <input
+                type="text"
+                id="reservation-voucher"
+                v-model="reservation.voucher"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
           <div id="recaptcha-container"></div>
           <validation-provider rules="required" v-slot="{ errors }">
             <input ref="captchaInput" type="hidden" v-model="reservation.recaptchaResponse">

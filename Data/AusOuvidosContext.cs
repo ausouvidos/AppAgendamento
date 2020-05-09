@@ -9,6 +9,8 @@ namespace Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
         public AusOuvidosContext(DbContextOptions<AusOuvidosContext> options) : base(options)
         {
 
@@ -21,6 +23,23 @@ namespace Data
                 .Property(p => p.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
+
+            modelBuilder
+               .Entity<Company>()
+               .Property(p => p.RowVersion)
+               .IsConcurrencyToken()
+               .ValueGeneratedOnAddOrUpdate();
+
+            modelBuilder.Entity<Voucher>()
+                .HasOne(a => a.Company)
+                .WithMany(a => a.Vouchers)
+                .HasForeignKey(a => a.CompanyId);
+
+            modelBuilder.Entity<Availability>()
+                .HasOne(a => a.Voucher)
+                .WithMany(a => a.Availabilities)
+                .HasForeignKey(a => a.VoucherId)
+                .IsRequired(false);
         }
     }
 }

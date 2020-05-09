@@ -5,6 +5,7 @@ export default class ReserveSpotRequest {
   public start?: Date;
   public end?: Date;
   public recaptchaResponse?: string;
+  public voucher?: string;
 
   constructor() {
     this.name = sessionStorage.getItem('reservationName') || '';

@@ -20,6 +20,9 @@ namespace Models
         public DateTime CompletedDate { get; set; }
         public bool IsCompleted { get; set; }
 
+        public int? VoucherId { get; set; }
+        public Voucher Voucher { get; set; }
+
         public byte[] RowVersion { get; set; }
     }
 }

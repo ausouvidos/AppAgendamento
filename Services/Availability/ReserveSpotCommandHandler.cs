@@ -28,39 +28,51 @@ namespace Services.Availability
             }
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-
-            var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
-            if (canReserveSpot)
+            
+            var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Voucher });
+            if (voucher != null)
             {
-                var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
-                if (availability != null)
+                var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
+                if (canReserveSpot)
                 {
-                    try
+                    var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
+                    if (availability != null)
                     {
-                        availability.CustomerEmail = request.Email;
-                        availability.CustomerName = request.Name;
-                        availability.CustomerMobile = request.Mobile;
-                        availability.IsFree = false;
+                        try
+                        {
+                            availability.CustomerEmail = request.Email;
+                            availability.CustomerName = request.Name;
+                            availability.CustomerMobile = request.Mobile;
+                            availability.IsFree = false;
+                            availability.VoucherId = voucher.Id;
 
-                        _db.Availabilities.Update(availability);
-                        await _db.SaveChangesAsync();
+                            _db.Availabilities.Update(availability);
 
-                        await _mediator.Publish(new ReservedSpotNotification { Availability = availability });
+                            await _mediator.Publish(new RedeemVoucherNotification { Voucher = voucher });
 
-                        scope.Complete();
+                            await _db.SaveChangesAsync();
 
-                        return ApiResponse.Success();
+                            await _mediator.Publish(new ReservedSpotNotification { Availability = availability });
+
+                            scope.Complete();
+
+                            return ApiResponse.Success();
+                        }
+                        catch { }
                     }
-                    catch { }
+                    else
+                    {
+                        return ApiResponse.Error("O horário selecionado já foi reservado por outra pessoa. Por favor, escolha um novo horário.");
+                    }
                 }
                 else
                 {
-                    return ApiResponse.Error("O horário selecionado já foi reservado por outra pessoa. Por favor, escolha um novo horário.");
+                    return ApiResponse.Error("Já existe uma reserva para esse usuário");
                 }
             }
             else
             {
-                return ApiResponse.Error("Já existe uma reserva para esse usuário");
+                return ApiResponse.Error("O Voucher é inválido ou está expirado.");
             }
 
             return ApiResponse.Error("Um erro aconteceu ao fazer o agendamento. Por favor, tente novamente mais tarde");
