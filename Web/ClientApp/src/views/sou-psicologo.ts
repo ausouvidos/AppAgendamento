@@ -1,8 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { ModalPlugin } from 'bootstrap-vue';
 import CalendarPsicologo from '@/components/calendar-psicologo/calendar-psicologo.vue';
-
-Vue.use(ModalPlugin);
 
 @Component({
   components: {

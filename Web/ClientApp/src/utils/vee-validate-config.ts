@@ -9,3 +9,4 @@ configure({ classes: { invalid: 'is-invalid' } });
 extend('required', required);
 extend('email', email);
 extend('phone', (value) => /^[\d]{10,11}$/.test(value) ? true : 'O campo {_field_} deve ser um telefone válido');
+extend('cep', (value) => /^[\d]{8}$/.test(value) ? true : 'O campo {_field_} deve ser um CEP válido');

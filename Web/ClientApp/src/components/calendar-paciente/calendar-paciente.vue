@@ -88,7 +88,16 @@
             </validation-provider>
           </div>
           <div class="form-group">
-            <label for="reservation-voucher">Voucher<small aria-hidden="true">*</small></label>
+            <label for="reservation-voucher" class="d-flex align-items-center">
+              <span>Voucher</span>
+              <small aria-hidden="true">*</small>
+              <a
+                href="javascript:void(0)"
+                class="badge badge-pill badge-primary ml-1"
+                v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
+                aria-label="O que é o voucher?">?</a>
+              <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pb-0">Não tenho um voucher</button>
+            </label>
             <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
               <input
                 type="text"
@@ -101,7 +110,7 @@
           </div>
           <div id="recaptcha-container"></div>
           <validation-provider rules="required" v-slot="{ errors }">
-            <input ref="captchaInput" type="hidden" v-model="reservation.recaptchaResponse">
+            <input ref="reservation-captcha" type="hidden" v-model="reservation.recaptchaResponse">
             <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
           </validation-provider>
           <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
@@ -114,6 +123,143 @@
       <p>Em breve você receberá um email com os próximos passos.</p>
       <h6 class="font-weight-bold mt-5">Data da consulta:</h6>
       <p>{{ reservation.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservation.end | date('H:mm') }}</p>
+    </b-modal>
+
+    <b-modal
+      ref="company-modal"
+      :modal-class="{'loading':isLoading}"
+      :no-close-on-esc="isLoading"
+      :no-close-on-backdrop="isLoading"
+      cancel-title="Cancelar"
+      cancel-variant="outline-primary"
+      ok-title="Enviar"
+      @ok="handleOkCompany">
+      <template v-slot:modal-title>Sugerir uma instituição</template>
+      <p>Se você acredita que a instituição na qual você trabalha não faz parte do nosso projeto, você pode sugerí-la para agilizar este processo.</p>
+      <validation-observer ref="observerCompany">
+        <form @submit="addCompany">
+          <div class="form-group">
+            <label for="company-name">Nome da instituição<small aria-hidden="true">*</small></label>
+            <validation-provider name="Nome da instituição" rules="required" v-slot="{ classes, errors }">
+              <input
+                type="text"
+                id="company-name"
+                v-model="newCompany.name"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+          <div class="form-group">
+            <label for="company-address">Endereço<small aria-hidden="true">*</small></label>
+            <validation-provider name="Endereço" rules="required" v-slot="{ classes, errors }">
+              <input
+                type="text"
+                id="company-address"
+                v-model="newCompany.address"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label for="company-district">Bairro<small aria-hidden="true">*</small></label>
+              <validation-provider name="Bairro" rules="required" v-slot="{ classes, errors }">
+                <input
+                  type="text"
+                  id="company-district"
+                  v-model="newCompany.district"
+                  :class="['form-control', classes]"
+                  :disabled="isLoading">
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group col-sm">
+              <label for="company-city">Cidade<small aria-hidden="true">*</small></label>
+              <validation-provider name="Cidade" rules="required" v-slot="{ classes, errors }">
+                <input
+                  type="text"
+                  id="company-city"
+                  v-model="newCompany.city"
+                  :class="['form-control', classes]"
+                  :disabled="isLoading">
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label for="company-state">Estado<small aria-hidden="true">*</small></label>
+              <validation-provider name="Estado" rules="required" v-slot="{ classes, errors }">
+                <select
+                  id="company-state"
+                  v-model="newCompany.state"
+                  :class="['custom-select', classes]"
+                  :disabled="isLoading">
+                  <option value="">Selecione</option>
+                  <option v-for="(estado, index) in estados" :key="index">{{ estado }}</option>
+                </select>
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group col-sm">
+              <label for="company-zipCode">CEP<small aria-hidden="true">*</small></label>
+              <validation-provider name="CEP" rules="required|cep" v-slot="{ classes, errors }">
+                <the-mask
+                  type="text"
+                  id="company-zipCode"
+                  placeholder="99999-999"
+                  mask="#####-###"
+                  v-model="newCompany.zipCode"
+                  :class="['form-control', classes]"
+                  :disabled="isLoading" />
+
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label for="company-phone">Telefone<small aria-hidden="true">*</small></label>
+              <validation-provider name="Telefone" rules="required|phone" v-slot="{ classes, errors }">
+                <the-mask
+                  type="tel"
+                  id="company-phone"
+                  placeholder="(99) 99999-9999"
+                  v-model="newCompany.phone"
+                  :class="['form-control', classes]"
+                  :mask="['(##) ####-####', '(##) #####-####']"
+                  :disabled="isLoading" />
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group col-sm">
+              <label for="company-contactPerson">Nome para contato<small aria-hidden="true">*</small></label>
+              <validation-provider name="Nome para contato" rules="required" v-slot="{ classes, errors }">
+                <input
+                  type="text"
+                  id="company-contactPerson"
+                  v-model="newCompany.contactPerson"
+                  :class="['form-control', classes]"
+                  :disabled="isLoading">
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+          </div>
+          <div id="recaptcha-container-company"></div>
+          <validation-provider rules="required" v-slot="{ errors }">
+            <input ref="company-captcha" type="hidden" v-model="newCompany.recaptchaResponse">
+            <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
+          </validation-provider>
+          <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
+        </form>
+      </validation-observer>
+    </b-modal>
+
+    <b-modal ref="company-confirmation-modal" hide-footer no-close-on-esc no-close-on-backdrop modal-class="text-center">
+      <template v-slot:modal-title>Sugestão enviada com sucesso</template>
+      <p>Obrigado! Em breve entraremos em contato com a instituição sugerida.</p>
     </b-modal>
   </div>
 </template>

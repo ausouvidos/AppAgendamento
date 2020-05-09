@@ -1,4 +1,7 @@
 .modal {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
   &.loading {
     button {
       pointer-events: none;

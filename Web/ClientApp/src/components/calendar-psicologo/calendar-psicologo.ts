@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { ModalPlugin, BvModalEvent } from 'bootstrap-vue';
+import { BvModalEvent } from 'bootstrap-vue';
 import moment from 'moment';
 import FullCalendar from '@fullcalendar/vue';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -8,8 +8,6 @@ import availabilityService from '@/services/availability.service';
 import AddAvailabilitiesRequest from '@/models/add-availabilities-request.model';
 import CompleteAvailabilityRequest from '@/models/complete-availability-request.model';
 import AvailabilityEventUI from '@/models/availability-event-ui.model';
-
-Vue.use(ModalPlugin);
 
 @Component({
   components: {
