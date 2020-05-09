@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { TheMask } from 'vue-the-mask';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import '@/utils/vee-validate-config';
+import analytics from '@/utils/analytics';
 import availabilityService from '@/services/availability.service';
 import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import SpotSchedule from '@/models/spot-schedule.model';
@@ -59,8 +60,10 @@ export default class CalendarPaciente extends Vue {
 
     try {
       if (prevOrNext >= 0) {
+        analytics.sendEvent('paciente', 'navegacao_proxima_semana');
         await this.schedule.nextWeek();
       } else {
+        analytics.sendEvent('paciente', 'navegacao_semana_anterior');
         await this.schedule.previousWeek();
       }
     } catch (error) {
@@ -92,6 +95,7 @@ export default class CalendarPaciente extends Vue {
         this.hideReservationModal();
         this.showConfirmationModal();
         this.fetchData();
+        analytics.sendEvent('paciente', 'agendamento_concluido');
       } else {
         this.hasFailed = true;
         this.errorMessage = response.message;
@@ -111,6 +115,7 @@ export default class CalendarPaciente extends Vue {
     this.reservation.recaptchaResponse = '';
     (this.$refs['reservation-modal'] as any).show();
     this.renderRecaptcha();
+    analytics.sendEvent('paciente', 'agendamento_modal');
   }
 
   private renderRecaptcha() {
