@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,9 @@ namespace AusOuvidos.Controllers
         {
             return await _memoryCache.GetOrCreateAsync(memberId, async (entry) =>
             {
+                entry.SetSlidingExpiration(TimeSpan.FromMinutes(1));
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+
                 var image = await Mediator.Send(new GetTeamMemberPhotoCommand { MemberId = memberId });
                 return File(image.Contents, "application/octet-stream", image.Name);
             });
