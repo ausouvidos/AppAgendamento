@@ -21,7 +21,6 @@ export default class CalendarPsicologo extends Vue {
   private calendarLocale = ptbrLocale;
   private events: AvailabilityEventUI[] = [];
   private selectedEvent: AvailabilityEventUI | null = null;
-  private modalShow = false;
   private hasFailed = false;
   private errorMessage?: string = '';
   private modalKeys = {
@@ -29,7 +28,6 @@ export default class CalendarPsicologo extends Vue {
     futureEvent: 'future-event-modal',
     pastEvent: 'past-event-modal',
   };
-
   private customButtons = {
     addEvent: {
       text: 'Adicionar horário',
@@ -47,8 +45,12 @@ export default class CalendarPsicologo extends Vue {
   }
 
   private async fetchData() {
-    const availabilities = await availabilityService.getMyAvailabilities();
-    this.events = availabilities.map((item) => new AvailabilityEventUI(item));
+    try {
+      const availabilities = await availabilityService.getMyAvailabilities();
+      this.events = availabilities.map((item) => new AvailabilityEventUI(item));
+    } catch (error) {
+      this.handleAPIError(error);
+    }
   }
 
   private resetErrorMessage() {
@@ -90,6 +92,7 @@ export default class CalendarPsicologo extends Vue {
       }
     } catch (error) {
       this.hasFailed = true;
+      this.handleAPIError(error);
     } finally {
       this.isLoading = false;
     }
@@ -122,6 +125,7 @@ export default class CalendarPsicologo extends Vue {
       }
     } catch (error) {
       this.hasFailed = true;
+      this.handleAPIError(error);
     } finally {
       this.isLoading = false;
     }
@@ -152,8 +156,15 @@ export default class CalendarPsicologo extends Vue {
       }
     } catch (error) {
       this.hasFailed = true;
+      this.handleAPIError(error);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  private handleAPIError(error: any) {
+    if (error.response.status === 401) {
+      this.$emit('unauthorizedRequest');
     }
   }
 }
