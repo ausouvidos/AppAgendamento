@@ -19,3 +19,13 @@
 .form-group .badge {
   font-size: 12px;
 }
+
+.table-admin {
+  width: 100%;
+
+  &.table-clickable {
+    .el-table__body td {
+      cursor: pointer;
+    }
+  }
+}
