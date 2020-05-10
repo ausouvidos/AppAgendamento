@@ -7,6 +7,12 @@ import './plugins';
 import './filters';
 import './registerServiceWorker';
 
+import lang from 'element-ui/lib/locale/lang/pt-br';
+import locale from 'element-ui/lib/locale';
+
+locale.use(lang);
+
+
 Vue.config.productionTip = false;
 
 new Vue({

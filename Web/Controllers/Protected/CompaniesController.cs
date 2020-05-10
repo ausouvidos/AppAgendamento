@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AusOuvidos.Controllers.Protected;
 using Microsoft.AspNetCore.Authorization;
@@ -20,5 +21,15 @@ namespace AusOuvidos.Controllers
         {
             return await Mediator.Send(request);
         }
+
+        [HttpGet]
+        public async Task<IEnumerable<Company>> PendingApproval()
+        {
+            return await Mediator.Send(new GetPendingApprovalCompaniesCommand());
+        }
+
+        [HttpPost]
+        public async Task<ApiResponse> Approve([FromBody] ApproveCompanyCommand request) =>
+            await Mediator.Send(request);
     }
 }

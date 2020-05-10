@@ -5,6 +5,8 @@ import Home from './views/Home.vue';
 import Conheca from './views/conheca.vue';
 import SouPaciente from './views/sou-paciente.vue';
 import SouPsicologo from './views/sou-psicologo.vue';
+import EmpresasPendenteAprovacao from './views/empresas-pendente-aprovacao.vue';
+import userService from './services/user.service';
 
 Vue.use(Router);
 
@@ -36,6 +38,12 @@ const router =  new Router({
       meta: { title: 'Sou psicólogo' },
     },
     {
+      path: '/admin/empresas-pendentes-aprovacao',
+      name: 'empresas-pendente-aprovacao',
+      component: EmpresasPendenteAprovacao,
+      meta: { title: 'Empresas - pendente aprovação', requireAdmin: true },
+    },
+    {
       path: '*',
       component: () => import('./views/not-found.vue'),
       meta: { title: 'Página não encontrada' },
@@ -44,6 +52,28 @@ const router =  new Router({
   scrollBehavior(to, from, savedPosition) {
     return savedPosition ? savedPosition : { x: 0, y: 0 };
   },
+});
+
+router.beforeEach(async ({ meta, path }, from, next) => {
+  const checkAdmin =  async () => {
+    try {
+      return await userService.isAdmin();
+    } catch {
+      await userService.signIn();
+      return await userService.isAdmin();
+    }
+  };
+
+  if (meta.requireAdmin) {
+    const isAdmin = await checkAdmin();
+    if (isAdmin) {
+      return next();
+    }
+
+    return next('/');
+  } else {
+    return next();
+  }
 });
 
 router.afterEach(({ meta, path }) => {

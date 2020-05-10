@@ -1,4 +1,5 @@
 export default class Company {
+  public id: number;
   public name: string;
   public address: string;
   public district: string;
@@ -10,6 +11,7 @@ export default class Company {
   public recaptchaResponse: string;
 
   constructor(obj?: Company) {
+    this.id = obj?.id || 0;
     this.name = obj?.name || '';
     this.address = obj?.address || '';
     this.district = obj?.district || '';
