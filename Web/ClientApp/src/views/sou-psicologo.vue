@@ -26,8 +26,12 @@
           </a>
         </div>
         <div class="col-sm-4 mt-5 mt-sm-0">
-          <h2>Já sou inscrito</h2>
-          <button class="btn btn-primary" @click="signIn">Fazer login</button>
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">Área restrita</h2>
+              <button class="btn btn-primary" @click="signIn">Fazer login</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
