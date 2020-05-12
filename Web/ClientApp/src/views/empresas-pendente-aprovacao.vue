@@ -104,6 +104,15 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="company-contactPersonEmail">E-mail para contato</label>
+              <input
+                type="email"
+                id="company-contactPersonEmail"
+                v-model="newCompany.contactPersonEmail"
+                :class="['form-control']"
+                :disabled="true">
+          </div>
+          <div class="form-group">
             <label for="quantidade-vouchers">Quantidade de Vouchers</label>
             <input
               type="number"

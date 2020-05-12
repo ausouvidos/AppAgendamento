@@ -89,14 +89,14 @@
           </div>
           <div class="form-group">
             <label for="reservation-voucher" class="d-flex align-items-center">
-              <span>Voucher</span>
+              <span>Autorização</span>
               <small aria-hidden="true">*</small>
               <a
                 href="javascript:void(0)"
                 class="badge badge-pill badge-primary ml-1"
                 v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
-                aria-label="O que é o voucher?">?</a>
-              <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pb-0">Não tenho um voucher</button>
+                aria-label="O que é a autorização?">?</a>
+              <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pb-0">Não tenho uma autorização</button>
             </label>
             <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
               <input
@@ -134,7 +134,7 @@
       cancel-variant="outline-primary"
       ok-title="Enviar"
       @ok="handleOkCompany">
-      <template v-slot:modal-title>Sugerir uma instituição</template>
+      <template v-slot:modal-title>Cadastre sua instituição</template>
       <p>Se você acredita que a instituição na qual você trabalha não faz parte do nosso projeto, você pode sugerí-la para agilizar este processo.</p>
       <validation-observer ref="observerCompany">
         <form @submit="addCompany">
@@ -246,6 +246,18 @@
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </validation-provider>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="company-contactPersonEmail">E-mail para contato<small aria-hidden="true">*</small></label>
+            <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
+              <input
+                type="email"
+                id="company-contactPersonEmail"
+                v-model="newCompany.contactPersonEmail"
+                :class="['form-control', classes]"
+                :disabled="isLoading">
+              <span class="invalid-feedback">{{ errors[0] }}</span>
+            </validation-provider>
           </div>
           <div id="recaptcha-container-company"></div>
           <validation-provider rules="required" v-slot="{ errors }">

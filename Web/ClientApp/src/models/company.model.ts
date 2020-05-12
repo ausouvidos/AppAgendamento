@@ -8,6 +8,7 @@ export default class Company {
   public zipCode: string;
   public phone: string;
   public contactPerson: string;
+  public contactPersonEmail: string;
   public recaptchaResponse: string;
 
   constructor(obj?: Company) {
@@ -20,6 +21,7 @@ export default class Company {
     this.zipCode = obj?.zipCode || '';
     this.phone = obj?.phone || '';
     this.contactPerson = obj?.contactPerson || '';
+    this.contactPersonEmail = obj?.contactPersonEmail || '';
     this.recaptchaResponse = obj?.recaptchaResponse || '';
   }
 }

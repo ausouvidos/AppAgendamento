@@ -34,6 +34,7 @@ namespace Services.Company
                 Address = request.Address,
                 City = request.City,
                 ContactPerson = request.ContactPerson,
+                ContactPersonEmail = request.ContactPersonEmail,
                 District = request.District,
                 State = request.State,
                 Name = request.Name,

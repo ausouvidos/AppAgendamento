@@ -14,6 +14,7 @@ namespace Models
         public string ZipCode { get; set; }
         public string Phone { get; set; }
         public string ContactPerson { get; set; }
+        public string ContactPersonEmail { get; set; }
         public DateTime Created { get; set; }
         public Status Status { get; set; }
 

@@ -15,6 +15,7 @@ namespace Services.Company
         public string ZipCode { get; set; }
         public string Phone { get; set; }
         public string ContactPerson { get; set; }
+        public string ContactPersonEmail { get; set; }
 
         public string RecaptchaResponse { get; set; }
     }
