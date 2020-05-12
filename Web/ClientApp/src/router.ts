@@ -20,22 +20,22 @@ const router =  new Router({
       component: Home,
     },
     {
-      path: '/conheca-a-aus-ouvidos',
+      path: '/conheca-o-projeto',
       name: 'conheca',
       component: Conheca,
-      meta: { title: 'Conheça a Aus Ouvidos' },
+      meta: { title: 'Conheça o projeto' },
     },
     {
-      path: '/sou-paciente',
+      path: '/eu-preciso-de-ajuda',
       name: 'sou-paciente',
       component: SouPaciente,
-      meta: { title: 'Sou paciente' },
+      meta: { title: 'Eu preciso de ajuda' },
     },
     {
-      path: '/sou-psicologo',
+      path: '/eu-quero-ajudar',
       name: 'sou-psicologo',
       component: SouPsicologo,
-      meta: { title: 'Sou psicólogo' },
+      meta: { title: 'Eu quero ajudar' },
     },
     {
       path: '/admin/empresas-pendentes-aprovacao',
