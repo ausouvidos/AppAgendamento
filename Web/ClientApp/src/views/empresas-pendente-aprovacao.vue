@@ -108,7 +108,7 @@
               <input
                 type="email"
                 id="company-contactPersonEmail"
-                v-model="newCompany.contactPersonEmail"
+                v-model="selectedCompany.contactPersonEmail"
                 :class="['form-control']"
                 :disabled="true">
           </div>
