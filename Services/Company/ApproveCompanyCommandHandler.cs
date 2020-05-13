@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
@@ -21,6 +22,29 @@ namespace Services.Company
             this._db = db;
             this._mediator = mediator;
         }
+
+        private static string ByteArrayToHexString(byte[] ba)
+        {
+            return BitConverter.ToString(ba).Replace("-", "");
+        }
+
+        private string GenerateVoucherCode()
+        {
+            var generator = RandomNumberGenerator.Create();
+            var bytes = new byte[4];
+            generator.GetBytes(bytes);
+            var code = ByteArrayToHexString(bytes);
+
+            if (_db.Vouchers.Any(a => a.Token == code))
+            {
+                return GenerateVoucherCode();
+            }
+            else
+            {
+                return code;
+            }
+        }
+
         public async Task<ApiResponse> Handle(ApproveCompanyCommand request, CancellationToken cancellationToken)
         {
             var company = await _db.Companies.FindAsync(request.Id);
@@ -31,7 +55,8 @@ namespace Services.Company
                 var voucher = new Voucher();
                 voucher.CompanyId = company.Id;
                 voucher.RemainingRedeemCount = request.Quantidade;
-                voucher.Token = Guid.NewGuid().ToString();
+
+                voucher.Token = GenerateVoucherCode();
 
                 _db.Companies.Update(company);
                 await _db.Vouchers.AddAsync(voucher);
