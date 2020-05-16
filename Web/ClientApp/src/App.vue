@@ -11,8 +11,8 @@
             alt="Projeto Aus Ouvidos">
         </router-link>
         <nav class="header-nav">
-          <router-link :to="{ name: 'sou-psicologo' }" class="btn btn-outline-primary">Eu quero ajudar</router-link>
-          <router-link :to="{ name: 'sou-paciente' }" class="btn btn-primary">Eu preciso de ajuda</router-link>
+          <router-link :to="{ name: 'sou-psicologo' }" class="btn btn-outline-primary">Eu quero escutar</router-link>
+          <router-link :to="{ name: 'sou-paciente' }" class="btn btn-primary">Eu quero conversar</router-link>
         </nav>
       </div>
     </header>

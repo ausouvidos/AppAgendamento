@@ -4,7 +4,7 @@
       <img class="banner-image" src="@/assets/banner-home.jpg" alt="">
       <div class="banner-text">
         <h1>Aus Ouvidos é uma proposta de escuta<br class="d-none d-lg-block"> que se coloca aqui ao seu lado.</h1>
-        <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de<br class="d-none d-lg-block"> manter-se em protegido e proteger aos que de você dependem.</p>
+        <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de<br class="d-none d-lg-block"> manter-se protegido e proteger aos que de você dependem.</p>
       </div>
     </div>
     <div class="container-xl text-big">
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-7">
           <h4>Como está a minha vida, a vida de quem amo e a vida de quem cuido?</h4>
-          <p>Quem sou eu hoje meio a uma rotina que desconheço e como consigo minimamente me manter organizado, com condições de me proteger dos riscos de me infectar e infectar outros. Essas são questões que causam angustias intensas nos profissionais que estão na linha de frente ao combate à COVID-19. Estamos aqui para oferecer uma escuta especializada.</p>
+          <p>Quem sou eu hoje em meio a uma rotina que desconheço? Como consigo me manter minimamente organizado, com condições de me proteger dos riscos de me infectar e infectar outros? Essas são questões que causam angústias intensas nos profissionais que estão na linha de frente ao combate à COVID-19. Estamos aqui para oferecer uma escuta especializada.</p>
           <p class="font-weight-bold">Estamos aqui para ouvir você.</p>
           <router-link :to="{ name: 'sou-paciente' }" class="btn btn-primary">Agende um horário</router-link>
         </div>
@@ -29,9 +29,9 @@
         <div class="col-md-7 mt-5 mb-5">
           <h1>Somos humanos, somos frágeis.</h1>
           <p class="font-weight-bold">O que está acontecendo?</p>
-          <p>Nenhuma rotina de vida é mais a mesma, as rotinas de trabalho se tornam um desafio sem igual. Atenção e foco nos procedimentos causam ansiedade, stress e muitas vezes na sensação de impotência surge descontroles.</p>
-          <p>Somos humanos e não podemos esquecer disso, cada vida que se perde é uma sensação de dor que cada um apresenta de um modo.</p>
-          <p>Reconhecer a fragilidade é uma forma de enfrentamento. Estamos aqui para ouvir sobre suas angustias, falar é uma forma de reorganizar os pensamentos e reencontrar um ‘respiro’.</p>
+          <p>A rotina não é mais a mesma. As atividades do trabalho se tornam um desafio sem igual. Atenção e foco nos procedimentos durante esse período podem causar ansiedade, stress e, muitas vezes, sensação de impotência.</p>
+          <p>Somos humanos e não podemos nos esquecer disso. Cada vida que se perde é uma sensação de dor que cada um recebe de um modo.</p>
+          <p>Reconhecer a fragilidade é uma forma de enfrentamento. Estamos aqui para ouvir sobre suas angústias, falar é uma forma de reorganizar os pensamentos e reencontrar um "respiro".</p>
           <router-link :to="{ name: 'conheca' }" class="btn btn-primary">Conheça o projeto Aus Ouvidos</router-link>
         </div>
         <div class="col-md-5 d-md-block d-none">
@@ -61,8 +61,8 @@
         <div class="col-lg mt-4">
           <h1>Falar sobre essa angústia</h1>
           <p class="font-weight-bold">É uma forma de restaurar a vida em mim?</p>
-          <p>SIM! Porque quando você fala, você constrói uma possibilidade de se reorganizar emocionalmente. Recria suas potencialidades para prosseguir nas atividades. Retoma o foco para suportar a tensão e não dispersar e se perder nas inúmeras regras de proteção.</p>
-          <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de manter-se em protegido e proteger aos que de você dependem.</p>
+          <p>Sim! Quando você fala, você constrói uma possibilidade de se organizar emocionalmente. Recria suas potencialidades para prosseguir nas atividades. Retoma o foco para suportar a tensão e não se dispersar ou se perder nas inúmeras regras de proteção.</p>
+          <p>Falar das inseguranças, dos medos, das dores e de tudo que aflige é uma forma de manter-se protegido e de proteger os que dependem de você.</p>
           <p>Aus Ouvidos é uma proposta de escuta que se coloca aqui ao seu lado.</p>
           <router-link :to="{ name: 'conheca' }" class="btn btn-primary">Conheça o projeto Aus Ouvidos</router-link>
         </div>

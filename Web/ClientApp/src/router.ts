@@ -26,16 +26,16 @@ const router =  new Router({
       meta: { title: 'Conheça o projeto' },
     },
     {
-      path: '/eu-preciso-de-ajuda',
+      path: '/eu-quero-conversar',
       name: 'sou-paciente',
       component: SouPaciente,
-      meta: { title: 'Eu preciso de ajuda' },
+      meta: { title: 'Eu quero conversar' },
     },
     {
-      path: '/eu-quero-ajudar',
+      path: '/eu-quero-escutar',
       name: 'sou-psicologo',
       component: SouPsicologo,
-      meta: { title: 'Eu quero ajudar' },
+      meta: { title: 'Eu quero escutar' },
     },
     {
       path: '/admin/empresas-pendentes-aprovacao',

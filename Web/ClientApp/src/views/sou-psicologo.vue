@@ -1,7 +1,7 @@
 <template>
   <div class="container-xl">
     <div v-if="isLoggedIn === true">
-      <h1>Eu quero ajudar</h1>
+      <h1>Eu quero escutar</h1>
       <p>Adicione um horário em sua agenda para o atendimento.</p>
       <calendar-psicologo @unauthorizedRequest="onUnauthorized"></calendar-psicologo>
     </div>
@@ -9,12 +9,13 @@
       <div class="row">
         <div class="col-sm-8">
           <h1>Projeto Cuidando de Quem Cuida</h1>
-          <p>Escutar quem se expõe na linha de frente da COVID-19 é a proposta realizada por Aus Ouvidos. </p>
+          <p>Escutar aqueles que se encontram na linha de frente do combate à COVID-19 é a proposta realizada por Aus Ouvidos.</p>
           <p>Através da sensibilidade e da solidariedade, reunimos um grupo de profissionais na área da psicologia e psicanálise que se disponibilizam a realizar escutas pontuais.</p>
-          <p>Nesse momento nosso público envolve: os médicos, a equipe de enfermagem, e a equipe de limpeza e segurança.</p>
-          <p>Serão realizadas escutas por meio de vídeo chamada online, cumprindo com a orientação e resolução do CFF11/2018 e CRP11-09/2020.</p>
-          <p>Nós, Aus Ouvidos, agradecemos imensamente a cada um que se dispõe a colaborar e integrar aqui a proposta ‘Cuidando de quem Cuida’.</p>
-          <p>Não estamos sozinhos e, pela escuta nos tornamos agentes transformadores e apenas coletivamente ecoaremos entre tantas vidas.</p>
+          <p>Nesse momento, nosso público envolve: os médicos, a equipe de enfermagem, a equipe de limpeza e segurança.</p>
+          <p>Serão realizadas escutas online por meio de vídeochamadas, cumprindo com a orientação e resolução do CFP11/2018 e CRP11/2020.</p>
+          <p>Nós, do Aus Ouvidos, agradecemos imensamente a cada um que se dispõe a colaborar e integrar aqui a proposta "Cuidando de Quem Cuida".</p>
+          <p>Não estamos sozinhos. Pela escuta, nos tornamos agentes transformadores das vidas que compõem nossa coletividade.</p>
+          <p>Se você é um profissional da área de psicologia e possui disponibilidade para apoiar o projeto, clique no link abaixo e preencha seus dados.</p>
           <a
             class="btn btn-primary"
             href="https://forms.office.com/Pages/ResponsePage.aspx?id=IORgVXFfDECLvuUvrnLrbM81jcOmACpFlly95MtX789UN1pRRzNZS0o5MThCMlNZNkg1TDNRTjVIWC4u"
