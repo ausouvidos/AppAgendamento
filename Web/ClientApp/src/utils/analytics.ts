@@ -1,5 +1,5 @@
 class AnalyticsUtils {
-  private trackingId = 'G-VYMTNP1DWD';
+  private trackingId = 'UA-164936219-1';
 
   public gtagCommand(command: string, ...args: any[]) {
     try {
