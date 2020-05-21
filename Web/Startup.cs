@@ -19,6 +19,7 @@ using Services.Identity;
 using VueCliMiddleware;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace AusOuvidos
 {
@@ -40,6 +41,9 @@ namespace AusOuvidos
             });
 
             services.AddOptions();
+
+            services.Configure<FlowConfig>(Configuration);
+
             services.AddHttpContextAccessor();
             services.AddHttpClient("ApiClient", c =>
             {
