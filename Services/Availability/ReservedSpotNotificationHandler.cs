@@ -34,7 +34,9 @@ namespace Services.Availability
                 AgendaInicio = request.Availability.Start,
                 AgendaTermino = request.Availability.End,
                 EmailPaciente = request.Availability.CustomerEmail,
-                CelularPaciente = request.Availability.CustomerMobile
+                CelularPaciente = request.Availability.CustomerMobile,
+                ID = request.Availability.Id,
+                IDEvento = request.Availability.EventId
             };
             var json = JsonSerializer.Serialize(data);
             using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");

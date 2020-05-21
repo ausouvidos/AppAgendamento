@@ -26,5 +26,10 @@ namespace Models
         public Voucher Voucher { get; set; }
 
         public byte[] RowVersion { get; set; }
+
+        public string EventUrl { get; set; }
+        public string EventId { get; set; }
+        public bool IsFulfilled { get; set; }
+        public DateTime? FulfillmentDate { get; set; }
     }
 }

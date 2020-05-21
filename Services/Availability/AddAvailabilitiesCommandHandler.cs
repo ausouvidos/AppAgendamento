@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace Services.Availability
                         IsFree = true,
                         Start = av.Start,
                         End = av.End,
-                        UserId = request.UserIdentityId
+                        UserId = request.UserIdentityId,
+                        EventId = Guid.NewGuid().ToString()
                     });
                 }
             }

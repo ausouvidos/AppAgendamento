@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using Data;
@@ -47,6 +48,10 @@ namespace Services.Availability
                             availability.CustomerMobile = request.Mobile;
                             availability.IsFree = false;
                             availability.VoucherId = voucher.Id;
+                            if (string.IsNullOrEmpty(availability.EventId))
+                            {
+                                availability.EventId = Guid.NewGuid().ToString();
+                            }
 
                             if (location != null)
                             {
