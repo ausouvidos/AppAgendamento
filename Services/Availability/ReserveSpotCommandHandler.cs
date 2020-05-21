@@ -28,8 +28,8 @@ namespace Services.Availability
             }
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            
-            var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Voucher });
+
+            var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Voucher.Trim() });
             if (voucher != null)
             {
                 var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
@@ -40,11 +40,20 @@ namespace Services.Availability
                     {
                         try
                         {
+                            var location = await _mediator.Send(new GetLocationInfoCommand { IP = request.IP });
+
                             availability.CustomerEmail = request.Email;
                             availability.CustomerName = request.Name;
                             availability.CustomerMobile = request.Mobile;
                             availability.IsFree = false;
                             availability.VoucherId = voucher.Id;
+
+                            if (location != null)
+                            {
+                                availability.CustomerCountry = location?.Country;
+                                availability.CustomerRegion = location?.Region;
+                                availability.CustomerCity = location?.City;
+                            }
 
                             _db.Availabilities.Update(availability);
 

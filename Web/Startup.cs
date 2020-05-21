@@ -58,7 +58,11 @@ namespace AusOuvidos
                 c.BaseAddress = new Uri("https://www.google.com/recaptcha/api/");
             });
 
-            
+            services.AddHttpClient("IPStack", c =>
+            {
+                c.BaseAddress = new Uri("http://api.ipstack.com/");
+            });
+
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();

@@ -14,7 +14,9 @@ namespace Models
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerMobile { get; set; }
-
+        public string CustomerCountry { get; set; }
+        public string CustomerRegion { get; set; }
+        public string CustomerCity { get; set; }
         public string Observations { get; set; }
         public string Notes { get; set; }
         public DateTime CompletedDate { get; set; }

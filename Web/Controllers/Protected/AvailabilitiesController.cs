@@ -47,8 +47,11 @@ namespace AusOuvidos.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ApiResponse> ReserveSpot([FromBody] ReserveSpotCommand request) =>
-            await Mediator.Send(request);
+        public async Task<ApiResponse> ReserveSpot([FromBody] ReserveSpotCommand request)
+        {
+            request.IP = this.HttpContext.Connection.RemoteIpAddress?.ToString();
+            return await Mediator.Send(request);
+        }
 
     }
 }

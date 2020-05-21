@@ -19,5 +19,7 @@ namespace Services.Availability
         public string RecaptchaResponse { get; set; }
         [Required]
         public string Voucher { get; set; }
+
+        public string IP { get; set; }
     }
 }
