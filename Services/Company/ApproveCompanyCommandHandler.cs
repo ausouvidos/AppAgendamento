@@ -55,6 +55,7 @@ namespace Services.Company
                 var voucher = new Voucher();
                 voucher.CompanyId = company.Id;
                 voucher.RemainingRedeemCount = request.Quantidade;
+                voucher.Created = DateTime.UtcNow;
 
                 voucher.Token = GenerateVoucherCode();
 
