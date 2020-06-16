@@ -10,5 +10,6 @@
         public string LinkedIn { get; set; }
         public bool? Idealizador { get; set; }
         public string Registro { get; set; }
+        public string Grupo { get; set; }
     }
 }

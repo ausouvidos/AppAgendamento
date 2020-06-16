@@ -7,6 +7,7 @@ export default class Professional {
   public linkedIn?: string;
   public idealizador?: boolean;
   public registro?: string;
+  public grupo: string;
 
   public get nomeCompleto() {
     return `${this.nome} ${this.ultimoNome}`;
@@ -25,5 +26,6 @@ export default class Professional {
     this.linkedIn = obj?.linkedIn;
     this.idealizador = obj?.idealizador;
     this.registro = obj?.registro;
+    this.grupo = obj?.grupo;
   }
 }
