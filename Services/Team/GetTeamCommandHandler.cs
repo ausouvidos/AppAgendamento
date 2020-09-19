@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using MediatR;
+using Microsoft.SharePoint.Client;
 using Models;
 
 namespace Services.Team
@@ -13,21 +13,44 @@ namespace Services.Team
     public class GetTeamCommandHandler : IRequestHandler<GetTeamCommand, IEnumerable<Professional>>
     {
         private readonly AusOuvidosContext _db;
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly ClientContext _sharePointContext;
 
-        public GetTeamCommandHandler(AusOuvidosContext db, IHttpClientFactory clientFactory)
+        public GetTeamCommandHandler(AusOuvidosContext db, ClientContext sharePointContext)
         {
             this._db = db;
-            this._clientFactory = clientFactory;
+            this._sharePointContext = sharePointContext;
         }
 
-        public async Task<IEnumerable<Professional>> Handle(GetTeamCommand request, CancellationToken token)
+        public Task<IEnumerable<Professional>> Handle(GetTeamCommand request, CancellationToken token)
         {
-            var client = _clientFactory.CreateClient("ApiClient");
-            var result = await client.GetAsync("profissionais");
-            result.EnsureSuccessStatusCode();
-            using var responseStream = await result.Content.ReadAsStreamAsync();
-            return (await JsonSerializer.DeserializeAsync<IEnumerable<Professional>>(responseStream))?.OrderBy(a => $"{a.Nome} {a.UltimoNome}");
+            var items = _sharePointContext.Web.Lists.GetByTitle("Profissionais").GetItems(new CamlQuery()
+            {
+                ViewXml = "<View><Query><Where><Eq><FieldRef Name='Situacao'/><Value Type='Text'>Ativo</Value></Eq></Where></Query><</View>"
+            });
+
+            _sharePointContext.Load(items);
+            _sharePointContext.ExecuteQuery();
+
+            var output = new List<Professional>();
+
+            foreach (var item in items)
+            {
+                var profissional = new Professional();
+
+                profissional.Nome = item.FieldValues["Title"]?.ToString();
+                profissional.UltimoNome = item.FieldValues["UltimoNome"]?.ToString();
+                profissional.Funcao = item.FieldValues["Funcao"]?.ToString();
+                profissional.Grupo = item.FieldValues["Grupo"]?.ToString();
+                profissional.ID = item.Id;
+                profissional.Idealizador = Convert.ToBoolean(item.FieldValues["Idealizador"] ?? false);
+                profissional.LinkedIn = item.FieldValues["LinkedIn"]?.ToString();
+                profissional.Registro = item.FieldValues["Registro"]?.ToString();
+                profissional.Email = item.FieldValues["Email"]?.ToString(); ;
+
+                output.Add(profissional);
+            }
+
+            return Task.FromResult(output.OrderBy(a => $"{a.Nome} {a.UltimoNome}"));
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Text.Json;
+﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using MediatR;
+using Microsoft.SharePoint.Client;
 using Models;
 
 namespace Services.Team
@@ -13,28 +11,53 @@ namespace Services.Team
     public class GetTeamMemberPhotoCommandHandler : IRequestHandler<GetTeamMemberPhotoCommand, Image>
     {
         private readonly AusOuvidosContext _db;
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly ClientContext _sharePointContext;
 
-        public GetTeamMemberPhotoCommandHandler(AusOuvidosContext db, IHttpClientFactory clientFactory)
+        public GetTeamMemberPhotoCommandHandler(AusOuvidosContext db, ClientContext sharePointContext)
         {
             this._db = db;
-            this._clientFactory = clientFactory;
+            this._sharePointContext = sharePointContext;
         }
 
-        public async Task<Image> Handle(GetTeamMemberPhotoCommand request, CancellationToken token)
+        public Task<Image> Handle(GetTeamMemberPhotoCommand request, CancellationToken token)
         {
-            var client = _clientFactory.CreateClient("ApiClient");
-            var result = await client.GetAsync($"profissionais/{request.MemberId}/photo");
-            result.EnsureSuccessStatusCode();
-            var contents = await result.Content.ReadAsByteArrayAsync();
-            var extension = Path.GetExtension(result?.Content?.Headers?.ContentDisposition?.FileName) ?? ".jpg";
-            var filename = request.MemberId + extension;
-
-            return new Image
+            var items = _sharePointContext.Web.Lists.GetByTitle("Fotos").GetItems(new CamlQuery()
             {
-                Contents = contents,
-                Name = filename
-            };
+                ViewXml = $"<View><Query><Where><Eq><FieldRef Name='Profissional' LookupId='TRUE'/><Value Type='Lookup'>{request.MemberId}</Value></Eq></Where></Query><</View>",
+            });
+
+            _sharePointContext.Load(items, a => a.Include(x => x.File));
+            _sharePointContext.ExecuteQuery();
+
+            var output = new Image();
+
+            if (items.Count == 0)
+            {
+                items = _sharePointContext.Web.Lists.GetByTitle("Fotos").GetItems(new CamlQuery()
+                {
+                    ViewXml = $"<View><Query><Where><IsNull><FieldRef Name='Profissional' LookupId='TRUE'/></IsNull></Where></Query><</View>",
+                });
+
+                _sharePointContext.Load(items, a => a.Include(x => x.File));
+                _sharePointContext.ExecuteQuery();
+            }
+
+
+            foreach (var item in items)
+            {
+                var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
+                _sharePointContext.Load(file);
+                var streamResult = file.OpenBinaryStream();
+                _sharePointContext.ExecuteQuery();
+
+                using var fileStream = new MemoryStream();
+                streamResult.Value.CopyTo(fileStream);
+
+                output.Contents = fileStream.ToArray();
+                output.Name = file.Name;
+            }
+
+            return Task.FromResult(output);
         }
     }
 }

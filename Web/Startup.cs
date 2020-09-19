@@ -20,6 +20,9 @@ using VueCliMiddleware;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Microsoft.SharePoint.Client;
+using Microsoft.Identity.Client;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AusOuvidos
 {
@@ -35,6 +38,15 @@ namespace AusOuvidos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AuthenticationConfig config = AuthenticationConfig.ReadFromJsonFile("appsettings.json");
+
+            var certificate = new X509Certificate2("AusOuvidos.pfx", "ELqewMARuLMvTduv");
+
+            IConfidentialClientApplication app = ConfidentialClientApplicationBuilder.Create(config.ClientId)
+                   .WithCertificate(certificate)
+                    .WithTenantId(config.Tenant)
+                    .Build();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AUS Ouvidos API", Version = "v1" });
@@ -113,6 +125,22 @@ namespace AusOuvidos
             });
 
             services.AddDbContext<AusOuvidosContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped(context =>
+            {
+                var siteUrl = "https://mtacbrasil.sharepoint.com/sites/ProjetoAusOuvidos/";
+                var ctx = new ClientContext(siteUrl);
+
+                string[] scopes = new string[] { "https://mtacbrasil.sharepoint.com/.default" };
+                var result = app.AcquireTokenForClient(scopes).ExecuteAsync().GetAwaiter().GetResult();
+
+                ctx.ExecutingWebRequest += (sender, e) =>
+                {
+                    e.WebRequestExecutor.RequestHeaders["Authorization"] = "Bearer " + result.AccessToken;
+                };
+
+                return ctx;
+            });
 
             services.AddControllersWithViews();
             // (options =>
