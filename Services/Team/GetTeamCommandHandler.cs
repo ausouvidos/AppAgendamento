@@ -50,7 +50,7 @@ namespace Services.Team
                 output.Add(profissional);
             }
 
-            return Task.FromResult(output.OrderBy(a => $"{a.Nome} {a.UltimoNome}"));
+            return Task.FromResult(output.OrderBy(a => $"{a.Nome} {a.UltimoNome}").AsEnumerable());
         }
     }
 }
