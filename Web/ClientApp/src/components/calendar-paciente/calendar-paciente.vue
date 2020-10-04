@@ -143,31 +143,9 @@
               <span class="invalid-feedback">{{ errors[0] }}</span>
             </validation-provider>
           </div>
-          <div class="form-group">
-            <label for="company-address">Endereço<small aria-hidden="true">*</small></label>
-            <validation-provider name="Endereço" rules="required" v-slot="{ classes, errors }">
-              <input
-                type="text"
-                id="company-address"
-                v-model="newCompany.address"
-                :class="['form-control', classes]"
-                :disabled="isLoading">
-              <span class="invalid-feedback">{{ errors[0] }}</span>
-            </validation-provider>
-          </div>
+         
           <div class="form-row">
-            <div class="form-group col-sm">
-              <label for="company-district">Bairro<small aria-hidden="true">*</small></label>
-              <validation-provider name="Bairro" rules="required" v-slot="{ classes, errors }">
-                <input
-                  type="text"
-                  id="company-district"
-                  v-model="newCompany.district"
-                  :class="['form-control', classes]"
-                  :disabled="isLoading">
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
+           
             <div class="form-group col-sm">
               <label for="company-city">Cidade<small aria-hidden="true">*</small></label>
               <validation-provider name="Cidade" rules="required" v-slot="{ classes, errors }">
@@ -180,50 +158,25 @@
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </validation-provider>
             </div>
-          </div>
-          <div class="form-row">
             <div class="form-group col-sm">
               <label for="company-state">Estado<small aria-hidden="true">*</small></label>
               <validation-provider name="Estado" rules="required" v-slot="{ classes, errors }">
-                <select
+                 <input
+                  type="text"
                   id="company-state"
                   v-model="newCompany.state"
-                  :class="['custom-select', classes]"
-                  :disabled="isLoading">
-                  <option value="">Selecione</option>
-                  <option v-for="(estado, index) in estados" :key="index">{{ estado }}</option>
-                </select>
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group col-sm">
-              <label for="company-zipCode">CEP<small aria-hidden="true">*</small></label>
-              <validation-provider name="CEP" rules="required|cep" v-slot="{ classes, errors }">
-                <the-mask
-                  type="text"
-                  id="company-zipCode"
-                  placeholder="99999-999"
-                  mask="#####-###"
-                  v-model="newCompany.zipCode"
                   :class="['form-control', classes]"
-                  :disabled="isLoading" />
-
+                  :disabled="isLoading">
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </validation-provider>
             </div>
+           
           </div>
           <div class="form-row">
             <div class="form-group col-sm">
               <label for="company-phone">Telefone<small aria-hidden="true">*</small></label>
-              <validation-provider name="Telefone" rules="required|phone" v-slot="{ classes, errors }">
-                <the-mask
-                  type="tel"
-                  id="company-phone"
-                  placeholder="(99) 99999-9999"
-                  v-model="newCompany.phone"
-                  :class="['form-control', classes]"
-                  :mask="['(##) ####-####', '(##) #####-####']"
-                  :disabled="isLoading" />
+              <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
+                <vue-tel-input v-model="newCompany.phone" :disabled="isLoading"  :class="['form-control', classes]" v-bind="phoneMaskConfig"></vue-tel-input>
                 <span class="invalid-feedback">{{ errors[0] }}</span>
               </validation-provider>
             </div>
