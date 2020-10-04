@@ -75,15 +75,8 @@
           </div>
           <div class="form-group">
             <label for="reservation-mobile">Telefone<small aria-hidden="true">*</small></label>
-            <validation-provider name="Telefone" rules="required|phone" v-slot="{ classes, errors }">
-              <the-mask
-                type="tel"
-                id="reservation-mobile"
-                placeholder="(99) 99999-9999"
-                v-model="reservation.mobile"
-                :class="['form-control', classes]"
-                :mask="['(##) ####-####', '(##) #####-####']"
-                :disabled="isLoading" />
+            <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
+              <vue-tel-input v-model="reservation.mobile" :disabled="isLoading"  :class="['form-control', classes]" v-bind="phoneMaskConfig"></vue-tel-input>
               <span class="invalid-feedback">{{ errors[0] }}</span>
             </validation-provider>
           </div>

@@ -29,6 +29,20 @@ export default class CalendarPaciente extends Vue {
   private recaptchaPromise!: Promise<any>;
   private errorMessage?: string = '';
   private estados = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+  private phoneMaskConfig = {
+    mode: "international",
+    onlyCountries: ['BR','MZ'],
+    required: true,
+    enabledCountryCode: false,
+    defaultCountry: 'BR',
+    dropdownOptions: {
+      disabledDialCode: false
+    },
+    inputOptions: {
+      showDialCode: false
+    },
+    placeholder: 'telefone'
+  };
 
   private mounted() {
     this.fetchData();
