@@ -36,7 +36,7 @@
       <template v-slot:modal-title>Adicionar horário</template>
       <div class="form-row align-items-end">
         <div class="form-group col-9">
-          <input type="date" class="form-control" v-model="availabilityDate" :disabled="isLoading">
+          <input type="date" :min="minDate" class="form-control" v-model="availabilityDate" @change="calculateAvailableTimes()" :disabled="isLoading">
         </div>
         <div class="form-group col-3">
           <select class="form-control" v-model="availabilityTimeStart" :disabled="isLoading">
