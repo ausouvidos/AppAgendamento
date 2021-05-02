@@ -12,6 +12,7 @@
     "@fullcalendar/daygrid": "^4.4.0",
     "@fullcalendar/timegrid": "^4.4.0",
     "@fullcalendar/vue": "^4.4.0",
+    "@splidejs/vue-splide": "^0.3.5",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.11.0",
     "core-js": "^3.6.4",

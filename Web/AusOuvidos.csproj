@@ -30,7 +30,7 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.18.0" />
     <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.20412.12000" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="VueCliMiddleware" Version="3.1.1" />
+    <PackageReference Include="VueCliMiddleware" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
   </ItemGroup>
 
@@ -57,6 +57,9 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\src\components\partners\" />
+  </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
@@ -75,7 +78,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>

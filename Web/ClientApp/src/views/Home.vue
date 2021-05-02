@@ -68,12 +68,19 @@
         </div>
       </div>
     </div>
+
+    <partners />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Partners from '@/components/partners/partners.vue';
 
-@Component
+@Component({
+    components: {
+        partners: Partners,
+    },
+})
 export default class Home extends Vue {}
 </script>
