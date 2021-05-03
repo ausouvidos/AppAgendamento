@@ -51,7 +51,7 @@ export default class CalendarPsicologo extends Vue {
         if (moment().diff(moment(this.availabilityDate, 'YYYY-MM-DD'), 'day', true) < 0) {
             this.availableTimes = new Array(24).fill(0).map((item, i) => `${i > 9 ? i : '0' + i}:00`);
         } else {
-            const m: moment.Moment = new moment();
+            const m: moment.Moment = moment();
             const roundUp: moment.Moment = m.minute() || m.second() || m.millisecond() ? m.add(1, 'hour').startOf('hour') : m.startOf('hour');
             const available: string[] = [];
             do {
