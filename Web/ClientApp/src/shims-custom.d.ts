@@ -6,3 +6,7 @@ declare var Msal: any;
 declare var grecaptcha: any;
 
 declare var gtag: any;
+
+declare module '@splidejs/vue-splide' {
+
+}
