@@ -9,5 +9,6 @@ namespace Services.Company
     {
         public int Id { get; set; }
         public int Quantidade { get; set; }
+        public int[] Professionals { get; set; }
     }
 }

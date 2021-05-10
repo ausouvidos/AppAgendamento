@@ -11,6 +11,8 @@ namespace Data
         public DbSet<Availability> Availabilities { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<VoucherProfessionals> VoucherProfessionals { get; set; }
+
         public AusOuvidosContext(DbContextOptions<AusOuvidosContext> options) : base(options)
         {
 
@@ -40,6 +42,13 @@ namespace Data
                 .WithMany(a => a.Availabilities)
                 .HasForeignKey(a => a.VoucherId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<VoucherProfessionals>()
+                .HasOne(a => a.Voucher)
+                .WithMany(a => a.VoucherProfessionals)
+                .HasForeignKey(a => a.VuocherId)
+                .IsRequired(true);
+                
         }
     }
 }

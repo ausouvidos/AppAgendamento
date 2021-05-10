@@ -59,11 +59,21 @@ namespace Services.Company
 
                 voucher.Token = GenerateVoucherCode();
 
+                
+
                 _db.Companies.Update(company);
                 await _db.Vouchers.AddAsync(voucher);
                 await _db.SaveChangesAsync();
-                return ApiResponse.Success();
 
+                if (request.Professionals.Length > 0)
+                {
+                    List<VoucherProfessionals> voucherProfessionals = request.Professionals.ToList<int>().ConvertAll<VoucherProfessionals>(professional => new VoucherProfessionals() { ProfessionalId = professional, VuocherId = voucher.Id });
+                    await _db.VoucherProfessionals.AddRangeAsync(voucherProfessionals);
+                    await _db.SaveChangesAsync();
+                }
+
+                
+                return ApiResponse.Success();
             }
             return ApiResponse.Error("Empresa não encontrada");
         }

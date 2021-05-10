@@ -30,18 +30,18 @@ export default class CalendarPaciente extends Vue {
   private errorMessage?: string = '';
   private estados = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
   private phoneMaskConfig = {
-    mode: "international",
-    onlyCountries: ['BR','MZ'],
+    mode: 'international',
+    onlyCountries: ['BR', 'MZ'],
     required: true,
     enabledCountryCode: false,
     defaultCountry: 'BR',
     dropdownOptions: {
-      disabledDialCode: false
+      disabledDialCode: false,
     },
     inputOptions: {
-      showDialCode: false
+      showDialCode: false,
     },
-    placeholder: 'telefone'
+    placeholder: 'telefone',
   };
 
   private mounted() {

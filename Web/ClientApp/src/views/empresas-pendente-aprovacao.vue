@@ -110,9 +110,9 @@
                      v-model="quantidade"
                      :class="['form-control']">
           </div>
-          <!--<div class="form-group">
+          <div class="form-group">
               <label for="profissionais">Profissionais habilitados</label>
-              <div class="form-row">
+              <div class="w-100">
                   <el-cascader :options="professionals"
                                      :props="{ multiple: true }"
                                      @change="handleProfessionalsChange"
@@ -120,10 +120,19 @@
                                      id="profissionais"
                                      filterable></el-cascader>
               </div>
-          </div>-->
+          </div>
       </form>
     </b-modal>
   </div>
 </template>
 
 <script lang="ts" src="./empresas-pendente-aprovacao.ts"></script>
+<style scoped>
+    .w-100 {
+        display: block;
+    }
+    .w-100,
+    .w-100 > .el-cascader {
+        width: 100%;
+    }
+</style>

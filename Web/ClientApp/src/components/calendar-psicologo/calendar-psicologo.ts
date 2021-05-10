@@ -35,12 +35,9 @@ export default class CalendarPsicologo extends Vue {
   private availabilityDate = moment().format('YYYY-MM-DD');
   private availabilityTimeStart = '';
   private availabilityTimeEnd = '';
-
   private availableTimes: string[] = [];
-  
-    
   private isLoading = false;
-  private minDate = new Date().toISOString().split("T")[0];
+  private minDate = new Date().toISOString().split('T')[0];
 
   private mounted() {
       this.fetchData();
@@ -52,7 +49,9 @@ export default class CalendarPsicologo extends Vue {
             this.availableTimes = new Array(24).fill(0).map((item, i) => `${i > 9 ? i : '0' + i}:00`);
         } else {
             const m: moment.Moment = moment();
-            const roundUp: moment.Moment = m.minute() || m.second() || m.millisecond() ? m.add(1, 'hour').startOf('hour') : m.startOf('hour');
+            const roundUp: moment.Moment = m.minute() || m.second() || m.millisecond()
+                ? m.add(1, 'hour').startOf('hour')
+                : m.startOf('hour');
             const available: string[] = [];
             do {
                 available.push(roundUp.format('HH:mm'));

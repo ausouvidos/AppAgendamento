@@ -15,5 +15,6 @@ namespace Models
         public byte[] RowVersion { get; set; }
 
         public ICollection<Availability> Availabilities { get; set; }
+        public ICollection<VoucherProfessionals> VoucherProfessionals { get; set; }
     }
 }
