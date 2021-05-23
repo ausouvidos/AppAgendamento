@@ -17,17 +17,17 @@ export default class Partners extends Vue {
         gap: '1rem',
         pauseOnHover: false,
         arrows: 'slider',
-        perPage: 7,
+        perPage: 4,
         breakpoints: {
             640: {
                 perPage: 2,
             },
             768: {
-                perPage: 4,
+                perPage: 2,
             },
         },
-        fixedWidth: 150,
-        fixedHeight: 75,
+        fixedWidth: 250,
+        fixedHeight: 150,
     };
 
     private mounted() {

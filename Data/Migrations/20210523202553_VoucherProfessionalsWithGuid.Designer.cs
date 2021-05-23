@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(AusOuvidosContext))]
-    partial class AusOuvidosContextModelSnapshot : ModelSnapshot
+    [Migration("20210523202553_VoucherProfessionalsWithGuid")]
+    partial class VoucherProfessionalsWithGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,8 +216,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.HasIndex("VuocherId");
 
                     b.ToTable("VoucherProfessionals");
@@ -245,12 +245,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.VoucherProfessionals", b =>
                 {
-                    b.HasOne("Models.Identity.User", "User")
-                        .WithMany("VoucherProfessionals")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.Voucher", "Voucher")
                         .WithMany("VoucherProfessionals")
                         .HasForeignKey("VuocherId")

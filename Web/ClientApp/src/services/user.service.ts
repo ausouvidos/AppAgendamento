@@ -1,4 +1,5 @@
 import axios from 'axios';
+import User from '../models/user.model';
 
 class UserService {
   private loggedInStatus: boolean | null = null;
@@ -8,6 +9,13 @@ class UserService {
     const response = await axios.get<boolean>(url, this.getAuthOptions());
     return response.data;
   }
+
+    public async getUsers(): Promise<User[]> {
+        const url = '/api/Identity/Users';
+        const response = await axios.get<User[]>(url, this.getAuthOptions());
+        return response.data;
+    }
+
 
   public isLoggedIn() {
     return this.loggedInStatus ? this.loggedInStatus : !!sessionStorage.getItem('msal.idtoken');

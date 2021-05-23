@@ -42,8 +42,8 @@ namespace AusOuvidos.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("{date}")]
-        public async Task<IEnumerable<AvailabilityDates>> WeeklyAvailableSpots(DateTime date) =>
-            await Mediator.Send(new GetWeeklyAvailabilitiesCommand { RefDate = date });
+        public async Task<IEnumerable<AvailabilityDates>> WeeklyAvailableSpots(DateTime date, String code) =>
+            await Mediator.Send(new GetWeeklyAvailabilitiesCommand { RefDate = date, Code = code });
 
         [AllowAnonymous]
         [HttpPost]
@@ -53,5 +53,8 @@ namespace AusOuvidos.Controllers
             return await Mediator.Send(request);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ApiResponse> ValidateSpotCode([FromBody] ValidateSpotCodeCommand request) => await Mediator.Send(request);
     }
 }

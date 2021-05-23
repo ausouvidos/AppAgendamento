@@ -11,7 +11,8 @@ namespace Models
         public int VuocherId { get; set; }
         public Voucher Voucher { get; set; }
 
-        public int ProfessionalId { get; set; }
+        public Guid UserId { get; set; }
+        public Identity.User User { get; set; }
 
     }
 }

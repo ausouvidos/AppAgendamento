@@ -8,5 +8,6 @@ namespace Services.Availability
     public class GetWeeklyAvailabilitiesCommand : IRequest<IEnumerable<Models.AvailabilityDates>>
     {
         public DateTime RefDate { get; set; }
+        public String? Code { get; set; }
     }
 }

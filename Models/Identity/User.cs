@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Models.Identity
 {
@@ -9,5 +10,7 @@ namespace Models.Identity
         public string Email { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         public bool IsAdmin { get; set; }
+
+        public ICollection<VoucherProfessionals> VoucherProfessionals { get; set; }
     }
 }

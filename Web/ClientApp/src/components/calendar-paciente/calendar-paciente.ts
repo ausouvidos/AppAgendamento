@@ -10,12 +10,17 @@ import ReserveSpotRequest from '@/models/reserve-spot-request.model';
 import SpotSchedule from '@/models/spot-schedule.model';
 import AvailabilityDate from '@/models/availability-date.model';
 import Company from '@/models/company.model';
+import { Step, Steps, Button, Alert } from 'element-ui';
 
 @Component({
   components: {
     TheMask,
     ValidationProvider,
     ValidationObserver,
+    'el-step': Step,
+    'el-steps': Steps,
+    'el-button': Button,
+    'el-alert': Alert,
   },
 })
 export default class CalendarPaciente extends Vue {
@@ -28,7 +33,35 @@ export default class CalendarPaciente extends Vue {
   private recaptchaKey = '6Lc4mPAUAAAAAMHl3isSP6rBQ6xzoDgxMpXvBiXS';
   private recaptchaPromise!: Promise<any>;
   private errorMessage?: string = '';
-  private estados = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+  private estados = [
+    'AC',
+    'AL',
+    'AP',
+    'AM',
+    'BA',
+    'CE',
+    'DF',
+    'ES',
+    'GO',
+    'MA',
+    'MT',
+    'MS',
+    'MG',
+    'PA',
+    'PB',
+    'PR',
+    'PE',
+    'PI',
+    'RJ',
+    'RN',
+    'RS',
+    'RO',
+    'RR',
+    'SC',
+    'SP',
+    'SE',
+    'TO',
+  ];
   private phoneMaskConfig = {
     mode: 'international',
     onlyCountries: ['BR', 'MZ'],
@@ -43,15 +76,24 @@ export default class CalendarPaciente extends Vue {
     },
     placeholder: 'telefone',
   };
+  private currentStep: number = 0;
+  private stepButtonText: string = 'Prosseguir';
+  private spotIndex: number = -1;
 
   private mounted() {
-    this.fetchData();
     this.recaptchaPromise = this.loadRecaptcha();
+    setTimeout(() => {
+      this.renderRecaptcha(
+        'recaptcha-container',
+        'reservation-captcha',
+        this.reservation,
+      );
+    }, 500);
   }
 
   private async fetchData() {
     this.isScheduleLoading = true;
-    await this.schedule.load();
+    await this.schedule.load(this.reservation.voucher);
     this.isScheduleLoading = false;
   }
 
@@ -74,6 +116,7 @@ export default class CalendarPaciente extends Vue {
     if (this.isScheduleLoading) {
       return;
     }
+    this.spotIndex = -1;
 
     this.isScheduleLoading = true;
 
@@ -100,7 +143,9 @@ export default class CalendarPaciente extends Vue {
   private async reserveSpot(evt?: any) {
     evt?.preventDefault();
 
-    const isValid = await (this.$refs.observer as InstanceType<typeof ValidationObserver>).validate();
+    const isValid = await (this.$refs.observer as InstanceType<
+      typeof ValidationObserver
+    >).validate();
 
     if (this.isLoading || !isValid) {
       return;
@@ -134,7 +179,9 @@ export default class CalendarPaciente extends Vue {
   private async addCompany(evt?: any) {
     evt?.preventDefault();
 
-    const isValid = await (this.$refs.observerCompany as InstanceType<typeof ValidationObserver>).validate();
+    const isValid = await (this.$refs.observerCompany as InstanceType<
+      typeof ValidationObserver
+    >).validate();
 
     if (this.isLoading || !isValid) {
       return;
@@ -164,14 +211,11 @@ export default class CalendarPaciente extends Vue {
     this.errorMessage = '';
   }
 
-  private showReservationModal(spot: AvailabilityDate) {
+  private showReservationModal(spot: AvailabilityDate, index: number) {
     this.reservation.start = spot.start;
     this.reservation.end = spot.end;
-    this.reservation.recaptchaResponse = '';
     this.resetErrorMessage();
-    this.showModal('reservation-modal');
-    this.renderRecaptcha('recaptcha-container', 'reservation-captcha', this.reservation);
-    analytics.sendEvent('paciente', 'agendamento_modal');
+    this.spotIndex = index;
   }
 
   private showCompanyModal() {
@@ -179,14 +223,24 @@ export default class CalendarPaciente extends Vue {
     this.resetErrorMessage();
     this.hideModal('reservation-modal');
     this.showModal('company-modal');
-    this.renderRecaptcha('recaptcha-container-company', 'company-captcha', this.newCompany);
+    this.renderRecaptcha(
+      'recaptcha-container-company',
+      'company-captcha',
+      this.newCompany,
+    );
     analytics.sendEvent('paciente', 'instituicao_modal');
   }
 
-  private renderRecaptcha(containerId: string, inputRef: string, model: ReserveSpotRequest | Company) {
+  private renderRecaptcha(
+    containerId: string,
+    inputRef: string,
+    model: ReserveSpotRequest | Company,
+  ) {
     const callback = (recaptchaResponse?: string) => {
       model.recaptchaResponse = recaptchaResponse || '';
-      (this.$refs[inputRef] as HTMLInputElement).dispatchEvent(new Event('change'));
+      (this.$refs[inputRef] as HTMLInputElement).dispatchEvent(
+        new Event('change'),
+      );
     };
     this.recaptchaPromise.then(() => {
       grecaptcha.render(containerId, {
@@ -203,5 +257,56 @@ export default class CalendarPaciente extends Vue {
 
   private hideModal(key: string) {
     (this.$refs[key] as any).hide();
+  }
+
+  private async validateAndNext() {
+
+      if (this.currentStep === 0) {
+
+          const isValid = await (this.$refs.observer as InstanceType<
+              typeof ValidationObserver
+          >).validate();
+          if (this.isLoading || !isValid || !this.reservation.voucher) {
+              return;
+          }
+          this.isLoading = true;
+          try {
+              const response = await availabilityService.validateCode(
+                  this.reservation.voucher,
+              );
+              if (response.succeeded) {
+                  this.currentStep = 1;
+                  this.stepButtonText = 'Realizar agendamento';
+                  this.fetchData();
+                  analytics.sendEvent('paciente', 'agendamento_modal');
+              } else {
+                  this.hasFailed = true;
+                  this.errorMessage = response.message;
+              }
+          } catch (error) {
+              this.hasFailed = true;
+          } finally {
+              this.isLoading = false;
+          }
+      } else if (this.currentStep === 1) {
+          if (this.isLoading || !this.reservation.start || !this.reservation.end) {
+              return;
+          }
+          this.isLoading = true;
+          try {
+              const response = await availabilityService.reserveSpot(this.reservation);
+              if (response.succeeded) {
+                  this.currentStep = 2;
+                  analytics.sendEvent('paciente', 'agendamento_concluido');
+              } else {
+                  this.hasFailed = true;
+                  this.errorMessage = response.message;
+              }
+          } catch (error) {
+              this.hasFailed = true;
+          } finally {
+              this.isLoading = false;
+          }
+      }
   }
 }

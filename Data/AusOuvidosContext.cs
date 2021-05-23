@@ -48,6 +48,12 @@ namespace Data
                 .WithMany(a => a.VoucherProfessionals)
                 .HasForeignKey(a => a.VuocherId)
                 .IsRequired(true);
+
+            modelBuilder.Entity<VoucherProfessionals>()
+                .HasOne(a => a.User)
+                .WithMany(a => a.VoucherProfessionals)
+                .HasForeignKey(a => a.UserId)
+                .IsRequired(true);
                 
         }
     }

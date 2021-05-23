@@ -14,7 +14,9 @@ class AvailabilityService {
     return response.data;
   }
 
-  public async complete(data: CompleteAvailabilityRequest): Promise<ApiResponse> {
+  public async complete(
+    data: CompleteAvailabilityRequest,
+  ): Promise<ApiResponse> {
     const url = '/api/Availabilities/Complete';
     const response = await axios.put(url, data, this.getAuthOptions());
     return response.data;
@@ -28,12 +30,20 @@ class AvailabilityService {
 
   public async getMyAvailabilities(): Promise<Availability[]> {
     const url = '/api/Availabilities/MyAvailabilities';
-    const response = await axios.get<Availability[]>(url, this.getAuthOptions());
+    const response = await axios.get<Availability[]>(
+      url,
+      this.getAuthOptions(),
+    );
     return response.data.map((item) => new Availability(item));
   }
 
-  public async getWeeklyAvailableSpots(date = new Date()): Promise<AvailabilityDate[]> {
-    const url = `/api/Availabilities/WeeklyAvailableSpots/${moment(date).format('YYYY-MM-DD')}`;
+  public async getWeeklyAvailableSpots(
+    date = new Date(),
+    code: string = '',
+  ): Promise<AvailabilityDate[]> {
+    const url = `/api/Availabilities/WeeklyAvailableSpots/${moment(date).format(
+      'YYYY-MM-DD',
+    )}${code.length > 0 ? '?code=' + code : ''}`;
     const response = await axios.get<AvailabilityDate[]>(url);
     return response.data.map((item) => new AvailabilityDate(item));
   }
@@ -44,6 +54,13 @@ class AvailabilityService {
     if (response.data) {
       data.saveCache();
     }
+    return response.data;
+  }
+
+  public async validateCode(code: string): Promise<ApiResponse> {
+    const response = await axios.post('/api/Availabilities/ValidateSpotCode', {
+      code,
+    });
     return response.data;
   }
 

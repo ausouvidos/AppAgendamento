@@ -65,9 +65,9 @@ namespace Services.Company
                 await _db.Vouchers.AddAsync(voucher);
                 await _db.SaveChangesAsync();
 
-                if (request.Professionals.Length > 0)
+                if (request.professionals.Length > 0)
                 {
-                    List<VoucherProfessionals> voucherProfessionals = request.Professionals.ToList<int>().ConvertAll<VoucherProfessionals>(professional => new VoucherProfessionals() { ProfessionalId = professional, VuocherId = voucher.Id });
+                    List<VoucherProfessionals> voucherProfessionals = request.professionals.ToList<Guid>().ConvertAll<VoucherProfessionals>(userId => new VoucherProfessionals() { UserId = userId, VuocherId = voucher.Id });
                     await _db.VoucherProfessionals.AddRangeAsync(voucherProfessionals);
                     await _db.SaveChangesAsync();
                 }

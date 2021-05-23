@@ -23,7 +23,7 @@ namespace Services.Team
         {
             var items = _sharePointContext.Web.Lists.GetByTitle("Fotos").GetItems(new CamlQuery()
             {
-                ViewXml = $"<View><Query><Where><Eq><FieldRef Name='Profissional' LookupId='TRUE'/><Value Type='Lookup'>{request.MemberId}</Value></Eq></Where></Query><</View>",
+                ViewXml = $"<View><Query><Where><Eq><FieldRef Name='Profissional' LookupId='TRUE'/><Value Type='Lookup'>{request.MemberId}</Value></Eq></Where></Query></View>"
             });
 
             _sharePointContext.Load(items, a => a.Include(x => x.File));
@@ -35,27 +35,45 @@ namespace Services.Team
             {
                 items = _sharePointContext.Web.Lists.GetByTitle("Fotos").GetItems(new CamlQuery()
                 {
-                    ViewXml = $"<View><Query><Where><IsNull><FieldRef Name='Profissional' LookupId='TRUE'/></IsNull></Where></Query><</View>",
+                    ViewXml = "<View><Query><Where><IsNull><FieldRef Name='Profissional' /></IsNull></Where></Query></View>",
                 });
-
                 _sharePointContext.Load(items, a => a.Include(x => x.File));
                 _sharePointContext.ExecuteQuery();
+
+                foreach (var item in items)
+                {
+                    if (item.File.Name == "Person.png")
+                    {
+                        var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
+                        _sharePointContext.Load(file);
+                        var streamResult = file.OpenBinaryStream();
+                        _sharePointContext.ExecuteQuery();
+
+                        using var fileStream = new MemoryStream();
+                        streamResult.Value.CopyTo(fileStream);
+
+                        output.Contents = fileStream.ToArray();
+                        output.Name = file.Name;
+                        break;
+                    }
+                }
+
+            } else {
+                foreach (var item in items)
+                {
+                    var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
+                    _sharePointContext.Load(file);
+                    var streamResult = file.OpenBinaryStream();
+                    _sharePointContext.ExecuteQuery();
+
+                    using var fileStream = new MemoryStream();
+                    streamResult.Value.CopyTo(fileStream);
+
+                    output.Contents = fileStream.ToArray();
+                    output.Name = file.Name;
+                }
             }
 
-
-            foreach (var item in items)
-            {
-                var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
-                _sharePointContext.Load(file);
-                var streamResult = file.OpenBinaryStream();
-                _sharePointContext.ExecuteQuery();
-
-                using var fileStream = new MemoryStream();
-                streamResult.Value.CopyTo(fileStream);
-
-                output.Contents = fileStream.ToArray();
-                output.Name = file.Name;
-            }
 
             return Task.FromResult(output);
         }

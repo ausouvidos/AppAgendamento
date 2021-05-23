@@ -15,7 +15,7 @@ class CompanyService {
     return response.data.map((item) => new Company(item));
   }
 
-  public async approve(data: Company, quantidade: number, professionals: number[] = []): Promise<ApiResponse> {
+  public async approve(data: Company, quantidade: number, professionals: string[] = []): Promise<ApiResponse> {
     const url = '/api/Companies/Approve';
     const response = await axios.post(url, { ...data, quantidade: +quantidade, professionals }, this.getAuthOptions());
     return response.data;

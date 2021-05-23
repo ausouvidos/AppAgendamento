@@ -12,12 +12,20 @@ export default class SpotSchedule {
   public days: SpotScheduleDay[];
 
   get weekEnd() {
-    return moment(this.weekStart).endOf('week').toDate();
+    return moment(this.weekStart)
+      .endOf('week')
+      .toDate();
   }
 
   get displayTitle() {
-    const weekStartFormat = moment(this.weekStart).isSame(this.weekEnd, 'month') ? 'D' : 'D [de] MMMM';
-    return `Semana de ${moment(this.weekStart).format(weekStartFormat).toLowerCase()} a ${moment(this.weekEnd).format('LL').toLowerCase()}`;
+    const weekStartFormat = moment(this.weekStart).isSame(this.weekEnd, 'month')
+      ? 'D'
+      : 'D [de] MMMM';
+    return `Semana de ${moment(this.weekStart)
+      .format(weekStartFormat)
+      .toLowerCase()} a ${moment(this.weekEnd)
+      .format('LL')
+      .toLowerCase()}`;
   }
 
   get isFirstWeek() {
@@ -25,16 +33,22 @@ export default class SpotSchedule {
   }
 
   constructor() {
-    this.weekStart = moment().startOf('week').toDate();
+    this.weekStart = moment()
+      .startOf('week')
+      .toDate();
     this.days = [];
   }
 
-  public async load() {
+  public async load(code: string = '') {
     this.days = [];
-    const weekAvailableSpots = await availabilityService.getWeeklyAvailableSpots(this.weekStart);
+    const weekAvailableSpots = await availabilityService.getWeeklyAvailableSpots(
+      this.weekStart,
+      code,
+    );
 
     weekAvailableSpots.forEach((spot) => {
-      const lastDay = this.days.length > 0 ? this.days[this.days.length - 1] : null;
+      const lastDay =
+        this.days.length > 0 ? this.days[this.days.length - 1] : null;
       const spotDate = moment(spot.start).startOf('day');
 
       if (lastDay && spotDate.isSame(lastDay.date)) {
@@ -49,12 +63,16 @@ export default class SpotSchedule {
   }
 
   public async previousWeek() {
-    this.weekStart = moment(this.weekStart).subtract(1, 'week').toDate();
+    this.weekStart = moment(this.weekStart)
+      .subtract(1, 'week')
+      .toDate();
     await this.load();
   }
 
   public async nextWeek() {
-    this.weekStart = moment(this.weekStart).add(1, 'week').toDate();
+    this.weekStart = moment(this.weekStart)
+      .add(1, 'week')
+      .toDate();
     await this.load();
   }
 }

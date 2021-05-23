@@ -1,7 +1,6 @@
 <template>
   <div class="container-xl">
     <h1>Eu quero conversar</h1>
-    <p>Selecione um horário para o agendamento da consulta.</p>
     <calendar-paciente></calendar-paciente>
   </div>
 </template>
