@@ -10,60 +10,80 @@
             <p>Primeiro voc&ecirc; precisa informar seus dados para contato e o código de autorização recebido.</p>
             <validation-observer ref="observer">
                 <form>
-                    <div class="form-group">
-                        <label for="reservation-name">Nome<small aria-hidden="true">*</small></label>
-                        <validation-provider name="Nome" rules="required" v-slot="{ classes, errors }">
-                            <input type="text"
-                                   id="reservation-name"
-                                   v-model="reservation.name"
-                                   :class="['form-control', classes]"
-                                   :disabled="isLoading">
-                            <span class="invalid-feedback">{{ errors[0] }}</span>
-                        </validation-provider>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <label for="reservation-name">Nome<small aria-hidden="true">*</small></label>
+                                <validation-provider name="Nome" rules="required" v-slot="{ classes, errors }">
+                                    <input type="text"
+                                           id="reservation-name"
+                                           v-model="reservation.name"
+                                           :class="['form-control', classes]"
+                                           :disabled="isLoading">
+                                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                                </validation-provider>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="reservation-email">Email<small aria-hidden="true">*</small></label>
-                        <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
-                            <input type="email"
-                                   id="reservation-email"
-                                   v-model="reservation.email"
-                                   :class="['form-control', classes]"
-                                   :disabled="isLoading">
-                            <span class="invalid-feedback">{{ errors[0] }}</span>
-                        </validation-provider>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <label for="reservation-email">Email<small aria-hidden="true">*</small></label>
+                                <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
+                                    <input type="email"
+                                           id="reservation-email"
+                                           v-model="reservation.email"
+                                           :class="['form-control', classes]"
+                                           :disabled="isLoading">
+                                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                                </validation-provider>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="reservation-mobile">Telefone<small aria-hidden="true">*</small></label>
-                        <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
-                            <vue-tel-input v-model="reservation.mobile" :disabled="isLoading" :class="['form-control', classes]" v-bind="phoneMaskConfig"></vue-tel-input>
-                            <span class="invalid-feedback">{{ errors[0] }}</span>
-                        </validation-provider>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <label for="reservation-mobile">Telefone<small aria-hidden="true">*</small></label>
+                                <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
+                                    <vue-tel-input v-model="reservation.mobile" :disabled="isLoading" :class="['form-control', classes]" v-bind="phoneMaskConfig"></vue-tel-input>
+                                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                                </validation-provider>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="reservation-voucher" class="d-flex align-items-center">
-                            <span>Autorização</span>
-                            <small aria-hidden="true">*</small>
-                            <a href="javascript:void(0)"
-                               class="badge badge-pill badge-primary ml-1"
-                               v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
-                               aria-label="O que é a autorização?">?</a>
-                            <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pr-0 pb-0">Não tenho uma autorização</button>
-                        </label>
-                        <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
-                            <input type="text"
-                                   id="reservation-voucher"
-                                   v-model="reservation.voucher"
-                                   :class="['form-control', classes]"
-                                   :disabled="isLoading">
-                            <span class="invalid-feedback">{{ errors[0] }}</span>
-                        </validation-provider>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <label for="reservation-voucher" class="d-flex align-items-center">
+                                    <span>Autorização</span>
+                                    <small aria-hidden="true">*</small>
+                                    <a href="javascript:void(0)"
+                                       class="badge badge-pill badge-primary ml-1"
+                                       v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
+                                       aria-label="O que é a autorização?">?</a>
+                                    <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pr-0 pb-0">Não tenho uma autorização</button>
+                                </label>
+                                <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
+                                    <input type="text"
+                                           id="reservation-voucher"
+                                           v-model="reservation.voucher"
+                                           :class="['form-control', classes]"
+                                           :disabled="isLoading">
+                                    <span class="invalid-feedback">{{ errors[0] }}</span>
+                                </validation-provider>
+                            </div>
+                        </div>
                     </div>
-                    <div id="recaptcha-container"></div>
-                    <validation-provider rules="required" v-slot="{ errors }">
-                        <input ref="reservation-captcha" type="hidden" v-model="reservation.recaptchaResponse">
-                        <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
-                    </validation-provider>
-                    <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div id="recaptcha-container"></div>
+                            <validation-provider rules="required" v-slot="{ errors }">
+                                <input ref="reservation-captcha" type="hidden" v-model="reservation.recaptchaResponse">
+                                <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
+                            </validation-provider>
+                            <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
+                        </div>
+                    </div>
                 </form>
             </validation-observer>
         </div>
