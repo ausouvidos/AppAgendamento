@@ -275,6 +275,7 @@ export default class CalendarPaciente extends Vue {
                   this.reservation.voucher,
               );
               if (response.succeeded) {
+                  this.resetErrorMessage();
                   this.currentStep = 1;
                   this.stepButtonText = 'Realizar agendamento';
                   this.fetchData();
@@ -296,6 +297,7 @@ export default class CalendarPaciente extends Vue {
           try {
               const response = await availabilityService.reserveSpot(this.reservation);
               if (response.succeeded) {
+                  this.resetErrorMessage();
                   this.currentStep = 2;
                   analytics.sendEvent('paciente', 'agendamento_concluido');
               } else {
