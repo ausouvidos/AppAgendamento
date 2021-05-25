@@ -87,7 +87,6 @@
                 </form>
             </validation-observer>
         </div>
-
         <div v-if="currentStep === 1">
             <p>Agora selecione um horário na data desejada para que o agendamento possa ser realizado.</p>
 
