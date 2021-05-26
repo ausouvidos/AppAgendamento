@@ -46,7 +46,7 @@ namespace Data
             modelBuilder.Entity<VoucherProfessionals>()
                 .HasOne(a => a.Voucher)
                 .WithMany(a => a.VoucherProfessionals)
-                .HasForeignKey(a => a.VuocherId)
+                .HasForeignKey(a => a.VoucherId)
                 .IsRequired(true);
 
             modelBuilder.Entity<VoucherProfessionals>()

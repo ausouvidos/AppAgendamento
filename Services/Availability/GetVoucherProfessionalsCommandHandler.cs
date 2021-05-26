@@ -26,7 +26,7 @@ namespace Services.Availability
         public Task<IEnumerable<Guid>> Handle(GetVoucherProfessionalsCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<Guid> output = _db.VoucherProfessionals
-                .Where(v => v.VuocherId == request.VoucherId)
+                .Where(v => v.VoucherId == request.VoucherId)
                 .Select(v => v.UserId)
                 .ToList();
 

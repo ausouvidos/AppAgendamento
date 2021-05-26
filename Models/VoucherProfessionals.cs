@@ -8,7 +8,7 @@ namespace Models
 
         public int Id { get; set; }
 
-        public int VuocherId { get; set; }
+        public int VoucherId { get; set; }
         public Voucher Voucher { get; set; }
 
         public Guid UserId { get; set; }
