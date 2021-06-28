@@ -50,7 +50,7 @@ export default class CalendarPsicologo extends Vue {
         } else {
             const m: moment.Moment = moment();
             const roundUp: moment.Moment = m.minute() || m.second() || m.millisecond()
-                ? m.add(1, 'hour').startOf('hour')
+                ? m.add(2, 'hour').startOf('hour')
                 : m.startOf('hour');
             const available: string[] = [];
             do {

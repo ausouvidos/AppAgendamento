@@ -11,7 +11,6 @@
           <h1>Projeto Cuidando de Quem Cuida</h1>
           <p>Escutar aqueles que se encontram na linha de frente do combate à COVID-19 é a proposta realizada por Aus Ouvidos.</p>
           <p>Através da sensibilidade e da solidariedade, reunimos um grupo de profissionais na área da psicologia e psicanálise que se disponibilizam a realizar escutas pontuais.</p>
-          <p>Nesse momento, nosso público envolve: os médicos, a equipe de enfermagem, a equipe de limpeza e segurança.</p>
           <p>Serão realizadas escutas online por meio de vídeochamadas, cumprindo com a orientação e resolução do CFP11/2018 e CRP11/2020.</p>
           <p>Nós, do Aus Ouvidos, agradecemos imensamente a cada um que se dispõe a colaborar e integrar aqui a proposta "Cuidando de Quem Cuida".</p>
           <p>Não estamos sozinhos. Pela escuta, nos tornamos agentes transformadores das vidas que compõem nossa coletividade.</p>
