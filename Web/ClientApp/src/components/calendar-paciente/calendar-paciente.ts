@@ -79,6 +79,7 @@ export default class CalendarPaciente extends Vue {
   private currentStep: number = 0;
   private stepButtonText: string = 'Prosseguir';
   private spotIndex: number = -1;
+  private spotDay: number = -1;
 
   private mounted() {
     this.recaptchaPromise = this.loadRecaptcha();
@@ -211,11 +212,12 @@ export default class CalendarPaciente extends Vue {
     this.errorMessage = '';
   }
 
-  private showReservationModal(spot: AvailabilityDate, index: number) {
+  private showReservationModal(spot: AvailabilityDate, index: number, spotDay: number) {
     this.reservation.start = spot.start;
     this.reservation.end = spot.end;
     this.resetErrorMessage();
     this.spotIndex = index;
+    this.spotDay = spotDay;
   }
 
   private showCompanyModal() {
