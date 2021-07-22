@@ -61,7 +61,7 @@
                                        class="badge badge-pill badge-primary ml-1"
                                        v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
                                        aria-label="O que é a autorização?">?</a>
-                                    <button @click="showCompanyModal" type="button" class="btn btn-link btn-sm ml-auto pr-0 pb-0">Não tenho uma autorização</button>
+                                    <button @click="showCompanyModal()" type="button" class="btn btn-link btn-sm ml-auto pr-0 pb-0">Não tenho uma autorização</button>
                                 </label>
                                 <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
                                     <input type="text"

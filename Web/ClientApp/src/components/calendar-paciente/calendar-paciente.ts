@@ -157,7 +157,6 @@ export default class CalendarPaciente extends Vue {
     try {
       const response = await availabilityService.reserveSpot(this.reservation);
       if (response.succeeded) {
-        this.hideModal('reservation-modal');
         this.showModal('confirmation-modal');
         this.fetchData();
         analytics.sendEvent('paciente', 'agendamento_concluido');
@@ -223,7 +222,6 @@ export default class CalendarPaciente extends Vue {
   private showCompanyModal() {
     this.newCompany = new Company();
     this.resetErrorMessage();
-    this.hideModal('reservation-modal');
     this.showModal('company-modal');
     this.renderRecaptcha(
       'recaptcha-container-company',
