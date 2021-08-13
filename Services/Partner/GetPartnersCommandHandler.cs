@@ -34,7 +34,7 @@ namespace Services.Partner
                 {
                     ID = partner.Id,
                     Name = partner.FieldValues["Title"]?.ToString(),
-                    Website = new UriBuilder(link).Uri?.ToString(),
+                    Website = link?.Length > 0 ? new UriBuilder(link).Uri?.ToString() : "",
                     Order = Convert.ToInt32(partner.FieldValues["Order"] ?? "0"),
                 });
             }

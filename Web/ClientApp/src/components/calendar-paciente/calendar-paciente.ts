@@ -220,15 +220,7 @@ export default class CalendarPaciente extends Vue {
   }
 
   private showCompanyModal() {
-    //this.newCompany = new Company();
-    //this.resetErrorMessage();
-    //this.showModal('company-modal');
-    //this.renderRecaptcha(
-    //  'recaptcha-container-company',
-    //  'company-captcha',
-    //  this.newCompany,
-    //);
-    window.open("https://forms.office.com/r/Da3RCCMGWT", "_blank");
+    window.open('https://forms.office.com/r/Da3RCCMGWT', '_blank');
     analytics.sendEvent('paciente', 'instituicao_modal');
   }
 

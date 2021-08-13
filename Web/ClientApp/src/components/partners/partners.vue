@@ -7,7 +7,7 @@
             <splide :options="sliderOptions" has-slider-wrapper=has-slider-wrapper>
                 <splide-slide v-for="partner in partners" :key="partner.id">
                     <a :href="partner.website" target="_blank" :title="partner.name">
-                        <img :src="partner.logoUrl" alt="partner.name" width="250" height="150" />
+                        <img :src="partner.logoUrl" :alt="partner.name" width="250" height="150" />
                     </a>
                 </splide-slide>
             </splide>
