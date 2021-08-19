@@ -24,7 +24,7 @@ namespace AusOuvidos.Controllers
         [Route("{partnerId}")]
         public async Task<IActionResult> Logo(int partnerId)
         {
-            return await _memoryCache.GetOrCreateAsync(partnerId, async (entry) =>
+            return await _memoryCache.GetOrCreateAsync($"partner-{partnerId}", async (entry) =>
             {
                 entry.SetSlidingExpiration(TimeSpan.FromMinutes(1));
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
