@@ -7,5 +7,6 @@ namespace Models
         public string Name { get; set; }
         public string Website { get; set; }
         public int Order { get; set; }
+        public string LogoId { get; set; }
     }
 }

@@ -30,13 +30,17 @@ namespace Services.Partner
             foreach (var partner in partners)
             {
                 var link = partner.FieldValues["Site"]?.ToString() ?? "";
+
+                var lookup = partner.FieldValues["Logo"] as FieldLookupValue;
+                var logoId = lookup?.LookupId.ToString() ?? "";
                 output.Add(new Models.Partner()
                 {
                     ID = partner.Id,
                     Name = partner.FieldValues["Title"]?.ToString(),
                     Website = link?.Length > 0 ? new UriBuilder(link).Uri?.ToString() : "",
                     Order = Convert.ToInt32(partner.FieldValues["Order"] ?? "0"),
-                });
+                    LogoId = logoId,
+                }); ;
             }
 
             return Task.FromResult(output.OrderBy(a => $"{a.Order} {a.Name}").AsEnumerable());
