@@ -5,9 +5,9 @@
         </div>
         <div class="col-md-12">
             <splide :options="sliderOptions" has-slider-wrapper=has-slider-wrapper>
-                <splide-slide v-for="partner in partners" :key="partner.id">
+                <splide-slide v-for="partner in partners" :key="partner.id" style="overflow: hidden; width: 230px; height: 150px">
                     <a :href="partner.website" target="_blank" :title="partner.name">
-                        <img :src="partner.logoUrl" :alt="partner.name" width="250" height="150" />
+                        <img :src="partner.logoUrl" :alt="partner.name" style="height: 150px; width: 100%; object-fit: cover;" />
                     </a>
                 </splide-slide>
             </splide>

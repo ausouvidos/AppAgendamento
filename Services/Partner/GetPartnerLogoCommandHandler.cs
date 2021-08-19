@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
@@ -31,18 +32,29 @@ namespace Services.Partner
 
             var output = new Image();
 
-            foreach (var item in items)
+            if (items.Count == 0)
             {
-                var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
-                _sharePointContext.Load(file);
-                var streamResult = file.OpenBinaryStream();
-                _sharePointContext.ExecuteQuery();
-
-                using var fileStream = new MemoryStream();
-                streamResult.Value.CopyTo(fileStream);
-
+                byte[] imageBytes = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP89x8AAwEB/9nmgRwAAAAASUVORK5CYII=");
+                using var fileStream = new MemoryStream(imageBytes, 0, imageBytes.Length);
                 output.Contents = fileStream.ToArray();
-                output.Name = file.Name;
+                output.Name = "empty.png";
+
+            }
+            else
+            {
+                foreach (var item in items)
+                {
+                    var file = _sharePointContext.Web.GetFileByServerRelativeUrl(item.File.ServerRelativeUrl);
+                    _sharePointContext.Load(file);
+                    var streamResult = file.OpenBinaryStream();
+                    _sharePointContext.ExecuteQuery();
+
+                    using var fileStream = new MemoryStream();
+                    streamResult.Value.CopyTo(fileStream);
+
+                    output.Contents = fileStream.ToArray();
+                    output.Name = file.Name;
+                }
             }
 
             return Task.FromResult(output);

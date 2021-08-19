@@ -26,7 +26,7 @@ export default class Partners extends Vue {
                 perPage: 2,
             },
         },
-        fixedWidth: 250,
+        fixedWidth: 230,
         fixedHeight: 150,
     };
 
