@@ -22,11 +22,11 @@ namespace Services.Availability
 
         public async Task<ApiResponse> Handle(ReserveSpotCommand request, CancellationToken cancellationToken)
         {
-            var passedRecaptcha = await _mediator.Send(new ValidateRecaptchaCommand { Response = request.RecaptchaResponse });
-            if (!passedRecaptcha)
-            {
-                return ApiResponse.Error("Captcha inválido");
-            }
+            //var passedRecaptcha = await _mediator.Send(new ValidateRecaptchaCommand { Response = request.RecaptchaResponse });
+            //if (!passedRecaptcha)
+            //{
+            //    return ApiResponse.Error("Captcha inválido");
+            //}
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 

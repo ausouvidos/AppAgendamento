@@ -74,16 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div id="recaptcha-container"></div>
-                            <validation-provider rules="required" v-slot="{ errors }">
-                                <input ref="reservation-captcha" type="hidden" v-model="reservation.recaptchaResponse">
-                                <small class="text-danger" v-if="errors.length">É necessário realizar a verificação de segurança</small>
-                            </validation-provider>
-                            <div v-if="hasFailed" class="text-danger mt-3">{{ errorMessage || 'Ocorreu um erro ao agendar a consulta, por favor tente novamente.'}}</div>
-                        </div>
-                    </div>
+                   
                 </form>
             </validation-observer>
         </div>

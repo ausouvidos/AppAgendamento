@@ -81,17 +81,6 @@ export default class CalendarPaciente extends Vue {
   private spotIndex: number = -1;
   private spotDay: number = -1;
 
-  private mounted() {
-    this.recaptchaPromise = this.loadRecaptcha();
-    setTimeout(() => {
-      this.renderRecaptcha(
-        'recaptcha-container',
-        'reservation-captcha',
-        this.reservation,
-      );
-    }, 500);
-  }
-
   private async fetchData() {
     this.isScheduleLoading = true;
     await this.schedule.load(this.reservation.voucher);
