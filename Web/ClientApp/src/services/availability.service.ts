@@ -57,9 +57,10 @@ class AvailabilityService {
     return response.data;
   }
 
-  public async validateCode(code: string): Promise<ApiResponse> {
+  public async validateCode(code: string, email: string): Promise<ApiResponse> {
     const response = await axios.post('/api/Availabilities/ValidateSpotCode', {
-      code,
+        code,
+        email,
     });
     return response.data;
   }

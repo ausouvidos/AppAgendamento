@@ -255,6 +255,7 @@ export default class CalendarPaciente extends Vue {
           try {
               const response = await availabilityService.validateCode(
                   this.reservation.voucher,
+                  this.reservation.email,
               );
               if (response.succeeded) {
                   this.resetErrorMessage();

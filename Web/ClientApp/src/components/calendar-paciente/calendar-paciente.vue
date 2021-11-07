@@ -8,6 +8,12 @@
 
         <div v-if="currentStep === 0">
             <p>Primeiro voc&ecirc; precisa informar seus dados para contato e o código de autorização recebido.</p>
+            <el-alert v-if="hasFailed"
+                      title="Falha ao agendar um horário"
+                      type="error"
+                      :description="errorMessage || 'Por favor, verifique os dados informados e tente novamente.'"
+                      show-icon>
+            </el-alert>
             <validation-observer ref="observer">
                 <form>
                     <div class="row">
@@ -74,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </form>
             </validation-observer>
         </div>
