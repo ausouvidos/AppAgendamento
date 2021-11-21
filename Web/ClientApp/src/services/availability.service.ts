@@ -40,10 +40,19 @@ class AvailabilityService {
   public async getWeeklyAvailableSpots(
     date = new Date(),
     code: string = '',
+    email: string = '',
   ): Promise<AvailabilityDate[]> {
+    const query = [];
+    if (code.length > 0) {
+        query.push(`code=${code}`)
+    }
+    if (email.length > 0) {
+        query.push(`email=${email}`)
+    }
+
     const url = `/api/Availabilities/WeeklyAvailableSpots/${moment(date).format(
       'YYYY-MM-DD',
-    )}${code.length > 0 ? '?code=' + code : ''}`;
+    )}?${query.join('&')}`;
     const response = await axios.get<AvailabilityDate[]>(url);
     return response.data.map((item) => new AvailabilityDate(item));
   }
@@ -57,10 +66,9 @@ class AvailabilityService {
     return response.data;
   }
 
-  public async validateCode(code: string, email: string): Promise<ApiResponse> {
+  public async validateCode(code: string): Promise<ApiResponse> {
     const response = await axios.post('/api/Availabilities/ValidateSpotCode', {
         code,
-        email,
     });
     return response.data;
   }

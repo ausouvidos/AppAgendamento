@@ -42,8 +42,7 @@ namespace AusOuvidos.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("{date}")]
-        public async Task<IEnumerable<AvailabilityDates>> WeeklyAvailableSpots(DateTime date, String code) =>
-            await Mediator.Send(new GetWeeklyAvailabilitiesCommand { RefDate = date, Code = code });
+        public async Task<IEnumerable<AvailabilityDates>> WeeklyAvailableSpots(DateTime date, String code, String email) => await Mediator.Send(new GetWeeklyAvailabilitiesCommand { RefDate = date, Code = code, Email = email });
 
         [AllowAnonymous]
         [HttpPost]

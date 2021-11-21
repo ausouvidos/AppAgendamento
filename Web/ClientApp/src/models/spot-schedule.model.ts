@@ -39,11 +39,12 @@ export default class SpotSchedule {
     this.days = [];
   }
 
-  public async load(code: string = '') {
+  public async load(code: string = '', email: string = '') {
     this.days = [];
     const weekAvailableSpots = await availabilityService.getWeeklyAvailableSpots(
       this.weekStart,
       code,
+      email,
     );
 
     weekAvailableSpots.forEach((spot) => {
@@ -62,17 +63,17 @@ export default class SpotSchedule {
     });
   }
 
-  public async previousWeek() {
+    public async previousWeek(code: string = '', email: string = '') {
     this.weekStart = moment(this.weekStart)
       .subtract(1, 'week')
       .toDate();
-    await this.load();
+    await this.load(code, email);
   }
 
-  public async nextWeek() {
+    public async nextWeek(code: string = '', email: string = '') {
     this.weekStart = moment(this.weekStart)
       .add(1, 'week')
       .toDate();
-    await this.load();
+    await this.load(code, email);
   }
 }

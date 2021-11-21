@@ -9,5 +9,6 @@ namespace Services.Availability
     {
         public DateTime RefDate { get; set; }
         public String? Code { get; set; }
+        public String? Email { get; set; }
     }
 }

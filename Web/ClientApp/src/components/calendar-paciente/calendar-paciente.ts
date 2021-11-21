@@ -83,7 +83,7 @@ export default class CalendarPaciente extends Vue {
 
   private async fetchData() {
     this.isScheduleLoading = true;
-    await this.schedule.load(this.reservation.voucher);
+    await this.schedule.load(this.reservation.voucher, this.reservation.email);
     this.isScheduleLoading = false;
   }
 
@@ -113,10 +113,10 @@ export default class CalendarPaciente extends Vue {
     try {
       if (prevOrNext >= 0) {
         analytics.sendEvent('paciente', 'navegacao_proxima_semana');
-        await this.schedule.nextWeek();
+        await this.schedule.nextWeek(this.reservation.voucher, this.reservation.email);
       } else {
         analytics.sendEvent('paciente', 'navegacao_semana_anterior');
-        await this.schedule.previousWeek();
+        await this.schedule.previousWeek(this.reservation.voucher, this.reservation.email);
       }
     } catch (error) {
       console.error(error);
@@ -254,8 +254,7 @@ export default class CalendarPaciente extends Vue {
           this.isLoading = true;
           try {
               const response = await availabilityService.validateCode(
-                  this.reservation.voucher,
-                  this.reservation.email,
+                  this.reservation.voucher
               );
               if (response.succeeded) {
                   this.resetErrorMessage();

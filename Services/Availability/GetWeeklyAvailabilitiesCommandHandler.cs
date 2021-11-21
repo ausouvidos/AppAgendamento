@@ -22,7 +22,14 @@ namespace Services.Availability
 
         public async Task<IEnumerable<AvailabilityDates>> Handle(GetWeeklyAvailabilitiesCommand request, CancellationToken cancellationToken) {
 
-            IQueryable<Models.Availability> availabilities = _db.Availabilities.Where(a => a.Start > DateTime.UtcNow.AddHours(1) && a.Start >= request.RefDate.FirstDayOfWeek().ToUniversalTime() && a.Start <= request.RefDate.LastDayOfWeek().AddDays(1).ToUniversalTime() && a.IsFree);
+            DateTime minStart = DateTime.UtcNow.AddHours(1);
+            if(!string.IsNullOrEmpty(request.Email))
+            {
+                minStart = await _mediator.Send(new GetWeeklyAvailabilitieMinStartDateCommand { Email = request.Email });
+            }
+
+
+            IQueryable<Models.Availability> availabilities = _db.Availabilities.Where(a => a.Start > minStart && a.Start >= request.RefDate.FirstDayOfWeek().ToUniversalTime() && a.Start <= request.RefDate.LastDayOfWeek().AddDays(1).ToUniversalTime() && a.IsFree);
 
             if (!string.IsNullOrEmpty(request.Code))
             {

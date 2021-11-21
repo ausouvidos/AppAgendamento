@@ -18,12 +18,6 @@ namespace Services.Availability
 
         public async Task<ApiResponse> Handle(ValidateSpotCodeCommand request, CancellationToken cancellationToken)
         {
-            var canReserveToday = await _mediator.Send(new CanReserveTodayCommand { Email = request.Email.Trim() });
-            if(!canReserveToday)
-            {
-                return ApiResponse.Error("Um novo agendamente só pode ser realizado 72 horas após seu último agendamento");
-            }
-
             var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Code.Trim() });
             if(voucher != null && voucher.RemainingRedeemCount > 0)
             {
