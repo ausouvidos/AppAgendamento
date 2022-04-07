@@ -22,11 +22,12 @@ namespace Services.Availability
         {
             var lastAppointment = _db.Availabilities.Where(a => a.CustomerEmail == request.Email).OrderByDescending(a => a.Start).FirstOrDefault();
             DateTime minStart = DateTime.UtcNow.AddHours(1);
-            if (lastAppointment == null || lastAppointment.Start.AddHours(72) < minStart)
-            {
-                return Task.FromResult(minStart);
-            }
-            return Task.FromResult(lastAppointment.Start.AddHours(72));
+            return Task.FromResult(minStart);
+            //if (lastAppointment == null || lastAppointment.Start.AddHours(72) < minStart)
+            //{
+            //    return Task.FromResult(minStart);
+            //}
+            //return Task.FromResult(lastAppointment.Start.AddHours(72));
         }
     }
 }
