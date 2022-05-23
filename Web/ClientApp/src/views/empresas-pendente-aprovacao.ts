@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import CalendarPsicologo from '@/components/calendar-psicologo/calendar-psicologo.vue';
 import { TheMask } from 'vue-the-mask';
-import { Table, TableColumn, Cascader } from 'element-ui';
+import { Table, TableColumn, Cascader, Switch } from 'element-ui';
 import companyService from '@/services/company.service';
 import Company from '@/models/company.model';
 import teamService from '@/services/team.service';
@@ -18,6 +18,7 @@ import { IProfessionalsParser } from '@/interfaces/professionals-parser.interfac
     TableColumn,
     TheMask,
     'el-cascader': Cascader,
+    'el-switch': Switch,
   },
 })
 export default class EmpresasPendenteAprovacao extends Vue {

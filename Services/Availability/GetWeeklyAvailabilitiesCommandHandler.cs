@@ -22,25 +22,22 @@ namespace Services.Availability
 
         public async Task<IEnumerable<AvailabilityDates>> Handle(GetWeeklyAvailabilitiesCommand request, CancellationToken cancellationToken) {
 
+            Voucher voucher = string.IsNullOrEmpty(request.Code) ? null : await _mediator.Send(new GetVoucherCommand { Voucher = request.Code.Trim() });
+
             DateTime minStart = DateTime.UtcNow.AddHours(1);
-            if(!string.IsNullOrEmpty(request.Email))
+            if(!string.IsNullOrEmpty(request.Email) && (voucher == null || !voucher.OverrideAvailabilityLock))
             {
                 minStart = await _mediator.Send(new GetWeeklyAvailabilitieMinStartDateCommand { Email = request.Email });
             }
 
-
             IQueryable<Models.Availability> availabilities = _db.Availabilities.Where(a => a.Start > minStart && a.Start >= request.RefDate.FirstDayOfWeek().ToUniversalTime() && a.Start <= request.RefDate.LastDayOfWeek().AddDays(1).ToUniversalTime() && a.IsFree);
 
-            if (!string.IsNullOrEmpty(request.Code))
+            if (voucher != null)
             {
-                var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Code.Trim() });
-                if(voucher != null)
+                IEnumerable<Guid> guids = await _mediator.Send(new GetVoucherProfessionalsCommand { VoucherId = voucher.Id });
+                if (guids.Count() > 0)
                 {
-                    IEnumerable<Guid> guids = await _mediator.Send(new GetVoucherProfessionalsCommand { VoucherId = voucher.Id });
-                    if(guids.Count() > 0)
-                    {
-                        availabilities = availabilities.Where(a => guids.Contains(a.UserId));
-                    }
+                    availabilities = availabilities.Where(a => guids.Contains(a.UserId));
                 }
             }
 

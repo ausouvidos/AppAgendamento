@@ -44,10 +44,10 @@ class AvailabilityService {
   ): Promise<AvailabilityDate[]> {
     const query = [];
     if (code.length > 0) {
-        query.push(`code=${code}`)
+        query.push(`code=${code}`);
     }
     if (email.length > 0) {
-        query.push(`email=${email}`)
+        query.push(`email=${email}`);
     }
 
     const url = `/api/Availabilities/WeeklyAvailableSpots/${moment(date).format(

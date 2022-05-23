@@ -13,6 +13,7 @@ namespace Models
         public DateTime Created { get; set; }
         public int RemainingRedeemCount { get; set; }
         public byte[] RowVersion { get; set; }
+        public bool OverrideAvailabilityLock { get; set; }
 
         public ICollection<Availability> Availabilities { get; set; }
         public ICollection<VoucherProfessionals> VoucherProfessionals { get; set; }

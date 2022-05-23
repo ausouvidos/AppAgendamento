@@ -10,6 +10,7 @@ export default class Company {
   public contactPerson: string;
   public contactPersonEmail: string;
   public recaptchaResponse: string;
+  public overrideAvailabilityLock: boolean;
 
   constructor(obj?: Company) {
     this.id = obj?.id || 0;
@@ -23,5 +24,6 @@ export default class Company {
     this.contactPerson = obj?.contactPerson || '';
     this.contactPersonEmail = obj?.contactPersonEmail || '';
     this.recaptchaResponse = obj?.recaptchaResponse || '';
+    this.overrideAvailabilityLock = obj?.overrideAvailabilityLock || false;
   }
 }

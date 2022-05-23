@@ -111,6 +111,14 @@
                      :class="['form-control']">
           </div>
           <div class="form-group">
+              <el-switch v-model="selectedCompany.overrideAvailabilityLock"
+                         active-text="Permite re-agendar em menos de 72h"
+                         inactive-text="Respeitar o bloqueio de 72h entre agendamentos"
+                         active-color="#66bb6a"
+                         inactive-color="#ef5350">
+              </el-switch>
+          </div>
+          <div class="form-group">
               <label for="profissionais">Profissionais habilitados</label>
               <div class="w-100">
                   <el-cascader :options="professionals"

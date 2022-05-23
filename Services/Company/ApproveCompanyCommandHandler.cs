@@ -56,10 +56,8 @@ namespace Services.Company
                 voucher.CompanyId = company.Id;
                 voucher.RemainingRedeemCount = request.Quantidade;
                 voucher.Created = DateTime.UtcNow;
-
+                voucher.OverrideAvailabilityLock = request.overrideAvailabilityLock || false;
                 voucher.Token = GenerateVoucherCode();
-
-                
 
                 _db.Companies.Update(company);
                 await _db.Vouchers.AddAsync(voucher);
