@@ -74,7 +74,7 @@ export default class CalendarPaciente extends Vue {
     inputOptions: {
       showDialCode: false,
     },
-    placeholder: 'telefone',
+    placeholder: 'Telefone*',
   };
   private currentStep: number = 0;
   private stepButtonText: string = 'Prosseguir';

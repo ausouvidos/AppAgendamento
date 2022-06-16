@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-steps :active="currentStep" finish-status="success" simple style="margin-top: 20px; margin-bottom: 20px;">
+        <el-steps :active="currentStep" finish-status="success" simple style="margin-top: 20px; margin-bottom: 20px;background: transparent;">
             <el-step title="Suas informações"></el-step>
             <el-step title="Horários disponíveis"></el-step>
             <el-step title="Confirmação"></el-step>
@@ -16,70 +16,70 @@
             </el-alert>
             <validation-observer ref="observer">
                 <form>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="form-group">
-                                <label for="reservation-name">Nome<small aria-hidden="true">*</small></label>
-                                <validation-provider name="Nome" rules="required" v-slot="{ classes, errors }">
-                                    <input type="text"
-                                           id="reservation-name"
-                                           v-model="reservation.name"
-                                           :class="['form-control', classes]"
-                                           :disabled="isLoading">
-                                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                                </validation-provider>
-                            </div>
-                        </div>
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <div class="form-group">
+                        <validation-provider name="Nome" rules="required" v-slot="{ classes, errors }">
+                          <input type="text"
+                                 id="reservation-name"
+                                 v-model="reservation.name"
+                                 :class="['form-control', classes]"
+                                 :disabled="isLoading"
+                                 placeholder="Nome*">
+                          <span class="invalid-feedback">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="form-group">
-                                <label for="reservation-email">Email<small aria-hidden="true">*</small></label>
-                                <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
-                                    <input type="email"
-                                           id="reservation-email"
-                                           v-model="reservation.email"
-                                           :class="['form-control', classes]"
-                                           :disabled="isLoading">
-                                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                                </validation-provider>
-                            </div>
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <div class="form-group">
+                        <validation-provider name="Email" rules="required|email" v-slot="{ classes, errors }">
+                          <input type="email"
+                                 id="reservation-email"
+                                 v-model="reservation.email"
+                                 :class="['form-control', classes]"
+                                 :disabled="isLoading"
+                                 placeholder="Email*">
+                          <span class="invalid-feedback">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="form-group">
-                                <label for="reservation-mobile">Telefone<small aria-hidden="true">*</small></label>
-                                <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
-                                    <vue-tel-input v-model="reservation.mobile" :disabled="isLoading" :class="['form-control', classes]" v-bind="phoneMaskConfig"></vue-tel-input>
-                                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                                </validation-provider>
-                            </div>
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <div class="form-group">
+                        <validation-provider name="Telefone" rules="required" v-slot="{ classes, errors }">
+                          <vue-tel-input v-model="reservation.mobile" :disabled="isLoading" :class="['form-control', classes]" v-bind="phoneMaskConfig" ></vue-tel-input>
+                          <span class="invalid-feedback">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="form-group">
-                                <label for="reservation-voucher" class="d-flex align-items-center">
-                                    <span>Autorização</span>
-                                    <small aria-hidden="true">*</small>
-                                    <a href="javascript:void(0)"
-                                       class="badge badge-pill badge-primary ml-1"
-                                       v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
-                                       aria-label="O que é a autorização?">?</a>
-                                </label>
-                                <validation-provider name="Voucher" rules="required" v-slot="{ classes, errors }">
-                                    <input type="text"
-                                           id="reservation-voucher"
-                                           v-model="reservation.voucher"
-                                           :class="['form-control', classes]"
-                                           :disabled="isLoading">
-                                    <span class="invalid-feedback">{{ errors[0] }}</span>
-                                </validation-provider>
-                            </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <div class="form-group">
+                        <div class="d-flex">
+                          <validation-provider style="min-width: 100%;" name="Voucher" rules="required" v-slot="{ classes, errors }">
+                            <input type="text"
+                                   id="reservation-voucher"
+                                   v-model="reservation.voucher"
+                                   :class="['form-control', classes]"
+                                   :disabled="isLoading"
+                                   placeholder="Autorização*">
+                            <span class="invalid-feedback">{{ errors[0] }}</span>
+                          </validation-provider>
+                          <label for="reservation-voucher" class="d-flex align-items-center">
+                            <a href="javascript:void(0)"
+                               class="badge badge-pill badge-primary ml-1"
+                               v-b-tooltip="'Código de acesso disponibilizado pela instituição na qual você trabalha'"
+                               aria-label="O que é a autorização?">?
+                            </a>
+                          </label>
                         </div>
+                      </div>
                     </div>
-
+                  </div>
                 </form>
             </validation-observer>
         </div>
