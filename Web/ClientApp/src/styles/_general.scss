@@ -29,3 +29,20 @@
     }
   }
 }
+
+.container-footer{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.footer-social-img {
+  max-width: 24px;
+  margin-right: 20px;
+}
+
+.footer-social-ul {
+  list-style-type: none;
+  display: flex;
+}
