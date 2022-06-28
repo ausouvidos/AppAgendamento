@@ -1,6 +1,6 @@
 <template>
   <div class="container-xl">
-    <h1>Eu quero conversar</h1>
+    <h1 style="text-align: center; margin-bottom: 3rem">Eu quero conversar</h1>
     <calendar-paciente></calendar-paciente>
   </div>
 </template>

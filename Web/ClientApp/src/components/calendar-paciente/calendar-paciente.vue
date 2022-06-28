@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-steps :active="currentStep" finish-status="success" simple style="margin-top: 20px; margin-bottom: 20px;background: transparent;">
+        <el-steps :active="currentStep" class="nav-steps" finish-status="success" simple style="margin-top: 20px; margin-bottom: 20px;background: transparent; display:flex">
             <el-step title="Suas informações"></el-step>
             <el-step title="Horários disponíveis"></el-step>
             <el-step title="Confirmação"></el-step>
@@ -140,7 +140,7 @@
             <h6 class="font-weight-bold mt-5">Data da consulta:</h6>
             <p>{{ reservation.start | date('dddd | DD/MM/YYYY | [das] H:mm') }} às {{ reservation.end | date('H:mm') }}</p>
         </div>
-        <div class="btn-step-nav" v-if="currentStep < 2">
+        <div class="btn-step-nav"  v-if="currentStep < 2">
             <el-button plain @click="validateAndNext">{{stepButtonText}}</el-button>
         </div>
 
@@ -252,6 +252,15 @@
     .btn-step-nav {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: center;
+        margin-top: 2rem
+    }
+    @media (max-width: 600px)
+    { 
+        .nav-steps {
+            flex-direction: column;
+            width: 100% !important;
+            gap: 2.5rem;
+        }
     }
 </style>

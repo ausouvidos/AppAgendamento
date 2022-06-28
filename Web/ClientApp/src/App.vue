@@ -16,10 +16,7 @@
         <div class="header-inner container-xl bg-transparent">
           <a class="logo" href="https://www.ausouvidos.com/">
             <img
-              srcset="./assets/logo-aus-ouvidos.png,
-                      ./assets/logo-aus-ouvidos@2x.png 2x,
-                      ./assets/logo-aus-ouvidos@3x.png 3x"
-              src="./assets/logo-aus-ouvidos.png"
+              src="./assets/Logo_AUS_FINAL.png"
               style="max-width: 200px;max-height: 200px;margin-top: 15px;margin-bottom: 15px;"
               alt="Projeto Aus Ouvidos">
           </a>
@@ -30,7 +27,9 @@
       </section>
       <footer class="footer">
         <div class="container-footer">
+        
           <img src="./assets/ausouvidos-footer.png" />
+        
           <ul class="footer-social-ul">
             <li style="display: flex;align-items: center;">
               <img class="footer-social-img" src="./assets/linkedin-logo.png" />
