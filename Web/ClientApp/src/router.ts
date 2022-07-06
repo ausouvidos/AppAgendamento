@@ -16,8 +16,9 @@ const router =  new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'sou-paciente',
+      component: SouPaciente,
+      meta: { title: 'Eu quero conversar' },
     },
     {
       path: '/conheca-o-projeto',
