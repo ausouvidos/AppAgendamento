@@ -33,7 +33,7 @@
       cancel-variant="outline-primary"
       ok-title="Adicionar"
       @ok="addAvailability">
-      <template v-slot:modal-title>Adicionar horário</template>
+      <template v-slot:modal-title @click="$emit('customButtons')"> Adicionar horário</template>
       <div class="form-row align-items-end">
         <div class="form-group col-9">
           <input type="date" :min="minDate" class="form-control" v-model="availabilityDate" @change="calculateAvailableTimes()" :disabled="isLoading">
