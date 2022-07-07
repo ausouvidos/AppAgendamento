@@ -120,7 +120,7 @@
                             </svg>
                             {{ day.date | date('dddd, D [de] MMMM') }}
                         </h3>
-                        <button :class="{ 'btn btn-outline-primary': spotDay !== indexDay || spotIndex !== indexSpot, 'btn btn-light': spotDay === indexDay && spotIndex === indexSpot }"
+                        <button :class="{ 'btn btn-outline-light': spotDay !== indexDay || spotIndex !== indexSpot, 'btn btn-light': spotDay === indexDay && spotIndex === indexSpot }"
                                 @click="showReservationModal(spot, indexSpot, indexDay)"
                                 v-for="(spot, indexSpot) in day.availableSpots"
                                 :key="`spot-${indexSpot}`">
