@@ -5,7 +5,7 @@
         'background-image': `url(${require('./assets/background.jpg')})`,
         width: '100%',
         height: '100%',
-        'z-index': 999999,
+        'z-index': 999,
         'background-repeat': 'no-repeat',
         'background-position': 'center',
         'background-size': 'cover',
