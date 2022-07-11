@@ -82,5 +82,9 @@ import Partners from '@/components/partners/partners.vue';
         partners: Partners,
     },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+mounted(){
+window.location.href = 'https://www.ausouvidos.com';
+}
+}
 </script>
