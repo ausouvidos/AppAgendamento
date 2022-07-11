@@ -8,7 +8,7 @@
     <div v-if="isLoggedIn === false">
       <div class="row">
         <div class="col-sm-8">
-          <h1>A escuta reinventando laços e recriando espaços</h1>
+          <h1>A escuta reinventando laços e recriando espaços </h1>
           <p>Aus Ouvidos é a reinvenção da escuta.</p>
           <p>A sensibilidade e solidariedade que toca o nosso grupo de profissionais psicólogos e psicanalistas nos apoia na realização de modo voluntário das escutas pontuais.</p>
           <p>As escutas pontuais seguem o rigor ético do sigilo ao qual nos conduzimos a partir do código de ética da psicologia, pautando com todo rigor de um trabalho responsável, respeitoso e qualificado para que o encontro humano se realize.</p>
