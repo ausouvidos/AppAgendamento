@@ -19,14 +19,4 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Equipe from '@/components/equipe/equipe.vue';
 
-@Component({
-  components: {
-    Equipe,
-  },
-})
-export default class Conheca extends Vue {}
-</script>
