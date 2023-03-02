@@ -11,6 +11,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+pool:
+  vmImage: ubuntu-latest
 steps:
 - task: NuGetToolInstaller@1
 
