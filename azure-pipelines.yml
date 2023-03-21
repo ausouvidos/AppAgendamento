@@ -34,7 +34,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-set NODE_OPTIONS=--openssl-legacy-provider
+set NODE_OPTIONS="--openssl-legacy-provider"
 
 - task: VSTest@2
   inputs:
