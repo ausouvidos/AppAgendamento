@@ -28,6 +28,9 @@ steps:
       export PATH="$PATH:$HOME/.dotnet/tools/"
       dotnet ef --version
 
+- task: NodeTaskRunnerInstaller@0
+  inputs:
+    nodeVersion: '6'
 - task: MSBuild@1
   inputs:
     solution: '$(solution)'
