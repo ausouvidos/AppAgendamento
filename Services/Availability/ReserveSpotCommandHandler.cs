@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -36,7 +38,14 @@ namespace Services.Availability
                 var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
                 if (canReserveSpot)
                 {
-                    var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { StartDate = request.Start, EndDate = request.End });
+                    IEnumerable<Guid> guids = await _mediator.Send(new GetVoucherProfessionalsCommand { VoucherId = voucher.Id });
+                    
+                    var availability = await _mediator.Send(new GetSpecificAvailabilityCommand { 
+                        StartDate = request.Start,
+                        EndDate = request.End,
+                        Guids = guids ?? Enumerable.Empty<Guid>(),
+                    });
+                    
                     if (availability != null)
                     {
                         try

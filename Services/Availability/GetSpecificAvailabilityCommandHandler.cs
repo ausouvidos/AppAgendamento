@@ -14,12 +14,15 @@ namespace Services.Availability
         {
             this._db = db;
         }
-        protected override Models.Availability Handle(GetSpecificAvailabilityCommand request) =>
-             _db
-                .Availabilities
-                .Include(a => a.User)
-                .Where(a => a.Start >= request.StartDate && a.End <= request.EndDate && a.IsFree)
-                .FirstOrDefault();
+        protected override Models.Availability Handle(GetSpecificAvailabilityCommand request) {
+            var query =  _db.Availabilities.Include(a => a.User).AsQueryable();
+            if(request.Guids.Count() > 0){
+                query = query.Where(a => request.Guids.Contains(a.UserId) && a.Start >= request.StartDate && a.End <= request.EndDate && a.IsFree);
+            } else {
+                query = query.Where(a => a.Start >= request.StartDate && a.End <= request.EndDate && a.IsFree);
+            }
+            return query.FirstOrDefault();
+        }
 
     }
 }
