@@ -30,7 +30,7 @@ steps:
 
 - task: NodeTaskRunnerInstaller@0
   inputs:
-    nodeVersion: '6'
+    nodeVersion: '16'
 - task: MSBuild@1
   inputs:
     solution: '$(solution)'
