@@ -35,7 +35,9 @@ namespace Services.Availability
             var voucher = await _mediator.Send(new GetVoucherCommand { Voucher = request.Voucher.Trim() });
             if (voucher != null)
             {
-                var canReserveSpot = await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
+                // OverrideAvailabilityLock already bypasses the 72h rule when listing availabilities.
+                // Apply the same intent during reservation so the voucher can book adjacent/same-time slots.
+                var canReserveSpot = voucher.OverrideAvailabilityLock || await _mediator.Send(new CanReserveSpotCommand { Email = request.Email, Date = request.Start });
                 if (canReserveSpot)
                 {
                     IEnumerable<Guid> guids = await _mediator.Send(new GetVoucherProfessionalsCommand { VoucherId = voucher.Id });
